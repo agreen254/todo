@@ -2,7 +2,12 @@
 
 import { useState } from "react";
 import { useFetchTodos } from "../hooks/useFetchTodos";
-import { addTodo, deleteTodo, clearTodos } from "../utils/localStoreHelpers";
+import {
+  addTodo,
+  completeTodo,
+  deleteTodo,
+  clearTodos,
+} from "../utils/localStoreHelpers";
 import { DateTime } from "luxon";
 import { Todo } from "../types";
 import { v4 as uuid } from "uuid";
@@ -33,10 +38,7 @@ const Body = () => {
   };
 
   const handleComplete = (id: string) => {
-    const idx = todos.findIndex((t) => t.id === id);
-    todos[idx] = { ...todos[idx], completed: true };
-    console.log("completed task.");
-    console.log(todos);
+    completeTodo(id, todos);
     update();
   };
 
@@ -45,11 +47,16 @@ const Body = () => {
     update();
   };
 
+  const handlePin = (id: string) => {
+    return;
+  };
+
   const dummyTodo: Todo = {
     name: "hi",
     created_at: DateTime.now(),
     due_at: DateTime.now().plus({ days: 7 }),
-    completed: false,
+    isCompleted: false,
+    isPinned: false,
     id: uuid(),
     tags: ["home", "chores"],
   };
@@ -74,6 +81,9 @@ const Body = () => {
                 </li>
                 <li className="inline-block">
                   <button onClick={() => handleComplete(t.id)}>Complete</button>
+                </li>
+                <li className="inline-block">
+                  <button onClick={() => handlePin(t.id)}>Pin</button>
                 </li>
               </ul>
             ))

@@ -4,7 +4,8 @@ export type Todo = {
   name: string;
   created_at: DateTime;
   due_at: DateTime;
-  completed: boolean;
+  isCompleted: boolean;
+  isPinned: boolean;
   id: string;
   tags: string[];
   //   notes: string;
