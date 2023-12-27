@@ -2,6 +2,7 @@ import { DateTime } from "luxon";
 
 export type Todo = {
   name: string;
+  description: string;
   createdAt: DateTime;
   dueAt: DateTime;
   isCompleted: boolean;

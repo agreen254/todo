@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import getRandomQuote from "../utils/getRandomQuote";
 import { Quote } from "../types";
 
-const QuoteFooter = () => {
+const Footer = () => {
   const [quote, setQuote] = useState<Quote>();
   useEffect(() => {
     setQuote(getRandomQuote);
@@ -29,4 +29,4 @@ const QuoteFooter = () => {
   );
 };
 
-export default QuoteFooter;
+export default Footer;

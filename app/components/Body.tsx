@@ -9,6 +9,7 @@ import {
   pinTodo,
 } from "../utils/localStoreHelpers";
 import { DateTime } from "luxon";
+import Card from "./Card";
 import { Todo } from "../types";
 import { v4 as uuid } from "uuid";
 import useLocalStorage from "../hooks/useLocalStorage";
@@ -39,6 +40,7 @@ const Body = () => {
 
   const dummyTodo: Todo = {
     name: "sample text",
+    description: "a short description of the task",
     createdAt: DateTime.now(),
     dueAt: DateTime.now().plus({ days: 7 }),
     isCompleted: false,
@@ -64,7 +66,7 @@ const Body = () => {
       </form>
       <div>
         {todos.length
-          ? todos.map((t: Todo) => (
+          ? todos.map((t) => (
               <ul key={t.id} className="space-x-4">
                 <li className="inline-block">{t.name}</li>
                 <li className="inline-block">{t.id}</li>
@@ -88,7 +90,12 @@ const Body = () => {
             ))
           : "no todos to display."}
       </div>
-      <button onClick={handleClear}>Delete All</button>
+      <div>
+        {todos.map(t => <Card t={t} />)}
+      </div>
+      <button onClick={handleClear} disabled={!todos.length}>
+        Delete All
+      </button>
     </>
   );
 };

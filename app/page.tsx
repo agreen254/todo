@@ -2,6 +2,7 @@
 
 import dynamic from "next/dynamic";
 import Body from "./components/Body";
+import Footer from "./components/Footer";
 
 // https://www.youtube.com/watch?v=Hx2UqlhPmnc&t=180s
 const DynamicBody = dynamic(() => import("./components/Body"), { ssr: false });
@@ -13,8 +14,7 @@ export default function Home() {
         <DynamicBody />
       </main>
       <footer className="min-h-[100px] mb-[100px] lg:mb-auto overflow-y-auto">
-        {/* <QuoteFooter /> */}
-        <div></div>
+        <Footer />
       </footer>
     </>
   );
