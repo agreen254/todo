@@ -1,69 +1,61 @@
 "use client";
 
 import { useState } from "react";
-import { useFetchTodos } from "../hooks/useFetchTodos";
 import {
   addTodo,
+  clearTodos,
   completeTodo,
   deleteTodo,
-  clearTodos,
+  pinTodo,
 } from "../utils/localStoreHelpers";
 import { DateTime } from "luxon";
 import { Todo } from "../types";
 import { v4 as uuid } from "uuid";
+import useLocalStorage from "../hooks/useLocalStorage";
 
 const Body = () => {
-  const [todos, setTodos] = useState<Todo[]>([]);
-  const [openDialog, setOpenDialog] = useState(false);
-
-  // Use a separate variable to instantly provide feedback to the user whenever
-  // the local storage is changed. Need a different variable because adding the
-  // todos array as a dependency in the hook will cause an infinite re-render.
-  const [updateTrigger, setUpdateTrigger] = useState(false);
-  const update = () => {
-    setUpdateTrigger(!updateTrigger);
-  };
-
-  useFetchTodos(setTodos, updateTrigger);
+  const [todos, setTodos] = useLocalStorage<Todo[]>("todos", []);
 
   const handleAdd = (e: React.FormEvent<HTMLFormElement>, newTodo: Todo) => {
     e.preventDefault();
     addTodo(newTodo, todos);
-    update();
   };
 
   const handleClear = () => {
     clearTodos();
-    update();
   };
 
   const handleComplete = (id: string) => {
     completeTodo(id, todos);
-    update();
   };
 
   const handleDelete = (id: string) => {
     deleteTodo(id, todos);
-    update();
   };
 
   const handlePin = (id: string) => {
-    return;
+    pinTodo(id, todos);
   };
 
   const dummyTodo: Todo = {
-    name: "hi",
-    created_at: DateTime.now(),
-    due_at: DateTime.now().plus({ days: 7 }),
+    name: "sample text",
+    createdAt: DateTime.now(),
+    dueAt: DateTime.now().plus({ days: 7 }),
     isCompleted: false,
     isPinned: false,
     id: uuid(),
     tags: ["home", "chores"],
   };
 
+  const add = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setTodos([...todos, dummyTodo]);
+  };
+
   return (
     <>
-      <form onSubmit={(e) => handleAdd(e, dummyTodo)}>
+      {/* <form onSubmit={(e) => handleAdd(e, dummyTodo)}> */}
+      <form onSubmit={add}>
         <label className="hidden" htmlFor="add">
           Add a todo
         </label>
@@ -72,12 +64,19 @@ const Body = () => {
       </form>
       <div>
         {todos.length
-          ? todos.map((t) => (
+          ? todos.map((t: Todo) => (
               <ul key={t.id} className="space-x-4">
                 <li className="inline-block">{t.name}</li>
                 <li className="inline-block">{t.id}</li>
                 <li className="inline-block">
-                  <button onClick={() => handleDelete(t.id)}>Delete</button>
+                  {/* <button onClick={() => handleDelete(t.id)}>Delete</button> */}
+                  <button
+                    onClick={() =>
+                      setTodos(todos.filter((todo) => todo.id !== t.id))
+                    }
+                  >
+                    Delete
+                  </button>
                 </li>
                 <li className="inline-block">
                   <button onClick={() => handleComplete(t.id)}>Complete</button>
