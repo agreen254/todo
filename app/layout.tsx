@@ -1,9 +1,13 @@
 import type { Metadata } from "next";
-import { Noto_Sans } from "next/font/google";
+import { Noto_Sans as FontSans } from "next/font/google";
 import NextThemeProvider from "./providers/NextThemeProvider";
 import "./globals.css";
+import { cn } from "./utils";
 
-const notoSans = Noto_Sans({ subsets: ["latin"] });
+export const fontSans = FontSans({
+  subsets: ["latin"],
+  variable: "--font-sans",
+});
 
 export const metadata: Metadata = {
   title: "Todos",
@@ -17,9 +21,15 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={notoSans.className}>
+      <head />
+      <body
+        className={cn(
+          "min-h-screen bg-background font-sans antialiased",
+          fontSans.variable
+        )}
+      >
         <NextThemeProvider
-          defaultTheme="dark"
+          defaultTheme="light"
           attribute="class"
           disableTransitionOnChange
         >

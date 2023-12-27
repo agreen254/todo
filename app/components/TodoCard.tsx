@@ -8,8 +8,15 @@ import {
   CardTitle,
 } from "./ui/card";
 import { Todo } from "../types";
+import { Button } from "./ui/button";
 
-const TodoCard = ({ t }: { t: Todo }) => {
+type Props = {
+  t: Todo;
+  todos: Todo[];
+  setTodos: (ts: Todo[]) => void;
+};
+
+const TodoCard = ({ t, todos, setTodos }: Props) => {
   // const timeRemaining = t.dueAt.diff(DateTime.now(), "days");
   // const handleDueColor = () => {
   //   if (timeRemaining.days > 5) {
@@ -21,6 +28,26 @@ const TodoCard = ({ t }: { t: Todo }) => {
   //   }
   // };
 
+  const handleDelete = () => {
+    setTodos(todos.filter((todo) => todo.id !== t.id));
+  };
+
+  const handleComplete = () => {
+    setTodos(
+      todos.map((todo) => {
+        return todo.id === t.id ? { ...todo, isCompleted: true } : todo;
+      })
+    );
+  };
+
+  const handlePin = () => {
+    setTodos(
+      todos.map((todo) => {
+        return todo.id === t.id ? { ...todo, isPinned: true } : todo;
+      })
+    );
+  };
+
   return (
     <Card>
       <CardHeader>
@@ -31,7 +58,9 @@ const TodoCard = ({ t }: { t: Todo }) => {
         <p>due date goes here</p>
       </CardContent>
       <CardFooter>
-        <p>buttons to pin and complete</p>
+        <Button onClick={handleDelete}>Delete</Button>
+        <Button onClick={handlePin}>Pin</Button>
+        <Button onClick={handleComplete}>Complete</Button>
       </CardFooter>
     </Card>
   );

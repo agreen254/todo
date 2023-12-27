@@ -18,7 +18,7 @@ const Body = () => {
   const [todos, setTodos] = useLocalStorage<Todo[]>("todos", []);
 
   const handleClear = () => {
-    clearTodos();
+    setTodos([]);
   };
 
   const handleComplete = (id: string) => {
@@ -60,9 +60,13 @@ const Body = () => {
         <button type="submit">Add</button>
       </form>
       <div>
-        {todos.map((t) => (
-          <Card key={t.id + "card"} t={t} />
-        ))}
+        <ul>
+          {todos.map((t) => (
+            <li key={t.id + "card"}>
+              <Card t={t} todos={todos} setTodos={setTodos} />
+            </li>
+          ))}
+        </ul>
       </div>
       <button onClick={handleClear} disabled={!todos.length}>
         Delete All
