@@ -9,6 +9,7 @@ import { v4 as uuid } from "uuid";
 
 const Body = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
+  const [openDialog, setOpenDialog] = useState(false);
 
   // Use a separate variable to instantly provide feedback to the user whenever
   // the local storage is changed. Need a different variable because adding the

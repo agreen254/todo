@@ -10,3 +10,8 @@ export type Todo = {
   //   notes: string;
   //   dueAt: Date;
 };
+
+export type Quote = {
+  q: string;
+  a: string;
+};
