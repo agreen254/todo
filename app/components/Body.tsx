@@ -1,10 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useFetchTodos } from "../hooks/useFetchTodos";
 import { addTodo, deleteTodo, clearTodos } from "../utils/localStoreHelpers";
-import { dummyTodo } from "../utils/dummyTodo";
-import { Todo } from "../schema";
+import { DateTime } from "luxon";
+import { Todo } from "../types";
 import { v4 as uuid } from "uuid";
 
 const Body = () => {
@@ -13,27 +13,44 @@ const Body = () => {
   // Use a separate variable to instantly provide feedback to the user whenever
   // the local storage is changed. Need a different variable because adding the
   // todos array as a dependency in the hook will cause an infinite re-render.
-  const [instantUpdateHandler, setInstantUpdateHandler] = useState(false);
-  const forceUpdate = () => {
-    setInstantUpdateHandler(!instantUpdateHandler);
+  const [updateTrigger, setUpdateTrigger] = useState(false);
+  const update = () => {
+    setUpdateTrigger(!updateTrigger);
   };
 
-  useFetchTodos(setTodos, instantUpdateHandler);
+  useFetchTodos(setTodos, updateTrigger);
 
   const handleAdd = (e: React.FormEvent<HTMLFormElement>, newTodo: Todo) => {
     e.preventDefault();
     addTodo(newTodo, todos);
-    forceUpdate();
+    update();
   };
 
   const handleClear = () => {
     clearTodos();
-    forceUpdate();
+    update();
+  };
+
+  const handleComplete = (id: string) => {
+    const idx = todos.findIndex((t) => t.id === id);
+    todos[idx] = { ...todos[idx], completed: true };
+    console.log("completed task.");
+    console.log(todos);
+    update();
   };
 
   const handleDelete = (id: string) => {
     deleteTodo(id, todos);
-    forceUpdate();
+    update();
+  };
+
+  const dummyTodo: Todo = {
+    name: "hi",
+    created_at: DateTime.now(),
+    due_at: DateTime.now().plus({ days: 7 }),
+    completed: false,
+    id: uuid(),
+    tags: ["home", "chores"],
   };
 
   return (
@@ -53,6 +70,9 @@ const Body = () => {
                 <li className="inline-block">{t.id}</li>
                 <li className="inline-block">
                   <button onClick={() => handleDelete(t.id)}>Delete</button>
+                </li>
+                <li className="inline-block">
+                  <button onClick={() => handleComplete(t.id)}>Complete</button>
                 </li>
               </ul>
             ))

@@ -1,4 +1,4 @@
-import { Todo } from "../schema";
+import { Todo } from "../types";
 
 export const getTodos = (): Todo[] => {
   const fetched = localStorage.getItem("todos");

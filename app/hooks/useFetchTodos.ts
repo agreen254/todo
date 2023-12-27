@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Todo } from "../schema";
+import { Todo } from "../types";
 import { getTodos } from "../utils/localStoreHelpers";
 
 export const useFetchTodos = (
