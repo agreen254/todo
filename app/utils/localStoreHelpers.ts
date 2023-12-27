@@ -28,3 +28,12 @@ export const deleteTodo = (id: string, currentTodos: Todo[]): void => {
   const newTodos = currentTodos.filter((t) => t.id !== id);
   localStorage.setItem("todos", JSON.stringify(newTodos));
 };
+
+export const pinTodo = (id: string, currentTodos: Todo[]) => {
+  const idx = currentTodos.findIndex((t) => t.id === id);
+  const newTodo: Todo = { ...currentTodos[idx], isPinned: true };
+  localStorage.setItem(
+    "todos",
+    JSON.stringify(currentTodos.map((t) => (t.id === id ? newTodo : t)))
+  );
+};
