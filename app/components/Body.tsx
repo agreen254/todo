@@ -9,18 +9,13 @@ import {
   pinTodo,
 } from "../utils/localStoreHelpers";
 import { DateTime } from "luxon";
-import Card from "./Card";
+import Card from "./TodoCard";
 import { Todo } from "../types";
 import { v4 as uuid } from "uuid";
 import useLocalStorage from "../hooks/useLocalStorage";
 
 const Body = () => {
   const [todos, setTodos] = useLocalStorage<Todo[]>("todos", []);
-
-  const handleAdd = (e: React.FormEvent<HTMLFormElement>, newTodo: Todo) => {
-    e.preventDefault();
-    addTodo(newTodo, todos);
-  };
 
   const handleClear = () => {
     clearTodos();
@@ -49,7 +44,7 @@ const Body = () => {
     tags: ["home", "chores"],
   };
 
-  const add = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleAdd = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setTodos([...todos, dummyTodo]);
   };
@@ -57,41 +52,17 @@ const Body = () => {
   return (
     <>
       {/* <form onSubmit={(e) => handleAdd(e, dummyTodo)}> */}
-      <form onSubmit={add}>
+      <form onSubmit={handleAdd}>
         <label className="hidden" htmlFor="add">
           Add a todo
         </label>
-        <input placeholder="name" />
+        <input placeholder="name" id="add" />
         <button type="submit">Add</button>
       </form>
       <div>
-        {todos.length
-          ? todos.map((t) => (
-              <ul key={t.id} className="space-x-4">
-                <li className="inline-block">{t.name}</li>
-                <li className="inline-block">{t.id}</li>
-                <li className="inline-block">
-                  {/* <button onClick={() => handleDelete(t.id)}>Delete</button> */}
-                  <button
-                    onClick={() =>
-                      setTodos(todos.filter((todo) => todo.id !== t.id))
-                    }
-                  >
-                    Delete
-                  </button>
-                </li>
-                <li className="inline-block">
-                  <button onClick={() => handleComplete(t.id)}>Complete</button>
-                </li>
-                <li className="inline-block">
-                  <button onClick={() => handlePin(t.id)}>Pin</button>
-                </li>
-              </ul>
-            ))
-          : "no todos to display."}
-      </div>
-      <div>
-        {todos.map(t => <Card t={t} />)}
+        {todos.map((t) => (
+          <Card key={t.id + "card"} t={t} />
+        ))}
       </div>
       <button onClick={handleClear} disabled={!todos.length}>
         Delete All

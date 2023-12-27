@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Noto_Sans } from "next/font/google";
+import NextThemeProvider from "./providers/NextThemeProvider";
 import "./globals.css";
 
 const notoSans = Noto_Sans({ subsets: ["latin"] });
@@ -15,8 +16,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className={notoSans.className}>{children}</body>
+    <html lang="en" suppressHydrationWarning>
+      <body className={notoSans.className}>
+        <NextThemeProvider
+          defaultTheme="dark"
+          attribute="class"
+          disableTransitionOnChange
+        >
+          {children}
+        </NextThemeProvider>
+      </body>
     </html>
   );
 }
