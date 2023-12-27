@@ -1,5 +1,3 @@
-"use client";
-
 import dynamic from "next/dynamic";
 import Footer from "./components/Footer";
 import ThemeSwitch from "./components/Theme";
@@ -10,7 +8,6 @@ const DynamicBody = dynamic(() => import("./components/Body"), { ssr: false });
 export default function Home() {
   return (
     <>
-      <nav></nav>
       <main className="min-h-[calc(100vh-100px)]">
         <ThemeSwitch />
         <DynamicBody />

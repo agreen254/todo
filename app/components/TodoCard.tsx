@@ -1,4 +1,3 @@
-import { DateTime } from "luxon";
 import {
   Card,
   CardContent,
@@ -35,7 +34,9 @@ const TodoCard = ({ t, todos, setTodos }: Props) => {
   const handleComplete = () => {
     setTodos(
       todos.map((todo) => {
-        return todo.id === t.id ? { ...todo, isCompleted: true } : todo;
+        return todo.id === t.id
+          ? { ...todo, isCompleted: true, isPinned: false }
+          : todo;
       })
     );
   };
