@@ -23,7 +23,7 @@ const Body = () => {
   const pinnedTodos = getPinnedTodos(todos);
 
   const dummyTodo: Todo = {
-    name: "sample text",
+    name: "this is a really fucking long title I wonder how it will warp",
     description: "a short description of the task",
     createdAt: DateTime.now(),
     dueAt: DateTime.now().plus({ days: 7 }),
@@ -53,44 +53,44 @@ const Body = () => {
         setTodos={setTodos}
         isEditing={false}
       />
+      <h2 className="text-center mb-4">
+        {pendingTodos.length || pinnedTodos.length
+          ? "Pending Todos:"
+          : "No pending todos to show."}
+      </h2>
+      <div className="flex justify-start gap-4 flex-wrap max-w-[1920px] mx-auto">
+        {pinnedTodos.map((t) => (
+          <PinnedTodoCard
+            key={t.id + "pinned"}
+            t={t}
+            todos={todos}
+            setTodos={setTodos}
+          />
+        ))}
+        {pendingTodos.map((t) => (
+          <TodoCard
+            key={t.id + "pending"}
+            t={t}
+            todos={todos}
+            setTodos={setTodos}
+            className="min-w-[20vw] max-w-[40vw]"
+          />
+        ))}
+      </div>
+      <h2 className="text-center mb-4">
+        {completedTodos.length
+          ? "Completed Todos:"
+          : "No completed todos to show."}
+      </h2>
       <div className="grid grid-cols-2 gap-4 place-items-center items-start max-w-[1920px] mx-auto">
-        <div className="min-w-[320px] max-w-[calc(50vw-100px)]">
-          <ul className="w-full">
-            <li>
-              <h2 className="text-center mb-4">
-                {pendingTodos.length || pinnedTodos.length
-                  ? "Pending Todos:"
-                  : "No pending todos to show."}
-              </h2>
-            </li>
-            {pinnedTodos.map((t) => (
-              <li key={t.id + "card" + "pinned"}>
-                <PinnedTodoCard t={t} todos={todos} setTodos={setTodos} />
-              </li>
-            ))}
-            {pendingTodos.map((t) => (
-              <li key={t.id + "card" + "pending"} className="mt-4">
-                <TodoCard t={t} todos={todos} setTodos={setTodos} />
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div className="min-w-[400px] max-w-[800px]">
-          <ul className="w-full">
-            <li>
-              <h2 className="text-center mb-4">
-                {completedTodos.length
-                  ? "Completed Todos:"
-                  : "No completed todos to show."}
-              </h2>
-            </li>
-            {completedTodos.map((t) => (
-              <li key={t.id + "card" + "complete"} className="mt-4">
-                <TodoCard t={t} todos={todos} setTodos={setTodos} />
-              </li>
-            ))}
-          </ul>
-        </div>
+        {completedTodos.map((t) => (
+          <TodoCard
+            key={t.id + "complete"}
+            t={t}
+            todos={todos}
+            setTodos={setTodos}
+          />
+        ))}
       </div>
       <RemoveAllDialog todos={todos} setTodos={setTodos} />
     </>

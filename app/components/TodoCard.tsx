@@ -1,3 +1,5 @@
+import { cn } from "../utils/utils";
+import { Button } from "./ui/button";
 import {
   Card,
   CardContent,
@@ -6,9 +8,8 @@ import {
   CardHeader,
   CardTitle,
 } from "./ui/card";
-import { cn } from "../utils/utils";
+import { CheckCircle, MoreHorizontal } from "lucide-react";
 import { Todo } from "../types";
-import { Button } from "./ui/button";
 
 export type Props = {
   t: Todo;
@@ -90,8 +91,12 @@ const TodoCard = ({ t, todos, setTodos, className }: Props) => {
   };
 
   return (
-    <Card className={cn(className)}>
+    <Card className={cn("relative", className)}>
       <CardHeader>
+        <div className="h-4">
+          <CheckCircle className="w-4 h-4 inline-block absolute right-10 top-4" />
+          <MoreHorizontal className="w-4 h-4 inline-block absolute right-4 top-4" />
+        </div>
         <CardTitle>{t.name}</CardTitle>
         <CardDescription>{t.description}</CardDescription>
       </CardHeader>
