@@ -10,7 +10,12 @@ const PinnedTodoCard = ({ t, todos, setTodos }: Props) => {
           <span className="text-lg italic font-bold">Pinned</span>
         </span>
       </div>
-      <TodoCard t={t} todos={todos} setTodos={setTodos} />
+      <TodoCard
+        t={t}
+        todos={todos}
+        setTodos={setTodos}
+        className="rounded-tr-none rounded-tl-none"
+      />
     </div>
   );
 };

@@ -6,6 +6,7 @@ import {
   CardHeader,
   CardTitle,
 } from "./ui/card";
+import { cn } from "../utils/utils";
 import { Todo } from "../types";
 import { Button } from "./ui/button";
 
@@ -13,9 +14,10 @@ export type Props = {
   t: Todo;
   todos: Todo[];
   setTodos: (ts: Todo[]) => void;
+  className?: string;
 };
 
-const TodoCard = ({ t, todos, setTodos }: Props) => {
+const TodoCard = ({ t, todos, setTodos, className }: Props) => {
   // const timeRemaining = t.dueAt.diff(DateTime.now(), "days");
   // const handleDueColor = () => {
   //   if (timeRemaining.days > 5) {
@@ -78,6 +80,8 @@ const TodoCard = ({ t, todos, setTodos }: Props) => {
   };
 
   const handlePinButton = (t: Todo) => {
+    if (t.isCompleted) return;
+
     if (t.isPinned) {
       return <Button onClick={handleUnpin}>Unpin</Button>;
     } else {
@@ -86,7 +90,7 @@ const TodoCard = ({ t, todos, setTodos }: Props) => {
   };
 
   return (
-    <Card>
+    <Card className={cn(className)}>
       <CardHeader>
         <CardTitle>{t.name}</CardTitle>
         <CardDescription>{t.description}</CardDescription>

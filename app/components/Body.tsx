@@ -53,7 +53,7 @@ const Body = () => {
         setTodos={setTodos}
         isEditing={false}
       />
-      <div className="grid grid-cols-2 gap-4 place-items-center items-start">
+      <div className="grid grid-cols-2 gap-4 place-items-center items-start max-w-[1920px] mx-auto">
         <div className="min-w-[320px] max-w-[calc(50vw-100px)]">
           <ul className="w-full">
             <li>
