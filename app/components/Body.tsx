@@ -12,7 +12,7 @@ import {
   getPinnedTodos,
 } from "../utils/todoHelpers";
 import PinnedTodoCard from "./PinnedTodoCard";
-import RemoveAllAlert from "./RemoveAllAlert";
+import RemoveAllDialog from "./RemoveAllDialog";
 
 const Body = () => {
   const [todos, setTodos] = useLocalStorage<Todo[]>("todos", []);
@@ -85,7 +85,7 @@ const Body = () => {
           </ul>
         </div>
       </div>
-      <RemoveAllAlert todos={todos} setTodos={setTodos} />
+      <RemoveAllDialog todos={todos} setTodos={setTodos} />
     </>
   );
 };

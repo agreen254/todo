@@ -17,7 +17,7 @@ type Props = {
   setTodos: (t: Todo[]) => void;
 };
 
-const RemoveAllAlert = ({ todos, setTodos }: Props) => {
+const RemoveAllDialog = ({ todos, setTodos }: Props) => {
   const handleDeleteAll = () => {
     setTodos([]);
   };
@@ -53,4 +53,4 @@ const RemoveAllAlert = ({ todos, setTodos }: Props) => {
   );
 };
 
-export default RemoveAllAlert;
+export default RemoveAllDialog;
