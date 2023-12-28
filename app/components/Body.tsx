@@ -18,16 +18,16 @@ import RemoveAllDialog from "./RemoveAllDialog";
 import TodoContext from "../context/TodoContext";
 
 const Body = () => {
-  // const [todos, setTodos] = useLocalStorage<Todo[]>("todos", []);
   const [editingTodo, setEditingTodo] = useState<Todo | null>(null);
 
-  const { todos, dispatch } = useContext(TodoContext);
+  const { todos, addTodo } = useContext(TodoContext);
+  const [_, setTodos] = useLocalStorage<Todo[]>("todos", []);
   const completedTodos = getCompletedTodos(todos);
   const pendingTodos = getPendingTodos(todos);
   const pinnedTodos = getPinnedTodos(todos);
 
   const dummyTodo: Todo = {
-    name: "this is a really fucking long title I wonder how it will warp",
+    name: "this is a test to see how a really long title will look when it wraps around",
     description: "a short description of the task",
     createdAt: DateTime.now(),
     dueAt: DateTime.now().plus({ days: 7 }),
@@ -39,10 +39,7 @@ const Body = () => {
 
   const handleAdd = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch({
-      action: "ADDTODO",
-      toAdd: dummyTodo,
-    });
+    addTodo(dummyTodo);
   };
 
   return (
@@ -54,12 +51,7 @@ const Body = () => {
         <input placeholder="name" id="add" />
         <button type="submit">Add</button>
       </form>
-      <TodoMenu
-        t={editingTodo}
-        todos={todos}
-        setTodos={setTodos}
-        isEditing={false}
-      />
+      <TodoMenu t={editingTodo} todos={todos} isEditing={false} />
       <h2 className="text-3xl ml-10">
         {pendingTodos.length || pinnedTodos.length
           ? "Pending Todos:"
@@ -72,7 +64,6 @@ const Body = () => {
             key={t.id + "pinned"}
             t={t}
             todos={todos}
-            setTodos={setTodos}
             className="min-w-[20vw] max-w-[30vw] mx-4 my-4"
           />
         ))}
@@ -81,7 +72,6 @@ const Body = () => {
             key={t.id + "pending"}
             t={t}
             todos={todos}
-            setTodos={setTodos}
             className="min-w-[20vw] max-w-[30vw] mx-4 my-4"
           />
         ))}
@@ -98,12 +88,11 @@ const Body = () => {
             key={t.id + "complete"}
             t={t}
             todos={todos}
-            setTodos={setTodos}
             className="min-w-[20vw] max-w-[30vw] mx-4 my-4"
           />
         ))}
       </div>
-      <RemoveAllDialog todos={todos} setTodos={setTodos} />
+      <RemoveAllDialog todos={todos} />
     </>
   );
 };

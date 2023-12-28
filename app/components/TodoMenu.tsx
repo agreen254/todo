@@ -16,11 +16,10 @@ import { Todo } from "../types";
 type Props = {
   t: Todo | null;
   todos: Todo[];
-  setTodos: (t: Todo[]) => void;
   isEditing: boolean;
 };
 
-const TodoMenu = ({ t, todos, setTodos, isEditing }: Props) => {
+const TodoMenu = ({ t, todos, isEditing }: Props) => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     if (isEditing) {
       console.log("edited form.");

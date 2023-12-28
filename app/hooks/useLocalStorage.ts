@@ -4,8 +4,14 @@ function useLocalStorage<T>(
   key: string,
   initialValue: T
 ): [T, (newState: T) => void] {
-  const valFromStorage = window.localStorage.getItem(key);
-  const stateVal = valFromStorage ? JSON.parse(valFromStorage) : initialValue;
+  let stateVal: T = initialValue;
+  if (typeof window !== "undefined") {
+    const valFromStorage = window.localStorage.getItem(key);
+    if (valFromStorage) {
+      stateVal = JSON.parse(valFromStorage);
+    }
+  }
+
   const [state, setState] = useState(stateVal);
 
   const updateState = (value: T): void => {

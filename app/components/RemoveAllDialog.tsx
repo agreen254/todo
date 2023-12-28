@@ -14,12 +14,12 @@ import { Todo } from "../types";
 
 type Props = {
   todos: Todo[];
-  setTodos: (t: Todo[]) => void;
 };
 
-const RemoveAllDialog = ({ todos, setTodos }: Props) => {
+const RemoveAllDialog = ({ todos }: Props) => {
   const handleDeleteAll = () => {
-    setTodos([]);
+    // setTodos([]);
+    console.log("deleted everything.");
   };
 
   return (
