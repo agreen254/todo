@@ -1,4 +1,3 @@
-import useLocalStorage from "../hooks/useLocalStorage";
 import { Todo } from "../types";
 
 type AddTodo = {
@@ -36,6 +35,10 @@ type RevertTodo = {
   toRevert: Todo;
 };
 
+type GetTodos = {
+  action: "GETTODOS";
+};
+
 export type Actions =
   | AddTodo
   | DeleteTodo
@@ -43,57 +46,44 @@ export type Actions =
   | CompleteTodo
   | RevertTodo
   | PinTodo
-  | UnpinTodo;
+  | UnpinTodo
+  | GetTodos;
 
-export function todoReducer(action: Actions) {
-  const [todos, setTodos] = useLocalStorage<Todo[]>("todos", []);
+export function todoReducer(todos: Todo[], action: Actions) {
+  // const [todos, setTodos] = useLocalStorage<Todo[]>("todos", []);
 
   switch (action.action) {
     case "ADDTODO": {
-      const newState = [...todos, action.toAdd];
-      setTodos(newState);
-      return;
+      return [...todos, action.toAdd];
     }
     case "DELETETODO": {
-      const newState = todos.filter((t) => t.id !== action.toDelete.id);
-      setTodos(newState);
-      return;
+      return todos.filter((t) => t.id !== action.toDelete.id);
     }
     case "EDITTODO": {
       const idx = todos.findIndex((t) => t.id === action.editedTodo.id);
-      const newTodos = todos.splice(idx, 1, action.editedTodo);
-      setTodos(newTodos);
-      return;
+      return todos.splice(idx, 1, action.editedTodo);
     }
     case "COMPLETETODO": {
-      const newTodos = todos.map((t) =>
+      return todos.map((t) =>
         t.id === action.toComplete.id
           ? { ...t, isCompleted: true, isPinned: false }
           : t
       );
-      setTodos(newTodos);
-      return;
     }
     case "REVERTTODO": {
-      const newTodos = todos.map((t) =>
+      return todos.map((t) =>
         t.id === action.toRevert.id ? { ...t, isCompleted: false } : t
       );
-      setTodos(newTodos);
-      return;
     }
     case "PINTODO": {
-      const newTodos = todos.map((t) =>
+      return todos.map((t) =>
         t.id === action.toPin.id ? { ...t, isPinned: true } : t
       );
-      setTodos(newTodos);
-      return;
     }
     case "UNPINTODO": {
-      const newTodos = todos.map((t) =>
+      return todos.map((t) =>
         t.id === action.toUnpin.id ? { ...t, isPinned: false } : t
       );
-      setTodos(newTodos);
-      return;
     }
     default:
       return todos;

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { DateTime } from "luxon";
 import { Separator } from "./ui/separator";
 import TodoCard from "./TodoCard";
@@ -15,10 +15,13 @@ import {
 } from "../utils/todoHelpers";
 import PinnedTodoCard from "./PinnedTodoCard";
 import RemoveAllDialog from "./RemoveAllDialog";
+import TodoContext from "../context/TodoContext";
 
 const Body = () => {
-  const [todos, setTodos] = useLocalStorage<Todo[]>("todos", []);
+  // const [todos, setTodos] = useLocalStorage<Todo[]>("todos", []);
   const [editingTodo, setEditingTodo] = useState<Todo | null>(null);
+
+  const { todos, dispatch } = useContext(TodoContext);
   const completedTodos = getCompletedTodos(todos);
   const pendingTodos = getPendingTodos(todos);
   const pinnedTodos = getPinnedTodos(todos);
@@ -36,7 +39,10 @@ const Body = () => {
 
   const handleAdd = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setTodos([...todos, dummyTodo]);
+    dispatch({
+      action: "ADDTODO",
+      toAdd: dummyTodo,
+    });
   };
 
   return (
