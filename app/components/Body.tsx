@@ -1,23 +1,24 @@
 "use client";
 
-import { useState } from "react";
 import { DateTime } from "luxon";
-import { Button } from "./ui/button";
 import TodoCard from "./TodoCard";
 import { Todo } from "../types";
 import { v4 as uuid } from "uuid";
 import useLocalStorage from "../hooks/useLocalStorage";
-import getCompletedTodos from "../utils/getCompletedTodos";
-import getPendingTodos from "../utils/getPendingTodos";
+import TodoMenu from "./TodoMenu";
+import {
+  getCompletedTodos,
+  getPendingTodos,
+  getPinnedTodos,
+} from "../utils/todoHelpers";
+import PinnedTodoCard from "./PinnedTodoCard";
+import RemoveAllAlert from "./RemoveAllAlert";
 
 const Body = () => {
   const [todos, setTodos] = useLocalStorage<Todo[]>("todos", []);
   const completedTodos = getCompletedTodos(todos);
   const pendingTodos = getPendingTodos(todos);
-
-  const handleClear = () => {
-    setTodos([]);
-  };
+  const pinnedTodos = getPinnedTodos(todos);
 
   const dummyTodo: Todo = {
     name: "sample text",
@@ -44,22 +45,27 @@ const Body = () => {
         <input placeholder="name" id="add" />
         <button type="submit">Add</button>
       </form>
+      <TodoMenu />
       <div className="grid grid-cols-2 gap-4 place-items-center items-start">
-        <div className="min-w-[400px] max-w-[800px]">
+        <div className="min-w-[320px] max-w-[calc(50vw-100px)]">
           <ul className="w-full">
             <li>
               <h2 className="text-center mb-4">
-                {pendingTodos.length ? "Pending" : "No pending todos to show."}
+                {pendingTodos.length || pinnedTodos.length
+                  ? "Pending Todos:"
+                  : "No pending todos to show."}
               </h2>
             </li>
-            {todos.map(
-              (t) =>
-                !t.isCompleted && (
-                  <li key={t.id + "card" + "pending"} className="mt-4">
-                    <TodoCard t={t} todos={todos} setTodos={setTodos} />
-                  </li>
-                )
-            )}
+            {pinnedTodos.map((t) => (
+              <li key={t.id + "card" + "pinned"}>
+                <PinnedTodoCard t={t} todos={todos} setTodos={setTodos} />
+              </li>
+            ))}
+            {pendingTodos.map((t) => (
+              <li key={t.id + "card" + "pending"} className="mt-4">
+                <TodoCard t={t} todos={todos} setTodos={setTodos} />
+              </li>
+            ))}
           </ul>
         </div>
         <div className="min-w-[400px] max-w-[800px]">
@@ -67,24 +73,19 @@ const Body = () => {
             <li>
               <h2 className="text-center mb-4">
                 {completedTodos.length
-                  ? "Completed"
+                  ? "Completed Todos:"
                   : "No completed todos to show."}
               </h2>
             </li>
-            {todos.map(
-              (t) =>
-                t.isCompleted && (
-                  <li key={t.id + "card" + "complete"} className="mt-4">
-                    <TodoCard t={t} todos={todos} setTodos={setTodos} />
-                  </li>
-                )
-            )}
+            {completedTodos.map((t) => (
+              <li key={t.id + "card" + "complete"} className="mt-4">
+                <TodoCard t={t} todos={todos} setTodos={setTodos} />
+              </li>
+            ))}
           </ul>
         </div>
       </div>
-      <Button onClick={handleClear} disabled={!todos.length}>
-        Delete All
-      </Button>
+      <RemoveAllAlert todos={todos} setTodos={setTodos} />
     </>
   );
 };

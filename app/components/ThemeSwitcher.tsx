@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useTheme } from "next-themes";
 import { Button } from "./ui/button";
 
-const ThemeSwitch = () => {
+const ThemeSwitcher = () => {
   const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();
 
@@ -18,9 +18,9 @@ const ThemeSwitch = () => {
     <Button
       onClick={() => (theme === "dark" ? setTheme("light") : setTheme("dark"))}
     >
-      Change Theme
+      Switch Theme
     </Button>
   );
 };
 
-export default ThemeSwitch;
+export default ThemeSwitcher;

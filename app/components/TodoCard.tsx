@@ -9,7 +9,7 @@ import {
 import { Todo } from "../types";
 import { Button } from "./ui/button";
 
-type Props = {
+export type Props = {
   t: Todo;
   todos: Todo[];
   setTodos: (ts: Todo[]) => void;
@@ -49,6 +49,42 @@ const TodoCard = ({ t, todos, setTodos }: Props) => {
     );
   };
 
+  const handleRevert = () => {
+    setTodos(
+      todos.map((todo) => {
+        return todo.id === t.id ? { ...todo, isCompleted: false } : todo;
+      })
+    );
+  };
+
+  const handleUnpin = () => {
+    setTodos(
+      todos.map((todo) => {
+        return todo.id === t.id ? { ...todo, isPinned: false } : todo;
+      })
+    );
+  };
+
+  const showCompleteButton = (t: Todo) => {
+    if (t.isCompleted) {
+      return <Button onClick={handleRevert}>Revert</Button>;
+    } else {
+      return (
+        <Button onClick={handleComplete} className="hover:text-green-400/90">
+          Complete
+        </Button>
+      );
+    }
+  };
+
+  const showPinButton = (t: Todo) => {
+    if (t.isPinned) {
+      return <Button onClick={handleUnpin}>Unpin</Button>;
+    } else {
+      return <Button onClick={handlePin}>Pin</Button>;
+    }
+  };
+
   return (
     <Card>
       <CardHeader>
@@ -59,9 +95,11 @@ const TodoCard = ({ t, todos, setTodos }: Props) => {
         <p>due date goes here</p>
       </CardContent>
       <CardFooter>
-        <Button onClick={handleDelete}>Delete</Button>
-        <Button onClick={handlePin}>Pin</Button>
-        <Button onClick={handleComplete}>Complete</Button>
+        <Button onClick={handleDelete} className="hover:text-red-300/90">
+          Delete
+        </Button>
+        {showPinButton(t)}
+        {showCompleteButton(t)}
       </CardFooter>
     </Card>
   );
