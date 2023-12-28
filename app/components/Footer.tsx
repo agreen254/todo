@@ -1,11 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import getRandomQuote from "../utils/getRandomQuote";
+import { getRandomQuote } from "../utils/getRandomQuote";
 import { Quote } from "../types";
 
 const Footer = () => {
   const [quote, setQuote] = useState<Quote>();
+
+  // useEffect stops client/server mismatch by only running the code clientside
   useEffect(() => {
     setQuote(getRandomQuote);
   }, []);

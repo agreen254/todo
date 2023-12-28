@@ -65,7 +65,7 @@ const TodoCard = ({ t, todos, setTodos }: Props) => {
     );
   };
 
-  const showCompleteButton = (t: Todo) => {
+  const handleCompleteButton = (t: Todo) => {
     if (t.isCompleted) {
       return <Button onClick={handleRevert}>Revert</Button>;
     } else {
@@ -77,7 +77,7 @@ const TodoCard = ({ t, todos, setTodos }: Props) => {
     }
   };
 
-  const showPinButton = (t: Todo) => {
+  const handlePinButton = (t: Todo) => {
     if (t.isPinned) {
       return <Button onClick={handleUnpin}>Unpin</Button>;
     } else {
@@ -98,8 +98,8 @@ const TodoCard = ({ t, todos, setTodos }: Props) => {
         <Button onClick={handleDelete} className="hover:text-red-300/90">
           Delete
         </Button>
-        {showPinButton(t)}
-        {showCompleteButton(t)}
+        {handlePinButton(t)}
+        {handleCompleteButton(t)}
       </CardFooter>
     </Card>
   );

@@ -14,9 +14,9 @@ import { Label } from "@/app/components/ui/label";
 import { Todo } from "../types";
 
 type Props = {
-  t: Todo;
+  t: Todo | null;
   todos: Todo[];
-  setTodos: (t: Todo) => void;
+  setTodos: (t: Todo[]) => void;
   isEditing: boolean;
 };
 
@@ -34,7 +34,7 @@ const TodoMenu = ({ t, todos, setTodos, isEditing }: Props) => {
       <DialogTrigger asChild>
         <Button>Add Todo</Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[430px]">
+      <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>Add a Todo</DialogTitle>
           <DialogDescription>Enter details</DialogDescription>

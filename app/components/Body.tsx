@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { DateTime } from "luxon";
 import TodoCard from "./TodoCard";
 import { Todo } from "../types";
@@ -16,6 +17,7 @@ import RemoveAllDialog from "./RemoveAllDialog";
 
 const Body = () => {
   const [todos, setTodos] = useLocalStorage<Todo[]>("todos", []);
+  const [editingTodo, setEditingTodo] = useState<Todo | null>(null);
   const completedTodos = getCompletedTodos(todos);
   const pendingTodos = getPendingTodos(todos);
   const pinnedTodos = getPinnedTodos(todos);
@@ -45,7 +47,12 @@ const Body = () => {
         <input placeholder="name" id="add" />
         <button type="submit">Add</button>
       </form>
-      <TodoMenu />
+      <TodoMenu
+        t={editingTodo}
+        todos={todos}
+        setTodos={setTodos}
+        isEditing={false}
+      />
       <div className="grid grid-cols-2 gap-4 place-items-center items-start">
         <div className="min-w-[320px] max-w-[calc(50vw-100px)]">
           <ul className="w-full">
