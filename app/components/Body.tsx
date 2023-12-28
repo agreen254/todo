@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { DateTime } from "luxon";
+import { Separator } from "./ui/separator";
 import TodoCard from "./TodoCard";
 import { Todo } from "../types";
 import { v4 as uuid } from "uuid";
@@ -53,18 +54,20 @@ const Body = () => {
         setTodos={setTodos}
         isEditing={false}
       />
-      <h2 className="text-center mb-4">
+      <h2 className="text-3xl ml-10">
         {pendingTodos.length || pinnedTodos.length
           ? "Pending Todos:"
           : "No pending todos to show."}
       </h2>
-      <div className="flex justify-start gap-4 flex-wrap max-w-[1920px] mx-auto">
+      <Separator className="w-[90vw] my-4 h-1 rounded-tr-md rounded-br-md" />
+      <div className="flex justify-start flex-wrap max-w-[1920px] mx-auto">
         {pinnedTodos.map((t) => (
           <PinnedTodoCard
             key={t.id + "pinned"}
             t={t}
             todos={todos}
             setTodos={setTodos}
+            className="min-w-[20vw] max-w-[30vw] mx-4 my-4"
           />
         ))}
         {pendingTodos.map((t) => (
@@ -73,22 +76,24 @@ const Body = () => {
             t={t}
             todos={todos}
             setTodos={setTodos}
-            className="min-w-[20vw] max-w-[40vw]"
+            className="min-w-[20vw] max-w-[30vw] mx-4 my-4"
           />
         ))}
       </div>
-      <h2 className="text-center mb-4">
+      <h2 className="ml-10 mt-12 text-3xl">
         {completedTodos.length
           ? "Completed Todos:"
           : "No completed todos to show."}
       </h2>
-      <div className="grid grid-cols-2 gap-4 place-items-center items-start max-w-[1920px] mx-auto">
+      <Separator className="w-[90vw] my-4 h-1 rounded-tr-md rounded-br-md" />
+      <div className="flex justify-start flex-wrap max-w-[1920px] mx-auto">
         {completedTodos.map((t) => (
           <TodoCard
             key={t.id + "complete"}
             t={t}
             todos={todos}
             setTodos={setTodos}
+            className="min-w-[20vw] max-w-[30vw] mx-4 my-4"
           />
         ))}
       </div>
