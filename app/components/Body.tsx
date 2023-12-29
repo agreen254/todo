@@ -6,7 +6,6 @@ import { Separator } from "./ui/separator";
 import TodoCard from "./TodoCard";
 import { Todo } from "../types";
 import { v4 as uuid } from "uuid";
-import useLocalStorage from "../hooks/useLocalStorage";
 import TodoMenu from "./TodoMenu";
 import {
   getCompletedTodos,
@@ -19,7 +18,6 @@ import TodoContext from "../context/TodoContext";
 
 const Body = () => {
   const [editingTodo, setEditingTodo] = useState<Todo | null>(null);
-
   const { todos, setTodos, reducer } = useContext(TodoContext);
   const completedTodos = getCompletedTodos(todos);
   const pendingTodos = getPendingTodos(todos);
@@ -38,7 +36,6 @@ const Body = () => {
 
   const handleAdd = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // addTodo(dummyTodo);
     reducer(todos, setTodos, { action: "ADDTODO", toAdd: dummyTodo });
   };
 

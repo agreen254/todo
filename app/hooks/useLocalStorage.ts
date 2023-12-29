@@ -6,6 +6,8 @@ function useLocalStorage<T>(
 ): [T, (newState: T) => void] {
   let stateVal: T = initialValue;
 
+  // server side rendering throws a hydration error if you
+  // don't check this first
   if (typeof window !== "undefined") {
     const valFromStorage = window.localStorage.getItem(key);
     if (valFromStorage) {
