@@ -2,14 +2,15 @@
 
 import TodoContext from "../context/TodoContext";
 import useLocalStorage from "../hooks/useLocalStorage";
-import { todoReducer as reducer } from "../reducers/todoReducer";
-import { Todo } from "../types";
+import { todoReducer } from "../reducers/todoReducer";
+import { Actions, Todo } from "../types";
 
 const TodoProvider = ({ children }: { children: React.ReactNode }) => {
   const [todos, setTodos] = useLocalStorage<Todo[]>("todos", []);
+  const dispatch = (action: Actions) => todoReducer(todos, setTodos, action);
 
   return (
-    <TodoContext.Provider value={{ todos, setTodos, reducer }}>
+    <TodoContext.Provider value={{ todos, dispatch }}>
       {children}
     </TodoContext.Provider>
   );

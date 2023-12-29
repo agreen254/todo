@@ -1,13 +1,9 @@
-"use client";
-
 import React from "react";
-import { Todo } from "../types";
-import { todoReducer } from "../reducers/todoReducer";
+import { Actions, Todo } from "../types";
 
 type todoContextType = {
   todos: Todo[];
-  setTodos: (t: Todo[]) => void;
-  reducer: typeof todoReducer;
+  dispatch: (action: Actions) => void;
 };
 
 const TodoContext = React.createContext<todoContextType>({} as todoContextType);
