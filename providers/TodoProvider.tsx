@@ -19,6 +19,7 @@ const TodoProvider = ({ children }: { children: React.ReactNode }) => {
   const pinnedTodos = getPinnedTodos(todos);
 
   const todoState = {
+    all: todos,
     completed: completedTodos,
     pending: pendingTodos,
     pinned: pinnedTodos,

@@ -13,6 +13,7 @@ import {
 } from "./ui/card";
 import { CheckCircle, MoreHorizontal, Pin } from "lucide-react";
 import { Todo } from "../../utils/todoTypes";
+import Link from "next/link";
 
 export type Props = {
   t: Todo;
@@ -21,7 +22,7 @@ export type Props = {
 
 const TodoCard = ({ t, className }: Props) => {
   const { dispatch } = useContext(TodoContext);
-  
+
   // const timeRemaining = t.dueAt.diff(DateTime.now(), "days");
   // const handleDueColor = () => {
   //   if (timeRemaining.days > 5) {
@@ -96,6 +97,9 @@ const TodoCard = ({ t, className }: Props) => {
         >
           Delete
         </Button>
+        <Link href={`/todo/edit/${t.id}`}>
+          <Button>Edit</Button>
+        </Link>
         {handlePinButton()}
         {handleCompleteButton()}
       </CardFooter>
