@@ -15,6 +15,7 @@ import {
 import PinnedTodoCard from "./PinnedTodoCard";
 import RemoveAllDialog from "./RemoveAllDialog";
 import TodoContext from "../context/TodoContext";
+import { Actions } from "../reducers/todoReducer";
 
 const Body = () => {
   const [editingTodo, setEditingTodo] = useState<Todo | null>(null);
@@ -22,6 +23,10 @@ const Body = () => {
   const completedTodos = getCompletedTodos(todos);
   const pendingTodos = getPendingTodos(todos);
   const pinnedTodos = getPinnedTodos(todos);
+
+  const dispatch = (action: Actions) => {
+    reducer(todos, setTodos, action);
+  };
 
   const dummyTodo: Todo = {
     name: "this is a test to see how a really long title will look when it wraps around",
@@ -36,7 +41,7 @@ const Body = () => {
 
   const handleAdd = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    reducer(todos, setTodos, { action: "ADDTODO", toAdd: dummyTodo });
+    dispatch({ actionName: "ADD_TODO", toAdd: dummyTodo });
   };
 
   return (

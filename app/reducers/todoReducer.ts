@@ -1,46 +1,42 @@
 import { Todo } from "../types";
 
 type AddTodo = {
-  which: "ADD_TODO";
+  actionName: "ADD_TODO";
   toAdd: Todo;
 };
 
 type DeleteTodo = {
-  which: "DELETE_TODO";
+  actionName: "DELETE_TODO";
   toDelete: Todo;
 };
 
 type DeleteAllTodos = {
-  which: "DELETE_ALL_TODOS";
+  actionName: "DELETE_ALL_TODOS";
 };
 
 type EditTodo = {
-  which: "UNPIN_TODO";
+  actionName: "UNPIN_TODO";
   toUnpin: Todo;
 };
 
 type CompleteTodo = {
-  which: "EDIT_TODO";
+  actionName: "EDIT_TODO";
   editedTodo: Todo;
 };
 
 type PinTodo = {
-  which: "PIN_TODO";
+  actionName: "PIN_TODO";
   toPin: Todo;
 };
 
 type UnpinTodo = {
-  which: "COMPLETE_TODO";
+  actionName: "COMPLETE_TODO";
   toComplete: Todo;
 };
 
 type RevertTodo = {
-  which: "REVERT_TODO";
+  actionName: "REVERT_TODO";
   toRevert: Todo;
-};
-
-type GetTodos = {
-  which: "GET_TODOS";
 };
 
 export type Actions =
@@ -51,15 +47,14 @@ export type Actions =
   | CompleteTodo
   | RevertTodo
   | PinTodo
-  | UnpinTodo
-  | GetTodos;
+  | UnpinTodo;
 
 export function todoReducer(
   todos: Todo[],
-  setTodos: (t: Todo[]) => void,
+  setTodos: (ts: Todo[]) => void,
   action: Actions
 ) {
-  switch (action.which) {
+  switch (action.actionName) {
     case "ADD_TODO": {
       const newTodos = [...todos, action.toAdd];
       setTodos(newTodos);
