@@ -10,7 +10,7 @@ const DynamicBody = dynamic(() => import("./components/Body"), { ssr: false });
 export default function Home() {
   return (
     <>
-      <main className="min-h-[calc(100vh-100px)]">
+      <main>
         <ThemeSwitcher />
         <DynamicBody />
       </main>

@@ -13,7 +13,7 @@ import TodoContext from "../../contexts/TodoContext";
 
 const Body = () => {
   const {
-    todos: { completed, pending, pinned },
+    todoState: { completed, pending, pinned },
     dispatch,
   } = useContext(TodoContext);
 
@@ -46,14 +46,14 @@ const Body = () => {
           <PinnedTodoCard
             key={t.id + "pinned"}
             t={t}
-            className="min-w-[20vw] max-w-[30vw] mx-4 my-4"
+            className="min-w-[80vw] md:min-w-[20vw] md:max-w-[30vw] mx-4 my-4"
           />
         ))}
         {pending.map((t) => (
           <TodoCard
             key={t.id + "pending"}
             t={t}
-            className="min-w-[20vw] max-w-[30vw] mx-4 my-4"
+            className="min-w-[80vw] md:min-w-[20vw] md:max-w-[30vw] mx-4 my-4"
           />
         ))}
       </div>
@@ -66,7 +66,7 @@ const Body = () => {
           <TodoCard
             key={t.id + "complete"}
             t={t}
-            className="min-w-[20vw] max-w-[30vw] mx-4 my-4"
+            className="min-w-[80vw] md:min-w-[20vw] md:max-w-[30vw] mx-4 my-4"
           />
         ))}
       </div>

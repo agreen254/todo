@@ -17,7 +17,7 @@ export type Quote = {
 };
 
 export type TodoContextType = {
-  todos: {
+  todoState: {
     all: Todo[];
     completed: Todo[];
     pending: Todo[];

@@ -7,7 +7,7 @@ import { Button } from "@/app/components/ui/button";
 
 const AddTodoPage = ({ params: { id } }: { params: { id: string } }) => {
   const {
-    todos: { all },
+    todoState: { all },
   } = useContext(TodoContext);
   const toEdit = all.find((t) => t.id === id);
 

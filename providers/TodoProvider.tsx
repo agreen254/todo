@@ -12,21 +12,23 @@ import { Actions, Todo } from "../utils/todoTypes";
 
 const TodoProvider = ({ children }: { children: React.ReactNode }) => {
   const [todos, setTodos] = useLocalStorage<Todo[]>("todos", []);
+
+  // abstract away the "setTodos" function
   const dispatch = (action: Actions) => todoReducer(todos, setTodos, action);
 
-  const completedTodos = getCompletedTodos(todos);
-  const pendingTodos = getPendingTodos(todos);
-  const pinnedTodos = getPinnedTodos(todos);
+  // const completedTodos = getCompletedTodos(todos);
+  // const pendingTodos = getPendingTodos(todos);
+  // const pinnedTodos = getPinnedTodos(todos);
 
   const todoState = {
     all: todos,
-    completed: completedTodos,
-    pending: pendingTodos,
-    pinned: pinnedTodos,
+    completed: getCompletedTodos(todos),
+    pending: getPendingTodos(todos),
+    pinned: getPinnedTodos(todos),
   };
 
   return (
-    <TodoContext.Provider value={{ todos: todoState, dispatch }}>
+    <TodoContext.Provider value={{ todoState, dispatch }}>
       {children}
     </TodoContext.Provider>
   );

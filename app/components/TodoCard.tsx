@@ -11,6 +11,11 @@ import {
   CardHeader,
   CardTitle,
 } from "./ui/card";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/app/components/ui/popover";
 import { CheckCircle, MoreHorizontal, Pin } from "lucide-react";
 import { Todo } from "../../utils/todoTypes";
 import Link from "next/link";
@@ -81,8 +86,33 @@ const TodoCard = ({ t, className }: Props) => {
       <CardHeader>
         <div className="h-4">
           <Pin className="w-4 h-4 inline-block absolute right-16 top-4" />
-          <CheckCircle className="w-4 h-4 inline-block absolute right-10 top-4" />
-          <MoreHorizontal className="w-4 h-4 inline-block absolute right-4 top-4" />
+          <CheckCircle
+            className={cn(
+              "w-4 h-4 inline-block absolute right-10 top-4",
+              t.isCompleted && "text-green-500"
+            )}
+          />
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button
+                variant="ghost"
+                className="inline-block absolute right-2 top-2 h-6"
+              >
+                <MoreHorizontal className="w-4 h-4 inline-block absolute right-2 top-1" />
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent>
+              <Link href={`/todo/edit/${t.id}`}>
+                <Button variant="outline">Edit</Button>
+              </Link>
+              <Link href={`/todo/view/${t.id}`}>
+                <Button variant="outline">View</Button>
+              </Link>
+              <Link href={`/todo/clone/${t.id}`}>
+                <Button variant="outline">Clone</Button>
+              </Link>
+            </PopoverContent>
+          </Popover>
         </div>
         <CardTitle>{t.name}</CardTitle>
         <CardDescription>{t.description}</CardDescription>
