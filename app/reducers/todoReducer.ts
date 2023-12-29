@@ -1,8 +1,8 @@
 import { Actions, Todo } from "../todoTypes";
 
-// handles all assignments for the raw todo array that is found in local storage.
-// the code present in the TodoContext completes the processing (sorting, splitting into different categories, etc)
-// and returns the processed data as the state.
+// handles all operations for the raw todo array that is found in local storage
+// the raw array is passed into the TodoContext, where it is processed (sorted, split into different parts, etc)
+// the processed state is then passed to the provider
 export function todoReducer(
   todos: Todo[],
   setTodos: (ts: Todo[]) => void,

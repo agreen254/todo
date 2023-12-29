@@ -6,8 +6,10 @@ function useLocalStorage<T>(
 ): [T, (newState: T) => void] {
   let stateVal: T = initialValue;
 
-  // server side rendering throws a hydration error if you
-  // don't check this first
+  // because next has server-side rendering, this code is run on the client and server
+  // for the server, the window object is undefined
+  // without this check, you will get a hydration error
+  // can alternatively wrap it in a useEffect hook, which is only run on the client
   if (typeof window !== "undefined") {
     const valFromStorage = window.localStorage.getItem(key);
     if (valFromStorage) {
