@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { getRandomQuote } from "../utils/getRandomQuote";
-import { Quote } from "../types";
+import { Quote } from "../todoTypes";
 
 const Footer = () => {
   const [quote, setQuote] = useState<Quote>();

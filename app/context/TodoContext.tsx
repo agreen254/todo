@@ -1,11 +1,6 @@
-import React from "react";
-import { Actions, Todo } from "../types";
+import { createContext } from "react";
+import { TodoContextType } from "../todoTypes";
 
-type todoContextType = {
-  todos: Todo[];
-  dispatch: (action: Actions) => void;
-};
-
-const TodoContext = React.createContext<todoContextType>({} as todoContextType);
+const TodoContext = createContext<TodoContextType>({} as TodoContextType);
 
 export default TodoContext;

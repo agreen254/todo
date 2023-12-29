@@ -11,7 +11,7 @@ import {
 } from "@/app/components/ui/dialog";
 import { Input } from "@/app/components/ui/input";
 import { Label } from "@/app/components/ui/label";
-import { Todo } from "../types";
+import { Todo } from "../todoTypes";
 
 type Props = {
   t: Todo | null;

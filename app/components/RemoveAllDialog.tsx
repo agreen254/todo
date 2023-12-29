@@ -1,3 +1,5 @@
+"use client";
+
 import {
   AlertDialog,
   AlertDialogAction,
@@ -10,16 +12,14 @@ import {
   AlertDialogTrigger,
 } from "@/app/components/ui/alert-dialog";
 import { Button } from "./ui/button";
-import { Todo } from "../types";
+import { Todo } from "../todoTypes";
+import { useContext } from "react";
+import TodoContext from "../context/TodoContext";
 
-type Props = {
-  todos: Todo[];
-};
-
-const RemoveAllDialog = ({ todos }: Props) => {
+const RemoveAllDialog = () => {
+  const { todos, dispatch } = useContext(TodoContext);
   const handleDeleteAll = () => {
-    // setTodos([]);
-    console.log("deleted everything.");
+    dispatch({ actionName: "DELETE_ALL_TODOS" });
   };
 
   return (

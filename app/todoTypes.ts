@@ -16,6 +16,15 @@ export type Quote = {
   a: string;
 };
 
+export type TodoContextType = {
+  todos: {
+    completed: Todo[];
+    pending: Todo[];
+    pinned: Todo[];
+  };
+  dispatch: (action: Actions) => void;
+};
+
 ///////////////////
 // REDUCER TYPES //
 ///////////////////

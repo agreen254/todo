@@ -1,3 +1,6 @@
+import { useContext } from "react";
+import TodoContext from "../context/TodoContext";
+import { DateTime } from "luxon";
 import { cn } from "../utils/utils";
 import { Button } from "./ui/button";
 import {
@@ -9,15 +12,16 @@ import {
   CardTitle,
 } from "./ui/card";
 import { CheckCircle, MoreHorizontal, Pin } from "lucide-react";
-import { Todo } from "../types";
+import { Todo } from "../todoTypes";
 
 export type Props = {
   t: Todo;
-  todos: Todo[];
   className?: string;
 };
 
-const TodoCard = ({ t, todos, className }: Props) => {
+const TodoCard = ({ t, className }: Props) => {
+  const { dispatch } = useContext(TodoContext);
+  
   // const timeRemaining = t.dueAt.diff(DateTime.now(), "days");
   // const handleDueColor = () => {
   //   if (timeRemaining.days > 5) {
@@ -29,65 +33,47 @@ const TodoCard = ({ t, todos, className }: Props) => {
   //   }
   // };
 
-  // const handleDelete = () => {
-  //   setTodos(todos.filter((todo) => todo.id !== t.id));
-  // };
+  const handleCompleteButton = () => {
+    if (t.isCompleted) {
+      return (
+        <Button
+          onClick={() => dispatch({ actionName: "REVERT_TODO", toRevert: t })}
+        >
+          Revert
+        </Button>
+      );
+    } else {
+      return (
+        <Button
+          className="hover:text-green-400/90"
+          onClick={() =>
+            dispatch({ actionName: "COMPLETE_TODO", toComplete: t })
+          }
+        >
+          Complete
+        </Button>
+      );
+    }
+  };
 
-  // const handleComplete = () => {
-  //   setTodos(
-  //     todos.map((todo) => {
-  //       return todo.id === t.id
-  //         ? { ...todo, isCompleted: true, isPinned: false }
-  //         : todo;
-  //     })
-  //   );
-  // };
-
-  // const handlePin = () => {
-  //   setTodos(
-  //     todos.map((todo) => {
-  //       return todo.id === t.id ? { ...todo, isPinned: true } : todo;
-  //     })
-  //   );
-  // };
-
-  // const handleRevert = () => {
-  //   setTodos(
-  //     todos.map((todo) => {
-  //       return todo.id === t.id ? { ...todo, isCompleted: false } : todo;
-  //     })
-  //   );
-  // };
-
-  // const handleUnpin = () => {
-  //   setTodos(
-  //     todos.map((todo) => {
-  //       return todo.id === t.id ? { ...todo, isPinned: false } : todo;
-  //     })
-  //   );
-  // };
-
-  // const handleCompleteButton = (t: Todo) => {
-  //   if (t.isCompleted) {
-  //     return <Button onClick={handleRevert}>Revert</Button>;
-  //   } else {
-  //     return (
-  //       <Button onClick={handleComplete} className="hover:text-green-400/90">
-  //         Complete
-  //       </Button>
-  //     );
-  //   }
-  // };
-
-  // const handlePinButton = (t: Todo) => {
-  //   if (t.isCompleted) return;
-
-  //   if (t.isPinned) {
-  //     return <Button onClick={handleUnpin}>Unpin</Button>;
-  //   } else {
-  //     return <Button onClick={handlePin}>Pin</Button>;
-  //   }
-  // };
+  const handlePinButton = () => {
+    if (t.isCompleted) return;
+    if (t.isPinned) {
+      return (
+        <Button
+          onClick={() => dispatch({ actionName: "UNPIN_TODO", toUnpin: t })}
+        >
+          Unpin
+        </Button>
+      );
+    } else {
+      return (
+        <Button onClick={() => dispatch({ actionName: "PIN_TODO", toPin: t })}>
+          Pin
+        </Button>
+      );
+    }
+  };
 
   return (
     <Card className={cn("relative", className)}>
@@ -104,11 +90,14 @@ const TodoCard = ({ t, todos, className }: Props) => {
         <p>due date goes here</p>
       </CardContent>
       <CardFooter>
-        {/* <Button onClick={handleDelete} className="hover:text-red-300/90">
+        <Button
+          onClick={() => dispatch({ actionName: "DELETE_TODO", toDelete: t })}
+          className="hover:text-red-300/90"
+        >
           Delete
         </Button>
-        {handlePinButton(t)}
-        {handleCompleteButton(t)} */}
+        {handlePinButton()}
+        {handleCompleteButton()}
       </CardFooter>
     </Card>
   );
