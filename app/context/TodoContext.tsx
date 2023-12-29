@@ -2,11 +2,14 @@
 
 import React from "react";
 import { Todo } from "../types";
+import { todoReducer } from "../reducers/todoReducerTwo";
 
 type todoContextType = {
   todos: Todo[];
-  addTodo: (toAdd: Todo) => void;
-  deleteTodo: (toDelete: Todo) => void;
+  setTodos: (t: Todo[]) => void;
+  // addTodo: (toAdd: Todo) => void;
+  // deleteTodo: (toDelete: Todo) => void;
+  reducer: typeof todoReducer;
 };
 
 const TodoContext = React.createContext<todoContextType>({} as todoContextType);

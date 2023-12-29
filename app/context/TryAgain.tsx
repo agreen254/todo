@@ -2,6 +2,7 @@
 
 import TodoContext from "./TodoContext";
 import useLocalStorage from "../hooks/useLocalStorage";
+import { todoReducer } from "../reducers/todoReducerTwo";
 import { Todo } from "../types";
 
 const TodoProvider = ({ children }: { children: React.ReactNode }) => {
@@ -51,7 +52,9 @@ const TodoProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   return (
-    <TodoContext.Provider value={{ todos, addTodo, deleteTodo }}>
+    <TodoContext.Provider
+      value={{ todos, setTodos, reducer: todoReducer }}
+    >
       {children}
     </TodoContext.Provider>
   );

@@ -20,8 +20,7 @@ import TodoContext from "../context/TodoContext";
 const Body = () => {
   const [editingTodo, setEditingTodo] = useState<Todo | null>(null);
 
-  const { todos, addTodo } = useContext(TodoContext);
-  const [_, setTodos] = useLocalStorage<Todo[]>("todos", []);
+  const { todos, setTodos, reducer } = useContext(TodoContext);
   const completedTodos = getCompletedTodos(todos);
   const pendingTodos = getPendingTodos(todos);
   const pinnedTodos = getPinnedTodos(todos);
@@ -39,7 +38,8 @@ const Body = () => {
 
   const handleAdd = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    addTodo(dummyTodo);
+    // addTodo(dummyTodo);
+    reducer(todos, setTodos, { action: "ADDTODO", toAdd: dummyTodo });
   };
 
   return (

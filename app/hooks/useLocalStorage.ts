@@ -5,6 +5,7 @@ function useLocalStorage<T>(
   initialValue: T
 ): [T, (newState: T) => void] {
   let stateVal: T = initialValue;
+
   if (typeof window !== "undefined") {
     const valFromStorage = window.localStorage.getItem(key);
     if (valFromStorage) {
