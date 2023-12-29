@@ -1,4 +1,4 @@
-import { Actions, Todo } from "../todoTypes";
+import { Actions, Todo } from "../utils/todoTypes";
 
 // handles all operations for the raw todo array that is found in local storage
 // the raw array is passed into the TodoContext, where it is processed (sorted, split into different parts, etc)

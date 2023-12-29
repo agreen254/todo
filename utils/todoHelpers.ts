@@ -1,5 +1,5 @@
 import { sort } from "fast-sort";
-import { Todo } from "../todoTypes";
+import { Todo } from "./todoTypes";
 
 export function getCompletedTodos(todos: Todo[]) {
   return todos.filter((t) => t.isCompleted);

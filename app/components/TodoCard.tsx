@@ -1,7 +1,7 @@
 import { useContext } from "react";
-import TodoContext from "../context/TodoContext";
+import TodoContext from "../../contexts/TodoContext";
 import { DateTime } from "luxon";
-import { cn } from "../utils/utils";
+import { cn } from "@/utils/utils";
 import { Button } from "./ui/button";
 import {
   Card,
@@ -12,7 +12,7 @@ import {
   CardTitle,
 } from "./ui/card";
 import { CheckCircle, MoreHorizontal, Pin } from "lucide-react";
-import { Todo } from "../todoTypes";
+import { Todo } from "../../utils/todoTypes";
 
 export type Props = {
   t: Todo;

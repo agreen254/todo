@@ -1,8 +1,8 @@
-import { cn } from "../utils/utils";
+import { cn } from "@/utils/utils";
 import { Pin } from "lucide-react";
 import TodoCard, { Props } from "./TodoCard";
 
-const PinnedTodoCard = ({ t, todos, className }: Props) => {
+const PinnedTodoCard = ({ t, className }: Props) => {
   return (
     <div className={cn("mb-4", className)}>
       <div className="bg-teal-500 mb-0 rounded-tr-md rounded-tl-md">
@@ -11,11 +11,7 @@ const PinnedTodoCard = ({ t, todos, className }: Props) => {
           <span className="text-lg italic font-bold">Pinned</span>
         </span>
       </div>
-      <TodoCard
-        t={t}
-        todos={todos}
-        className="rounded-tr-none rounded-tl-none"
-      />
+      <TodoCard t={t} className="rounded-tr-none rounded-tl-none" />
     </div>
   );
 };

@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { getRandomQuote } from "../utils/getRandomQuote";
-import { Quote } from "../todoTypes";
+import { getRandomQuote } from "@/utils/getRandomQuote";
+import { Quote } from "@/utils/todoTypes";
 
 const Footer = () => {
   const [quote, setQuote] = useState<Quote>();

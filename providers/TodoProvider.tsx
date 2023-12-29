@@ -1,6 +1,6 @@
 "use client";
 
-import TodoContext from "../context/TodoContext";
+import TodoContext from "../contexts/TodoContext";
 import useLocalStorage from "../hooks/useLocalStorage";
 import { todoReducer } from "../reducers/todoReducer";
 import {
@@ -8,7 +8,7 @@ import {
   getPendingTodos,
   getPinnedTodos,
 } from "../utils/todoHelpers";
-import { Actions, Todo } from "../todoTypes";
+import { Actions, Todo } from "../utils/todoTypes";
 
 const TodoProvider = ({ children }: { children: React.ReactNode }) => {
   const [todos, setTodos] = useLocalStorage<Todo[]>("todos", []);

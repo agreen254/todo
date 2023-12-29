@@ -1,18 +1,17 @@
 "use client";
 
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { DateTime } from "luxon";
 import { Button } from "./ui/button";
 import { Separator } from "./ui/separator";
 import TodoCard from "./TodoCard";
-import { Todo } from "../todoTypes";
+import { Todo } from "../../utils/todoTypes";
 import { v4 as uuid } from "uuid";
 import PinnedTodoCard from "./PinnedTodoCard";
 import RemoveAllDialog from "./RemoveAllDialog";
-import TodoContext from "../context/TodoContext";
+import TodoContext from "../../contexts/TodoContext";
 
 const Body = () => {
-  const [editingTodo, setEditingTodo] = useState<Todo | null>(null);
   const {
     todos: { completed, pending, pinned },
     dispatch,

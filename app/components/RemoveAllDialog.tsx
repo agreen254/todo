@@ -12,9 +12,9 @@ import {
   AlertDialogTrigger,
 } from "@/app/components/ui/alert-dialog";
 import { Button } from "./ui/button";
-import { Todo } from "../todoTypes";
+import { Todo } from "../../utils/todoTypes";
 import { useContext } from "react";
-import TodoContext from "../context/TodoContext";
+import TodoContext from "../../contexts/TodoContext";
 
 const RemoveAllDialog = () => {
   const { todos, dispatch } = useContext(TodoContext);
