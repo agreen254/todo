@@ -11,11 +11,6 @@ export type Todo = {
   tags: string[];
 };
 
-export type Quote = {
-  q: string;
-  a: string;
-};
-
 export type TodoContextType = {
   todoState: {
     all: Todo[];
@@ -24,6 +19,11 @@ export type TodoContextType = {
     pinned: Todo[];
   };
   dispatch: (action: Actions) => void;
+};
+
+export type Quote = {
+  q: string;
+  a: string;
 };
 
 ///////////////////

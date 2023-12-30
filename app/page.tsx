@@ -1,11 +1,11 @@
 import dynamic from "next/dynamic";
-import Footer from "./components/Footer";
-import ThemeSwitcher from "./components/ThemeSwitcher";
+import Footer from "@/components/Footer";
+import ThemeSwitcher from "@/components/ThemeSwitcher";
 
 // dynamic import stops hydration error
 // more info here:
 // https://www.youtube.com/watch?v=Hx2UqlhPmnc&t=180s
-const DynamicBody = dynamic(() => import("./components/Body"), { ssr: false });
+const DynamicBody = dynamic(() => import("@/components/Body"), { ssr: false });
 
 export default function Home() {
   return (

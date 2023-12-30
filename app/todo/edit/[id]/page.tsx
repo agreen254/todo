@@ -3,7 +3,9 @@ import { redirect } from "next/navigation";
 import { useContext } from "react";
 import TodoContext from "@/contexts/TodoContext";
 import Link from "next/link";
-import { Button } from "@/app/components/ui/button";
+import { Button } from "@/components/ui/button";
+import { notFound } from "next/navigation";
+import { NextResponse } from "next/server";
 
 const AddTodoPage = ({ params: { id } }: { params: { id: string } }) => {
   const {
@@ -13,10 +15,12 @@ const AddTodoPage = ({ params: { id } }: { params: { id: string } }) => {
 
   if (!toEdit) {
     return (
-      <div>
-        <h1>The requested todo could not be found.</h1>
+      <div className="flex flex-col justify-center items-center mt-[10vh]">
+        <h1 className="text-4xl font-bold mb-6">
+          The requested todo could not be found.
+        </h1>
         <Link href="/">
-          <Button>Return Home</Button>
+          <Button className="text-2xl font-extrabold px-6 py-8">Return Home</Button>
         </Link>
       </div>
     );

@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import TodoContext from "../../contexts/TodoContext";
+import TodoContext from "@/contexts/TodoContext";
 import { DateTime } from "luxon";
 import { cn } from "@/utils/utils";
 import { Button } from "./ui/button";
@@ -15,9 +15,9 @@ import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/app/components/ui/popover";
-import { CheckCircle, MoreHorizontal, Pin } from "lucide-react";
-import { Todo } from "../../utils/todoTypes";
+} from "@/components/ui/popover";
+import { CheckCircle, MoreHorizontal, Pin, PinOff } from "lucide-react";
+import { Todo } from "@/utils/todoTypes";
 import Link from "next/link";
 
 export type Props = {
@@ -85,7 +85,11 @@ const TodoCard = ({ t, className }: Props) => {
     <Card className={cn("relative", className)}>
       <CardHeader>
         <div className="h-4">
-          <Pin className="w-4 h-4 inline-block absolute right-16 top-4" />
+          {t.isPinned ? (
+            <PinOff className="w-4 h-4 inline-block absolute right-16 top-4" />
+          ) : (
+            <Pin className="w-4 h-4 inline-block absolute right-16 top-4" />
+          )}
           <CheckCircle
             className={cn(
               "w-4 h-4 inline-block absolute right-10 top-4",

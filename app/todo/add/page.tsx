@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 import { useContext } from "react";
 import TodoContext from "@/contexts/TodoContext";
 
-const AddTodoPage = ({ params: { id } }: { params: { id: string } }) => {
+const AddTodoPage = () => {
   return <h1>Add Todo Page</h1>;
 };
 

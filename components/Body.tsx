@@ -4,12 +4,13 @@ import { useContext } from "react";
 import { DateTime } from "luxon";
 import { Button } from "./ui/button";
 import { Separator } from "./ui/separator";
-import TodoCard from "./TodoCard";
-import { Todo } from "../../utils/todoTypes";
+import { Todo } from "@/utils/todoTypes";
 import { v4 as uuid } from "uuid";
-import PinnedTodoCard from "./PinnedTodoCard";
+import CompletedTodos from "./CompletedTodos";
+import PinnedTodos from "./PinnedTodos";
+import PendingTodos from "./PendingTodos";
 import RemoveAllDialog from "./RemoveAllDialog";
-import TodoContext from "../../contexts/TodoContext";
+import TodoContext from "@/contexts/TodoContext";
 
 const Body = () => {
   const {
@@ -42,33 +43,15 @@ const Body = () => {
       </h2>
       <Separator className="w-[65vw] my-2 h-[3px] rounded-tr-md rounded-br-md" />
       <div className="flex justify-start flex-wrap max-w-[1920px] mx-auto">
-        {pinned.map((t) => (
-          <PinnedTodoCard
-            key={t.id + "pinned"}
-            t={t}
-            className="min-w-[80vw] md:min-w-[20vw] md:max-w-[30vw] mx-4 my-4"
-          />
-        ))}
-        {pending.map((t) => (
-          <TodoCard
-            key={t.id + "pending"}
-            t={t}
-            className="min-w-[80vw] md:min-w-[20vw] md:max-w-[30vw] mx-4 my-4"
-          />
-        ))}
+        <PinnedTodos />
+        <PendingTodos />
       </div>
       <h2 className="ml-10 mt-12 text-3xl">
         {completed.length ? "Completed Todos:" : "No completed todos to show."}
       </h2>
       <Separator className="w-[65vw] my-2 h-[3px] rounded-tr-md rounded-br-md" />
       <div className="flex justify-start flex-wrap max-w-[1920px] mx-auto">
-        {completed.map((t) => (
-          <TodoCard
-            key={t.id + "complete"}
-            t={t}
-            className="min-w-[80vw] md:min-w-[20vw] md:max-w-[30vw] mx-4 my-4"
-          />
-        ))}
+        <CompletedTodos />
       </div>
       <RemoveAllDialog />
     </>
