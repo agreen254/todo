@@ -3,12 +3,7 @@
 import TodoContext from "../contexts/TodoContext";
 import useLocalStorage from "../hooks/useLocalStorage";
 import { todoReducer } from "../reducers/todoReducer";
-import {
-  getCompletedTodos,
-  getPendingTodos,
-  getPinnedTodos,
-  sortTodos,
-} from "../utils/helpers";
+import { filterTodos } from "../utils/helpers";
 import { Actions, Tag, Todo, TodoSortOrder } from "../utils/types";
 
 const TodoProvider = ({ children }: { children: React.ReactNode }) => {
@@ -24,11 +19,13 @@ const TodoProvider = ({ children }: { children: React.ReactNode }) => {
     todoReducer(todos, setTodos, sortOrder, setSortOrder, action);
   };
 
+  const { completed, pending, pinned } = filterTodos(todos);
+
   const todoState = {
     all: todos,
-    completed: sortTodos(getCompletedTodos(todos), sortOrder),
-    pending: sortTodos(getPendingTodos(todos), sortOrder),
-    pinned: sortTodos(getPinnedTodos(todos), sortOrder),
+    completed: completed,
+    pending: pending,
+    pinned: pinned,
     sortOrder: sortOrder,
     tags: tags,
   };

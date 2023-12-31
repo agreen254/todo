@@ -1,12 +1,20 @@
 import { useContext } from "react";
+import Link from "next/link";
 import TodoContext from "@/contexts/TodoContext";
 import { DateTime } from "luxon";
+import { textOutOfTen } from "@/utils/helpers";
 import { cn } from "@/utils/cn";
 import { Button } from "./ui/button";
 import { Card, CardContent, CardDescription, CardFooter } from "./ui/card";
-import { CheckCircle, Pin, PinOff } from "lucide-react";
+import {
+  ArrowUp,
+  Calendar,
+  CheckCircle,
+  Move,
+  Pin,
+  PinOff,
+} from "lucide-react";
 import { Todo } from "@/utils/types";
-import Link from "next/link";
 import ContextMenu from "./ContextMenu";
 
 export type Props = {
@@ -86,7 +94,7 @@ const TodoCard = ({ t, className }: Props) => {
           t.isPinned && "bg-teal-500"
         )}
       >
-        <h3 className="max-w-[calc(100%-30px)] line-clamp-1 hover:line-clamp-2 text-2xl">
+        <h3 className="max-w-[calc(100%-30px)] line-clamp-1 text-xl md:text-2xl">
           {t.name}
         </h3>
         <span className="flex justify-end">
@@ -100,11 +108,28 @@ const TodoCard = ({ t, className }: Props) => {
           <ContextMenu t={t} deleteHandler={dispatch} />
         </span>
       </div>
-      <CardDescription className="px-5 relative top-[-10px]">
+      <CardDescription className="px-5 relative top-[-10px] line-clamp-1">
         {t.description}
       </CardDescription>
       <CardContent>
-        <p>due date goes here</p>
+        <p>
+          <span>
+            <Calendar className="w-4 h-4 mr-2" />
+            <span className="text-muted-foreground">Due Date:</span>
+          </span>
+        </p>
+        <p>
+          <span>
+            <ArrowUp className="w-4 h-4 mr-2" />
+            <span className="text-muted-foreground">Priority: {textOutOfTen(t.priority)}</span>
+          </span>
+        </p>
+        <p>
+          <span>
+            <Move className="w-4 h-4 mr-2" />
+            <span className="text-muted-foreground">Complexity: {textOutOfTen(t.complexity)}</span>
+          </span>
+        </p>
       </CardContent>
       <CardFooter>
         <Button

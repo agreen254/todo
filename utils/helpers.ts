@@ -1,16 +1,34 @@
 import { sort } from "fast-sort";
-import { Todo, TodoSortOrder } from "./types";
+import { FilteredTodos, Todo, TodoSortOrder } from "./types";
 
-export function getCompletedTodos(todos: Todo[]): Todo[] {
-  return todos.filter((t) => t.isCompleted);
+export function textOutOfTen(priority: number) {
+  if (priority <= 3) {
+    return `Low ${priority}/10`;
+  } else if (priority <= 7) {
+    return `Medium ${priority}/10`;
+  } else {
+    return `High ${priority}/10`;
+  }
 }
 
-export function getPendingTodos(todos: Todo[]): Todo[] {
-  return todos.filter((t) => !t.isCompleted && !t.isPinned);
-}
+export function filterTodos(todos: Todo[]) {
+  let result = {
+    pinned: [],
+    pending: [],
+    completed: [],
+  } as FilteredTodos;
 
-export function getPinnedTodos(todos: Todo[]): Todo[] {
-  return todos.filter((t) => t.isPinned);
+  for (let i = 0; i < todos.length; i++) {
+    if (todos[i].isPinned) {
+      result.pinned.push(todos[i]);
+    } else if (todos[i].isCompleted) {
+      result.completed.push(todos[i]);
+    } else {
+      result.pending.push(todos[i]);
+    }
+  }
+
+  return result;
 }
 
 export function sortTodos(toSort: Todo[], sortOrder: TodoSortOrder): Todo[] {

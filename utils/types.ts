@@ -6,11 +6,17 @@ export type Todo = {
   isCompleted: boolean;
   isPinned: boolean;
   id: string;
+  priority: number;
+  complexity: number;
   description?: string;
   dueAt?: DateTime;
   tags?: string[];
-  priority?: number;
-  complexity?: number;
+};
+
+export type FilteredTodos = {
+  pinned: Todo[];
+  pending: Todo[];
+  completed: Todo[];
 };
 
 // create as an array first so we can map over it in the SortMenu component

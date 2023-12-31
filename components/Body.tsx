@@ -22,6 +22,8 @@ const Body = () => {
     description: "a short description of the task",
     createdAt: DateTime.now(),
     dueAt: DateTime.now().plus({ days: 7 }),
+    priority: 3,
+    complexity: 5,
     isCompleted: false,
     isPinned: false,
     id: uid(),
