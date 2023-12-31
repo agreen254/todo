@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import TodoContext from "@/contexts/TodoContext";
 import { DateTime } from "luxon";
-import { cn } from "@/utils/utils";
+import { cn } from "@/utils/cn";
 import { Button } from "./ui/button";
 import {
   Card,
@@ -81,43 +81,44 @@ const TodoCard = ({ t, className }: Props) => {
     }
   };
 
+  const handlePinIcon = () => {
+    return t.isPinned ? (
+      <PinOff className="w-4 h-4" />
+    ) : (
+      <Pin className="w-4 h-4" />
+    );
+  };
+
   return (
-    <Card className={cn("relative", className)}>
-      <CardHeader>
-        <div className="h-4">
-          {t.isPinned ? (
-            <PinOff className="w-4 h-4 inline-block absolute right-16 top-4" />
-          ) : (
-            <Pin className="w-4 h-4 inline-block absolute right-16 top-4" />
+    <Card className={cn("relative pt-0", className)}>
+      <div className={cn("h-8 my-2 mx-2 flex justify-end items-center", t.isPinned && "bg-teal-500")}>
+        {handlePinIcon()}
+        <CheckCircle
+          className={cn(
+            "w-4 h-4",
+            t.isCompleted && "text-green-500"
           )}
-          <CheckCircle
-            className={cn(
-              "w-4 h-4 inline-block absolute right-10 top-4",
-              t.isCompleted && "text-green-500"
-            )}
-          />
-          <Popover>
-            <PopoverTrigger asChild>
-              <Button
-                variant="ghost"
-                className="inline-block absolute right-2 top-2 h-6"
-              >
-                <MoreHorizontal className="w-4 h-4 inline-block absolute right-2 top-1" />
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent>
-              <Link href={`/todo/edit/${t.id}`}>
-                <Button variant="outline">Edit</Button>
-              </Link>
-              <Link href={`/todo/view/${t.id}`}>
-                <Button variant="outline">View</Button>
-              </Link>
-              <Link href={`/todo/clone/${t.id}`}>
-                <Button variant="outline">Clone</Button>
-              </Link>
-            </PopoverContent>
-          </Popover>
-        </div>
+        />
+        <Popover>
+          <PopoverTrigger asChild>
+            <Button variant="ghost">
+              <MoreHorizontal className="w-4 h-4" />
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent>
+            <Link href={`/todo/edit/${t.id}`}>
+              <Button variant="outline">Edit</Button>
+            </Link>
+            <Link href={`/todo/view/${t.id}`}>
+              <Button variant="outline">View</Button>
+            </Link>
+            <Link href={`/todo/clone/${t.id}`}>
+              <Button variant="outline">Clone</Button>
+            </Link>
+          </PopoverContent>
+        </Popover>
+      </div>
+      <CardHeader className="pt-0">
         <CardTitle>{t.name}</CardTitle>
         <CardDescription>{t.description}</CardDescription>
       </CardHeader>
