@@ -11,14 +11,10 @@ import {
   CardHeader,
   CardTitle,
 } from "./ui/card";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import { CheckCircle, MoreHorizontal, Pin, PinOff } from "lucide-react";
+import { CheckCircle, Pin, PinOff } from "lucide-react";
 import { Todo } from "@/utils/todoTypes";
 import Link from "next/link";
+import ContextMenu from "./ContextMenu";
 
 export type Props = {
   t: Todo;
@@ -83,44 +79,41 @@ const TodoCard = ({ t, className }: Props) => {
 
   const handlePinIcon = () => {
     return t.isPinned ? (
-      <PinOff className="w-4 h-4" />
+      <PinOff className="w-6 h-6" />
     ) : (
-      <Pin className="w-4 h-4" />
+      <Pin className="w-6 h-6" />
     );
   };
 
   return (
-    <Card className={cn("relative pt-0", className)}>
-      <div className={cn("h-8 my-2 mx-2 flex justify-end items-center", t.isPinned && "bg-teal-500")}>
-        {handlePinIcon()}
-        <CheckCircle
+    <Card className={cn("relative", className)}>
+      <CardHeader className="pt-0 px-0">
+        <CardTitle
           className={cn(
-            "w-4 h-4",
-            t.isCompleted && "text-green-500"
+            "flex justify-between items-center pt-5 mb-2 pb-[4px] px-5 rounded-t-md leading-8",
+            t.isPinned && "bg-teal-500"
           )}
-        />
-        <Popover>
-          <PopoverTrigger asChild>
-            <Button variant="ghost">
-              <MoreHorizontal className="w-4 h-4" />
-            </Button>
-          </PopoverTrigger>
-          <PopoverContent>
-            <Link href={`/todo/edit/${t.id}`}>
-              <Button variant="outline">Edit</Button>
-            </Link>
-            <Link href={`/todo/view/${t.id}`}>
-              <Button variant="outline">View</Button>
-            </Link>
-            <Link href={`/todo/clone/${t.id}`}>
-              <Button variant="outline">Clone</Button>
-            </Link>
-          </PopoverContent>
-        </Popover>
-      </div>
-      <CardHeader className="pt-0">
-        <CardTitle>{t.name}</CardTitle>
-        <CardDescription>{t.description}</CardDescription>
+        >
+          <p className="max-w-[calc(100%-30px)] line-clamp-2">{t.name}</p>
+          <span className="flex justify-end">
+            {handlePinIcon()}
+            <CheckCircle
+              className={cn(
+                "w-6 h-6 ml-3 mr-2",
+                t.isCompleted && "text-green-500"
+              )}
+            />
+            <ContextMenu
+              t={t}
+              handleDelete={() =>
+                dispatch({ actionName: "DELETE_TODO", toDelete: t })
+              }
+            />
+          </span>
+        </CardTitle>
+        <CardDescription className="px-5 relative top-[-10px]">
+          {t.description}
+        </CardDescription>
       </CardHeader>
       <CardContent>
         <p>due date goes here</p>

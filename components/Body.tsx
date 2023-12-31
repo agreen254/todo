@@ -5,12 +5,10 @@ import { DateTime } from "luxon";
 import { Button } from "./ui/button";
 import { Separator } from "./ui/separator";
 import { Todo } from "@/utils/todoTypes";
-import { v4 as uuid } from "uuid";
-import CompletedTodos from "./CompletedTodos";
-import PinnedTodos from "./PinnedTodos";
-import PendingTodos from "./PendingTodos";
+import { uid } from "uid";
 import RemoveAllDialog from "./RemoveAllDialog";
 import TodoContext from "@/contexts/TodoContext";
+import TodoList from "./TodoList";
 
 const Body = () => {
   const {
@@ -25,7 +23,7 @@ const Body = () => {
     dueAt: DateTime.now().plus({ days: 7 }),
     isCompleted: false,
     isPinned: false,
-    id: uuid(),
+    id: uid(),
     tags: ["home", "chores"],
   };
 
@@ -43,15 +41,15 @@ const Body = () => {
       </h2>
       <Separator className="w-[65vw] my-2 h-[3px] rounded-tr-md rounded-br-md" />
       <div className="flex justify-start flex-wrap max-w-[1920px] mx-auto">
-        <PinnedTodos />
-        <PendingTodos />
+        <TodoList todos={pinned} />
+        <TodoList todos={pending} />
       </div>
       <h2 className="ml-10 mt-12 text-3xl">
         {completed.length ? "Completed Todos:" : "No completed todos to show."}
       </h2>
       <Separator className="w-[65vw] my-2 h-[3px] rounded-tr-md rounded-br-md" />
       <div className="flex justify-start flex-wrap max-w-[1920px] mx-auto">
-        <CompletedTodos />
+        <TodoList todos={completed} />
       </div>
       <RemoveAllDialog />
     </>

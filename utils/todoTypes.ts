@@ -2,13 +2,18 @@ import { DateTime } from "luxon";
 
 export type Todo = {
   name: string;
-  description: string;
+  description?: string;
   createdAt: DateTime;
-  dueAt: DateTime;
+  dueAt?: DateTime;
   isCompleted: boolean;
   isPinned: boolean;
   id: string;
-  tags: string[];
+  tags?: string[];
+};
+
+export type Tag = {
+  name: string;
+  colorValue: string;
 };
 
 export type TodoContextType = {

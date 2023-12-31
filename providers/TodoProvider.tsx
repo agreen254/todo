@@ -12,6 +12,7 @@ import { Actions, Todo } from "../utils/todoTypes";
 
 const TodoProvider = ({ children }: { children: React.ReactNode }) => {
   const [todos, setTodos] = useLocalStorage<Todo[]>("todos", []);
+  const [tags, setTags] = useLocalStorage<string[]>("tags", []);
 
   // abstract away the "setTodos" function
   const dispatch = (action: Actions) => todoReducer(todos, setTodos, action);
