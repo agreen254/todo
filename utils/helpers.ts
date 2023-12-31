@@ -1,19 +1,19 @@
 import { sort } from "fast-sort";
 import { Todo, TodoSortOrder } from "./types";
 
-export function getCompletedTodos(todos: Todo[]) {
+export function getCompletedTodos(todos: Todo[]): Todo[] {
   return todos.filter((t) => t.isCompleted);
 }
 
-export function getPendingTodos(todos: Todo[]) {
+export function getPendingTodos(todos: Todo[]): Todo[] {
   return todos.filter((t) => !t.isCompleted && !t.isPinned);
 }
 
-export function getPinnedTodos(todos: Todo[]) {
+export function getPinnedTodos(todos: Todo[]): Todo[] {
   return todos.filter((t) => t.isPinned);
 }
 
-export function sortTodos(toSort: Todo[], sortOrder: TodoSortOrder) {
+export function sortTodos(toSort: Todo[], sortOrder: TodoSortOrder): Todo[] {
   switch (sortOrder) {
     case "name_asc":
       return sort(toSort).by([
