@@ -111,23 +111,27 @@ const TodoCard = ({ t, className }: Props) => {
       <CardDescription className="px-5 relative top-[-10px] line-clamp-1">
         {t.description}
       </CardDescription>
-      <CardContent>
+      <CardContent className="space-y-2">
         <p>
           <span>
-            <Calendar className="w-4 h-4 mr-2" />
+            <Calendar className="w-4 h-4 mr-2 inline-block translate-y-[-2px]" />
             <span className="text-muted-foreground">Due Date:</span>
           </span>
         </p>
         <p>
           <span>
-            <ArrowUp className="w-4 h-4 mr-2" />
-            <span className="text-muted-foreground">Priority: {textOutOfTen(t.priority)}</span>
+            <ArrowUp className="w-4 h-4 mr-2 inline-block" />
+            <span className="text-muted-foreground">
+              Priority: {textOutOfTen(t.priority)}
+            </span>
           </span>
         </p>
         <p>
           <span>
-            <Move className="w-4 h-4 mr-2" />
-            <span className="text-muted-foreground">Complexity: {textOutOfTen(t.complexity)}</span>
+            <Move className="w-4 h-4 mr-2 inline-block" />
+            <span className="text-muted-foreground">
+              Complexity: {textOutOfTen(t.complexity)}
+            </span>
           </span>
         </p>
       </CardContent>

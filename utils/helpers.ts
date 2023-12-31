@@ -3,11 +3,11 @@ import { FilteredTodos, Todo, TodoSortOrder } from "./types";
 
 export function textOutOfTen(priority: number) {
   if (priority <= 3) {
-    return `Low ${priority}/10`;
+    return `Low (${priority}/10)`;
   } else if (priority <= 7) {
-    return `Medium ${priority}/10`;
+    return `Medium (${priority}/10)`;
   } else {
-    return `High ${priority}/10`;
+    return `High (${priority}/10)`;
   }
 }
 
