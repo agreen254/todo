@@ -13,7 +13,8 @@ export type Todo = {
   complexity?: number;
 };
 
-// https://stackoverflow.com/questions/52085454/typescript-define-a-union-type-from-an-array-of-strings
+// create as an object first so we can map over it in the SortMenu component
+// typescript will not actually write code for us, so we cannot map over the eles of a string union type
 export const todoSortPossibilities = [
   "default",
   "name_asc",
@@ -27,6 +28,7 @@ export const todoSortPossibilities = [
   "complexity_asc",
   "complexity_desc",
 ] as const;
+// https://stackoverflow.com/questions/52085454/typescript-define-a-union-type-from-an-array-of-strings
 export type TodoSortOrder = (typeof todoSortPossibilities)[number];
 
 export type Tag = {

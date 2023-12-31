@@ -8,8 +8,8 @@ import {
   getPendingTodos,
   getPinnedTodos,
   sortTodos,
-} from "../utils/todoHelpers";
-import { Actions, Todo, TodoSortOrder } from "../utils/todoTypes";
+} from "../utils/helpers";
+import { Actions, Todo, TodoSortOrder } from "../utils/types";
 
 const TodoProvider = ({ children }: { children: React.ReactNode }) => {
   const [todos, setTodos] = useLocalStorage<Todo[]>("todos", []);

@@ -1,10 +1,11 @@
-import { todoSortPossibilities } from "@/utils/todoTypes";
+import { sortingMap } from "@/utils/maps";
+import { todoSortPossibilities } from "@/utils/types";
 
 const SortMenu = () => {
   return (
     <div>
-      {todoSortPossibilities.map((p) => (
-        <p>{p}</p>
+      {todoSortPossibilities.map((ele) => (
+        <p key={ele}>{sortingMap.get(ele) || ele}</p>
       ))}
     </div>
   );

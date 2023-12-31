@@ -1,4 +1,4 @@
-import { Todo } from "@/utils/todoTypes";
+import { Todo } from "@/utils/types";
 import TodoCard from "./TodoCard";
 
 const TodoMapper = ({ todos }: { todos: Todo[] }) => {

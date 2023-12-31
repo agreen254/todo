@@ -4,11 +4,12 @@ import { useContext } from "react";
 import { DateTime } from "luxon";
 import { Button } from "./ui/button";
 import { Separator } from "./ui/separator";
-import { Todo } from "@/utils/todoTypes";
+import { Todo } from "@/utils/types";
 import { uid } from "uid";
 import RemoveAllAlert from "./RemoveAllAlert";
 import TodoContext from "@/contexts/TodoContext";
 import TodoMapper from "./TodoMapper";
+import SortMenu from "./SortMenu";
 
 const Body = () => {
   const {
@@ -34,6 +35,7 @@ const Body = () => {
       >
         Add Dummy
       </Button>
+      <SortMenu />
       <h2 className="text-3xl ml-10">
         {pending.length || pinned.length
           ? "Pending Todos:"

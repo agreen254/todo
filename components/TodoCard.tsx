@@ -12,7 +12,7 @@ import {
   CardTitle,
 } from "./ui/card";
 import { CheckCircle, Pin, PinOff } from "lucide-react";
-import { Todo } from "@/utils/todoTypes";
+import { Todo } from "@/utils/types";
 import Link from "next/link";
 import ContextMenu from "./ContextMenu";
 
@@ -86,7 +86,7 @@ const TodoCard = ({ t, className }: Props) => {
   };
 
   return (
-    <Card className={cn("relative", className)}>
+    <Card className={cn(className)}>
       <CardHeader className="pt-0 px-0">
         <CardTitle
           className={cn(

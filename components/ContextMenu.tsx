@@ -7,14 +7,14 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { Actions, Todo } from "@/utils/todoTypes";
+import { Actions, Todo } from "@/utils/types";
 
 type Props = {
   t: Todo;
   deleteHandler: (action: Actions) => void;
 };
 
-// pass the reference to the handler so we can invoke it later
+// pass the handler as a reference so we can invoke it later
 const ContextMenu = ({ t, deleteHandler }: Props) => {
   return (
     <Popover>
