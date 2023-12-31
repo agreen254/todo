@@ -7,26 +7,28 @@ import {
   getCompletedTodos,
   getPendingTodos,
   getPinnedTodos,
+  sortTodos,
 } from "../utils/todoHelpers";
-import { Actions, Todo } from "../utils/todoTypes";
+import { Actions, Todo, TodoSortOrder } from "../utils/todoTypes";
 
 const TodoProvider = ({ children }: { children: React.ReactNode }) => {
   const [todos, setTodos] = useLocalStorage<Todo[]>("todos", []);
   const [tags, setTags] = useLocalStorage<string[]>("tags", []);
-  const [sortOrder, setSortOrder] = useLocalStorage<string>("sortOrder", "");
+  const [sortOrder, setSortOrder] = useLocalStorage<TodoSortOrder>(
+    "sortOrder",
+    "default"
+  );
 
-  // abstract away the "setTodos" function
-  const dispatch = (action: Actions) => todoReducer(todos, setTodos, action);
-
-  // const completedTodos = getCompletedTodos(todos);
-  // const pendingTodos = getPendingTodos(todos);
-  // const pinnedTodos = getPinnedTodos(todos);
+  // abstract away all the setters
+  const dispatch = (action: Actions) => {
+    todoReducer(todos, setTodos, setSortOrder, action);
+  };
 
   const todoState = {
     all: todos,
-    completed: getCompletedTodos(todos),
-    pending: getPendingTodos(todos),
-    pinned: getPinnedTodos(todos),
+    completed: sortTodos(getCompletedTodos(todos), sortOrder),
+    pending: sortTodos(getPendingTodos(todos), sortOrder),
+    pinned: sortTodos(getPinnedTodos(todos), sortOrder),
   };
 
   return (

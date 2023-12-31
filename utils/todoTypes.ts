@@ -13,18 +13,21 @@ export type Todo = {
   complexity?: number;
 };
 
-export type TodoSortOrders =
-  | "default"
-  | "name_asc"
-  | "name_desc"
-  | "createdAt_asc"
-  | "createdAt_desc"
-  | "dueAt_asc"
-  | "dueAt_desc"
-  | "priority_asc"
-  | "priority_desc"
-  | "complexity_asc"
-  | "complexity_desc";
+// https://stackoverflow.com/questions/52085454/typescript-define-a-union-type-from-an-array-of-strings
+export const todoSortPossibilities = [
+  "default",
+  "name_asc",
+  "name_desc",
+  "createdAt_asc",
+  "createdAt_desc",
+  "dueAt_asc",
+  "dueAt_desc",
+  "priority_asc",
+  "priority_desc",
+  "complexity_asc",
+  "complexity_desc",
+] as const;
+export type TodoSortOrder = (typeof todoSortPossibilities)[number];
 
 export type Tag = {
   name: string;
@@ -88,6 +91,11 @@ type RevertTodo = {
   toRevert: Todo;
 };
 
+type SetSortOrder = {
+  actionName: "SET_SORT_ORDER";
+  newOrder: TodoSortOrder;
+};
+
 export type Actions =
   | AddTodo
   | DeleteTodo
@@ -96,4 +104,5 @@ export type Actions =
   | CompleteTodo
   | RevertTodo
   | PinTodo
-  | UnpinTodo;
+  | UnpinTodo
+  | SetSortOrder;

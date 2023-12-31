@@ -1,4 +1,4 @@
-import { Actions, Todo } from "../utils/todoTypes";
+import { Actions, Todo, TodoSortOrder } from "../utils/todoTypes";
 
 // handles all operations for the raw todo array that is found in local storage
 // the raw array is passed into the TodoContext, where it is processed (sorted, split into different parts, etc)
@@ -6,6 +6,7 @@ import { Actions, Todo } from "../utils/todoTypes";
 export function todoReducer(
   todos: Todo[],
   setTodos: (ts: Todo[]) => void,
+  setSortOrder: (order: TodoSortOrder) => void,
   action: Actions
 ) {
   switch (action.actionName) {
@@ -58,6 +59,9 @@ export function todoReducer(
       );
       setTodos(newTodos);
       return;
+    }
+    case "SET_SORT_ORDER": {
+      setSortOrder(action.newOrder);
     }
     default: {
       return;

@@ -1,5 +1,5 @@
 import { sort } from "fast-sort";
-import { Todo } from "./todoTypes";
+import { Todo, TodoSortOrder } from "./todoTypes";
 
 export function getCompletedTodos(todos: Todo[]) {
   return todos.filter((t) => t.isCompleted);
@@ -13,11 +13,12 @@ export function getPinnedTodos(todos: Todo[]) {
   return todos.filter((t) => t.isPinned);
 }
 
-export function sortTodos(toSort: Todo[], sortOrder: string) {
+export function sortTodos(toSort: Todo[], sortOrder: TodoSortOrder) {
   switch (sortOrder) {
     case "name_asc":
       return sort(toSort).by([
         { asc: (t) => t.name },
+        // will fall back to this when needed to have a unique sorting point
         { desc: (t) => t.createdAt.toUnixInteger() },
       ]);
     case "name_desc":
