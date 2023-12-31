@@ -42,7 +42,7 @@ const Body = () => {
           : "No pending todos to show."}
       </h2>
       <Separator className="w-[65vw] my-2 h-[3px] rounded-tr-md rounded-br-md" />
-      <div className="flex justify-start flex-wrap max-w-[1920px] mx-auto">
+      <div className="flex justify-start flex-wrap max-w-[3340px] mx-auto">
         <TodoMapper todos={pinned} />
         <TodoMapper todos={pending} />
       </div>
@@ -50,7 +50,7 @@ const Body = () => {
         {completed.length ? "Completed Todos:" : "No completed todos to show."}
       </h2>
       <Separator className="w-[65vw] my-2 h-[3px] rounded-tr-md rounded-br-md" />
-      <div className="flex justify-start flex-wrap max-w-[1920px] mx-auto">
+      <div className="flex justify-start flex-wrap max-w-[3340px] mx-auto">
         <TodoMapper todos={completed} />
       </div>
       <RemoveAllAlert />

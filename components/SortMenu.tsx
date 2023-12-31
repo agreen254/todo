@@ -2,7 +2,6 @@
 
 import { useContext } from "react";
 import TodoContext from "@/contexts/TodoContext";
-import { cn } from "@/utils/cn";
 import {
   Popover,
   PopoverContent,
@@ -22,6 +21,10 @@ const SortMenu = () => {
     dispatch({ actionName: "SET_SORT_ORDER", newOrder: newOrder });
   };
 
+  const isSelectedSort = (category: TodoSortOrder) => {
+    return sortOrder === category;
+  };
+
   return (
     <Popover>
       <PopoverTrigger asChild>
@@ -39,11 +42,12 @@ const SortMenu = () => {
               <div key={`sortMap${idx}`} className="my-2">
                 <span>
                   <Button
-                    className={cn(
-                      "transition-colors",
-                      sortOrder === entry[0] &&
-                        "bg-teal-500 focus-visible:ring-teal-500"
-                    )}
+                    className="transition-colors"
+                    variant={
+                      isSelectedSort(entry[0])
+                        ? "selectedSort"
+                        : "default"
+                    }
                     onClick={() => handleSortOrder(entry[0])}
                   >
                     {displayName}
@@ -61,21 +65,23 @@ const SortMenu = () => {
               <div key={`sortMap${idx}`} className="my-2">
                 <span>
                   <Button
-                    className={cn(
-                      "mr-4 transition-colors",
-                      sortOrder === entry[0] &&
-                        "bg-teal-500 && focus-visible:ring-teal-500"
-                    )}
+                    className="mr-4 transition-colors"
+                    variant={
+                      isSelectedSort(entry[0])
+                        ? "selectedSort"
+                        : "default"
+                    }
                     onClick={() => handleSortOrder(entry[0])}
                   >
                     {firstDisplay}
                   </Button>
                   <Button
-                    className={cn(
-                      "transiton-colors",
-                      sortOrder === entry[1] &&
-                        "bg-teal-500 && focus-visible:ring-teal-500"
-                    )}
+                    className="transition-colors"
+                    variant={
+                      isSelectedSort(entry[1])
+                        ? "selectedSort"
+                        : "default"
+                    }
                     onClick={() => handleSortOrder(entry[1])}
                   >
                     {lastDisplay}

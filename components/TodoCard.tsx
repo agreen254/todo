@@ -3,14 +3,7 @@ import TodoContext from "@/contexts/TodoContext";
 import { DateTime } from "luxon";
 import { cn } from "@/utils/cn";
 import { Button } from "./ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "./ui/card";
+import { Card, CardContent, CardDescription, CardFooter } from "./ui/card";
 import { CheckCircle, Pin, PinOff } from "lucide-react";
 import { Todo } from "@/utils/types";
 import Link from "next/link";
