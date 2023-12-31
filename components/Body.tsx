@@ -6,9 +6,9 @@ import { Button } from "./ui/button";
 import { Separator } from "./ui/separator";
 import { Todo } from "@/utils/todoTypes";
 import { uid } from "uid";
-import RemoveAllDialog from "./RemoveAllDialog";
+import RemoveAllAlert from "./RemoveAllAlert";
 import TodoContext from "@/contexts/TodoContext";
-import TodoList from "./TodoList";
+import TodoMapper from "./TodoMapper";
 
 const Body = () => {
   const {
@@ -41,17 +41,17 @@ const Body = () => {
       </h2>
       <Separator className="w-[65vw] my-2 h-[3px] rounded-tr-md rounded-br-md" />
       <div className="flex justify-start flex-wrap max-w-[1920px] mx-auto">
-        <TodoList todos={pinned} />
-        <TodoList todos={pending} />
+        <TodoMapper todos={pinned} />
+        <TodoMapper todos={pending} />
       </div>
       <h2 className="ml-10 mt-12 text-3xl">
         {completed.length ? "Completed Todos:" : "No completed todos to show."}
       </h2>
       <Separator className="w-[65vw] my-2 h-[3px] rounded-tr-md rounded-br-md" />
       <div className="flex justify-start flex-wrap max-w-[1920px] mx-auto">
-        <TodoList todos={completed} />
+        <TodoMapper todos={completed} />
       </div>
-      <RemoveAllDialog />
+      <RemoveAllAlert />
     </>
   );
 };

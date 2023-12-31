@@ -11,10 +11,11 @@ import { Actions, Todo } from "@/utils/todoTypes";
 
 type Props = {
   t: Todo;
-  handleDelete: (action: Actions) => void;
+  deleteHandler: (action: Actions) => void;
 };
 
-const ContextMenu = ({ t, handleDelete }: Props) => {
+// pass the reference to the handler so we can invoke it later
+const ContextMenu = ({ t, deleteHandler }: Props) => {
   return (
     <Popover>
       <PopoverTrigger asChild>
@@ -46,7 +47,7 @@ const ContextMenu = ({ t, handleDelete }: Props) => {
             variant="ghost"
             className="w-full py-[24px] px-5 rounded-t-none rounded-b-md text-center dark:hover:bg-destructive/50 hover:bg-destructive/30 focus-visible:outline-red-300 dark:focus:outline-destructive text-base"
             onClick={() =>
-              handleDelete({ actionName: "DELETE_TODO", toDelete: t })
+              deleteHandler({ actionName: "DELETE_TODO", toDelete: t })
             }
           >
             Delete

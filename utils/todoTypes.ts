@@ -9,7 +9,22 @@ export type Todo = {
   isPinned: boolean;
   id: string;
   tags?: string[];
+  priority?: number;
+  complexity?: number;
 };
+
+export type TodoSortOrders =
+  | "default"
+  | "name_asc"
+  | "name_desc"
+  | "createdAt_asc"
+  | "createdAt_desc"
+  | "dueAt_asc"
+  | "dueAt_desc"
+  | "priority_asc"
+  | "priority_desc"
+  | "complexity_asc"
+  | "complexity_desc";
 
 export type Tag = {
   name: string;

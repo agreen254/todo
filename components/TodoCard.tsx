@@ -103,12 +103,7 @@ const TodoCard = ({ t, className }: Props) => {
                 t.isCompleted && "text-green-500"
               )}
             />
-            <ContextMenu
-              t={t}
-              handleDelete={() =>
-                dispatch({ actionName: "DELETE_TODO", toDelete: t })
-              }
-            />
+            <ContextMenu t={t} deleteHandler={dispatch} />
           </span>
         </CardTitle>
         <CardDescription className="px-5 relative top-[-10px]">
