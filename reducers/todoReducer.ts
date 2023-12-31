@@ -6,6 +6,7 @@ import { Actions, Todo, TodoSortOrder } from "../utils/types";
 export function todoReducer(
   todos: Todo[],
   setTodos: (ts: Todo[]) => void,
+  sortOrder: TodoSortOrder,
   setSortOrder: (order: TodoSortOrder) => void,
   action: Actions
 ) {
@@ -61,7 +62,12 @@ export function todoReducer(
       return;
     }
     case "SET_SORT_ORDER": {
+      if (sortOrder === action.newOrder) {
+        setSortOrder("default");
+        return;
+      }
       setSortOrder(action.newOrder);
+      return;
     }
     default: {
       return;

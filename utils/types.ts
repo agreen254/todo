@@ -2,33 +2,29 @@ import { DateTime } from "luxon";
 
 export type Todo = {
   name: string;
-  description?: string;
   createdAt: DateTime;
-  dueAt?: DateTime;
   isCompleted: boolean;
   isPinned: boolean;
   id: string;
+  description?: string;
+  dueAt?: DateTime;
   tags?: string[];
   priority?: number;
   complexity?: number;
 };
 
-// create as an object first so we can map over it in the SortMenu component
-// typescript will not actually write code for us, so we cannot map over the eles of a string union type
-export const todoSortPossibilities = [
-  "default",
-  "name_asc",
-  "name_desc",
-  "createdAt_asc",
-  "createdAt_desc",
-  "dueAt_asc",
-  "dueAt_desc",
-  "priority_asc",
-  "priority_desc",
-  "complexity_asc",
-  "complexity_desc",
+// create as an array first so we can map over it in the SortMenu component
+export const todoSortForMapping = [
+  ["default"],
+  ["name_asc", "name_desc"],
+  ["createdAt_asc", "createdAt_desc"],
+  ["dueAt_asc", "dueAt_desc"],
+  ["priority_asc", "priority_desc"],
+  ["complexity_asc", "complexity_desc"],
 ] as const;
+// then flatten it so we can infer a string union type
 // https://stackoverflow.com/questions/52085454/typescript-define-a-union-type-from-an-array-of-strings
+const todoSortPossibilities = todoSortForMapping.flat();
 export type TodoSortOrder = (typeof todoSortPossibilities)[number];
 
 export type Tag = {
@@ -42,6 +38,8 @@ export type TodoContextType = {
     completed: Todo[];
     pending: Todo[];
     pinned: Todo[];
+    sortOrder: TodoSortOrder;
+    tags: Tag[];
   };
   dispatch: (action: Actions) => void;
 };

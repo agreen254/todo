@@ -9,11 +9,11 @@ import {
   getPinnedTodos,
   sortTodos,
 } from "../utils/helpers";
-import { Actions, Todo, TodoSortOrder } from "../utils/types";
+import { Actions, Tag, Todo, TodoSortOrder } from "../utils/types";
 
 const TodoProvider = ({ children }: { children: React.ReactNode }) => {
   const [todos, setTodos] = useLocalStorage<Todo[]>("todos", []);
-  const [tags, setTags] = useLocalStorage<string[]>("tags", []);
+  const [tags, setTags] = useLocalStorage<Tag[]>("tags", []);
   const [sortOrder, setSortOrder] = useLocalStorage<TodoSortOrder>(
     "sortOrder",
     "default"
@@ -21,7 +21,7 @@ const TodoProvider = ({ children }: { children: React.ReactNode }) => {
 
   // abstract away all the setters
   const dispatch = (action: Actions) => {
-    todoReducer(todos, setTodos, setSortOrder, action);
+    todoReducer(todos, setTodos, sortOrder, setSortOrder, action);
   };
 
   const todoState = {
@@ -29,6 +29,8 @@ const TodoProvider = ({ children }: { children: React.ReactNode }) => {
     completed: sortTodos(getCompletedTodos(todos), sortOrder),
     pending: sortTodos(getPendingTodos(todos), sortOrder),
     pinned: sortTodos(getPinnedTodos(todos), sortOrder),
+    sortOrder: sortOrder,
+    tags: tags,
   };
 
   return (

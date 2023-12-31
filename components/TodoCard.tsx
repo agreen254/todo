@@ -87,29 +87,29 @@ const TodoCard = ({ t, className }: Props) => {
 
   return (
     <Card className={cn(className)}>
-      <CardHeader className="pt-0 px-0">
-        <CardTitle
-          className={cn(
-            "flex justify-between items-center pt-5 mb-2 pb-[4px] px-5 rounded-t-md leading-8",
-            t.isPinned && "bg-teal-500"
-          )}
-        >
-          <p className="max-w-[calc(100%-30px)] line-clamp-2">{t.name}</p>
-          <span className="flex justify-end">
-            {handlePinIcon()}
-            <CheckCircle
-              className={cn(
-                "w-6 h-6 ml-3 mr-2",
-                t.isCompleted && "text-green-500"
-              )}
-            />
-            <ContextMenu t={t} deleteHandler={dispatch} />
-          </span>
-        </CardTitle>
-        <CardDescription className="px-5 relative top-[-10px]">
-          {t.description}
-        </CardDescription>
-      </CardHeader>
+      <div
+        className={cn(
+          "flex justify-between items-center pt-5 mb-2 pb-[4px] px-5 rounded-t-md leading-8",
+          t.isPinned && "bg-teal-500"
+        )}
+      >
+        <h3 className="max-w-[calc(100%-30px)] line-clamp-1 hover:line-clamp-2 text-2xl">
+          {t.name}
+        </h3>
+        <span className="flex justify-end">
+          {handlePinIcon()}
+          <CheckCircle
+            className={cn(
+              "w-6 h-6 ml-3 mr-2",
+              t.isCompleted && "text-green-500"
+            )}
+          />
+          <ContextMenu t={t} deleteHandler={dispatch} />
+        </span>
+      </div>
+      <CardDescription className="px-5 relative top-[-10px]">
+        {t.description}
+      </CardDescription>
       <CardContent>
         <p>due date goes here</p>
       </CardContent>
