@@ -5,7 +5,7 @@ import TodoNotFound from "@/components/TodoNotFound";
 
 const AddTodoPage = ({ params: { id } }: { params: { id: string } }) => {
   const {
-    todoState: { all },
+    state: { all },
   } = useContext(TodoContext);
   const t = all.find((t) => t.id === id);
 

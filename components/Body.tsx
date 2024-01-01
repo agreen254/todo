@@ -13,7 +13,7 @@ import SortMenu from "./SortMenu";
 
 const Body = () => {
   const {
-    todoState: { completed, pending, pinned },
+    state: { completed, pending, pinned },
     dispatch,
   } = useContext(TodoContext);
 

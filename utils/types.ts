@@ -39,7 +39,7 @@ export type Tag = {
 };
 
 export type TodoContextType = {
-  todoState: {
+  state: {
     all: Todo[];
     completed: Todo[];
     pending: Todo[];

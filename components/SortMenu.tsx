@@ -14,7 +14,7 @@ import { Button } from "./ui/button";
 
 const SortMenu = () => {
   const {
-    todoState: { sortOrder },
+    state: { sortOrder },
     dispatch,
   } = useContext(TodoContext);
   const handleSortOrder = (newOrder: TodoSortOrder) => {

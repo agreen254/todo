@@ -17,7 +17,7 @@ import TodoContext from "@/contexts/TodoContext";
 
 const RemoveAllDialog = () => {
   const {
-    todoState: { all },
+    state: { all },
     dispatch,
   } = useContext(TodoContext);
   const handleDeleteAll = () => {

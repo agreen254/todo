@@ -31,7 +31,7 @@ const TodoProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   return (
-    <TodoContext.Provider value={{ todoState, dispatch }}>
+    <TodoContext.Provider value={{ state: todoState, dispatch }}>
       {children}
     </TodoContext.Provider>
   );
