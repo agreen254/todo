@@ -48,12 +48,14 @@ export function filterTodos(todos: Todo[]): FilteredTodos {
   };
 
   for (let i = 0; i < todos.length; i++) {
-    if (todos[i].isPinned) {
-      result.pinned.push(todos[i]);
-    } else if (todos[i].isCompleted) {
-      result.completed.push(todos[i]);
+    const current = todos[i];
+
+    if (current.isPinned) {
+      result.pinned.push(current);
+    } else if (current.isCompleted) {
+      result.completed.push(current);
     } else {
-      result.pending.push(todos[i]);
+      result.pending.push(current);
     }
   }
 
