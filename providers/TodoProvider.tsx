@@ -3,7 +3,8 @@
 import TodoContext from "../contexts/TodoContext";
 import useLocalStorage from "../hooks/useLocalStorage";
 import { todoReducer } from "../reducers/todoReducer";
-import { filterTodos } from "../utils/helpers";
+import filterTodos from "@/utils/filterTodos";
+import sortTodos from "@/utils/sortTodos";
 import { Actions, Tag, Todo, TodoSortOrder } from "../utils/types";
 
 const TodoProvider = ({ children }: { children: React.ReactNode }) => {
@@ -27,7 +28,8 @@ const TodoProvider = ({ children }: { children: React.ReactNode }) => {
     );
   };
 
-  const { completed, pending, pinned } = filterTodos(todos);
+  const sortedTodos = sortTodos(todos, sortOrder);
+  const { completed, pending, pinned } = filterTodos(sortedTodos);
 
   const state = {
     all: todos,

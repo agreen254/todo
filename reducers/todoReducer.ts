@@ -1,5 +1,6 @@
 import { Actions, Tag, Todo, TodoSortOrder } from "../utils/types";
-import { allTagNames } from "@/utils/helpers";
+import addTagUpdater from "@/utils/addTagUpdater";
+import deleteTagUpdater from "@/utils/deleteTagUpdater";
 
 // handles all operations for the raw todo array that is found in local storage
 // the raw array is passed into the TodoContext, where it is processed (sorted, split into different parts, etc)
@@ -70,28 +71,6 @@ export function todoReducer(
         return;
       }
       setSortOrder(action.newOrder);
-      return;
-    }
-    // don't want different colors on the same tag
-    case "ADD_TAG": {
-      const tagNames = allTagNames(todos);
-      if (tagNames.includes(action.tagName)) {
-        const newTag: Tag = {
-          name: action.tagName,
-          color: Math.floor(Math.random() * 24),
-        };
-        setTags([...tags, newTag]);
-      }
-      return;
-    }
-    // TODO: write a helper function that checks if it is the LAST occurrence of the tag.
-    // then we should delete it.
-    case "DELETE_TAG": {
-      const tagNames = allTagNames(todos);
-      if (tagNames.includes(action.toDelete.name)) {
-        const newTags = tags.filter((tag) => tag.name !== action.toDelete.name);
-        setTags(newTags);
-      }
       return;
     }
     default: {

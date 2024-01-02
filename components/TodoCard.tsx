@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import TodoContext from "@/contexts/TodoContext";
-import { textOutOfTen } from "@/utils/helpers";
+import txtOutOfTen from "@/utils/txtOutOfTen";
 import { cn } from "@/utils/cn";
 import { Button } from "./ui/button";
 import { Card, CardContent, CardDescription, CardFooter } from "./ui/card";
@@ -14,7 +14,7 @@ import {
 } from "lucide-react";
 import { Todo } from "@/utils/types";
 import ContextMenu from "./ContextMenu";
-import TagUnit from "./Tag";
+import TagBadge from "./TagBadge";
 
 export type Props = {
   t: Todo;
@@ -117,20 +117,20 @@ const TodoCard = ({ t, className }: Props) => {
           <span>
             <ArrowUp className="w-4 h-4 mr-2 inline-block" />
             <span className="text-muted-foreground">Priority: </span>
-            <span className="font-semibold">{textOutOfTen(t.priority)}</span>
+            <span className="font-semibold">{txtOutOfTen(t.priority)}</span>
           </span>
         </p>
         <p>
           <span>
             <Move className="w-4 h-4 mr-2 inline-block" />
             <span className="text-muted-foreground">Complexity: </span>
-            <span className="font-semibold">{textOutOfTen(t.complexity)}</span>
+            <span className="font-semibold">{txtOutOfTen(t.complexity)}</span>
           </span>
         </p>
       </CardContent>
       <CardFooter>
         {t.tags?.map((tag) => (
-          <TagUnit key={t.id + tag.name} tag={tag} />
+          <TagBadge key={t.id + tag.name} tag={tag} />
         ))}
       </CardFooter>
     </Card>

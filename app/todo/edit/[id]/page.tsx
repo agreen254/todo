@@ -16,7 +16,7 @@ const AddTodoPage = ({ params: { id } }: { params: { id: string } }) => {
   return (
     <div>
       <p>{t.name}</p>
-      <p>{t.dueAt.toString()}</p>
+      <p>{t.dueAt?.toString()}</p>
     </div>
   );
 };

@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { randQuote } from "@/utils/helpers";
 import { Quote } from "@/utils/types";
+import randQuote from "@/utils/randQuote";
 
 const Footer = () => {
   const [quote, setQuote] = useState<Quote>();

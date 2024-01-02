@@ -1,9 +1,15 @@
 import { Tag } from "@/utils/types";
 
-const TagUnit = ({ tag }: { tag: Tag }) => {
+const TagBadge = ({ tag }: { tag: Tag }) => {
   if (!tag.color) return;
 
-  const colors = new Map<number, string>([
+  // you cannot render classNames in tailwind by directly using props that you pass
+  // to a component, you must map the props to a static className
+  // the color property of the tag type is an integer that serves as a key to this map
+  // it is retrieved at runtime so tailwind can properly render the background color
+  // the color will not show if you move the map to another file and then import it!
+  // more info: https://tailwindcss.com/docs/content-configuration#dynamic-class-names
+  const colorsMap = new Map<number, string>([
     [0, "bg-red-500/50"],
     [1, "bg-red-700/50"],
     [2, "bg-red-900/50"],
@@ -29,13 +35,13 @@ const TagUnit = ({ tag }: { tag: Tag }) => {
     [22, "bg-purple-700/50"],
     [23, "bg-purple-900/50"],
   ]);
-  const tagColor = colors.get(tag.color);
+  const cn = colorsMap.get(tag.color)!;
 
   return (
-    <span className={`px-3 py-2 rounded-[1rem] text-sm font-bold ${tagColor}`}>
+    <span className={`px-3 py-2 rounded-[1rem] text-sm font-bold ${cn}`}>
       {tag.name}
     </span>
   );
 };
 
-export default TagUnit;
+export default TagBadge;

@@ -1,68 +1,10 @@
 import { sort } from "fast-sort";
-import { FilteredTodos, Quote, Tag, Todo, TodoSortOrder } from "./types";
-import { quotes } from "./quotes";
+import { Todo, TodoSortOrder } from "./types";
 
-export function textOutOfTen(priority: number): string {
-  if (priority <= 3) {
-    return `Low (${priority}/10)`;
-  } else if (priority <= 7) {
-    return `Medium (${priority}/10)`;
-  } else {
-    return `High (${priority}/10)`;
-  }
-}
-
-export function randArrayEle<T>(arr: T[]): T {
-  const randIdx = Math.floor(Math.random() * arr.length);
-  return arr[randIdx];
-}
-
-export function randQuote(): Quote {
-  return randArrayEle(quotes);
-}
-
-export function tagNameCount(todos: Todo[], name: string) {}
-
-export function allTagNames(todos: Todo[]) {
-  function todoTags(todo: Todo) {
-    const tags = todo.tags;
-    if (!tags) {
-      return [];
-    } else {
-      return tags.reduce((names: string[], tag) => {
-        return [...names, tag.name];
-      }, []);
-    }
-  }
-
-  return todos.reduce((names: string[], t) => {
-    return [...names, ...todoTags(t)];
-  }, []);
-}
-
-export function filterTodos(todos: Todo[]): FilteredTodos {
-  let result: FilteredTodos = {
-    pinned: [],
-    pending: [],
-    completed: [],
-  };
-
-  for (let i = 0; i < todos.length; i++) {
-    const current = todos[i];
-
-    if (current.isPinned) {
-      result.pinned.push(current);
-    } else if (current.isCompleted) {
-      result.completed.push(current);
-    } else {
-      result.pending.push(current);
-    }
-  }
-
-  return result;
-}
-
-export function sortTodos(toSort: Todo[], sortOrder: TodoSortOrder): Todo[] {
+export default function sortTodos(
+  toSort: Todo[],
+  sortOrder: TodoSortOrder
+): Todo[] {
   switch (sortOrder) {
     case "name_asc":
       return sort(toSort).by([

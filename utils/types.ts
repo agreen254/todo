@@ -102,16 +102,6 @@ type SetSortOrder = {
   newOrder: TodoSortOrder;
 };
 
-type AddTag = {
-  command: "ADD_TAG";
-  tagName: string;
-}
-
-type DeleteTag = {
-  command: "DELETE_TAG";
-  toDelete: Tag;
-}
-
 export type Actions =
   | AddTodo
   | DeleteTodo
@@ -121,6 +111,4 @@ export type Actions =
   | RevertTodo
   | PinTodo
   | UnpinTodo
-  | SetSortOrder
-  | AddTag
-  | DeleteTag;
+  | SetSortOrder;
