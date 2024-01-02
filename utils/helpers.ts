@@ -1,5 +1,7 @@
 import { sort } from "fast-sort";
-import { FilteredTodos, Tag, Todo, TodoSortOrder } from "./types";
+import { FilteredTodos, Quote, Tag, Todo, TodoSortOrder } from "./types";
+import { quotes } from "./quotes";
+import { colors } from "./colors";
 
 export function textOutOfTen(priority: number) {
   if (priority <= 3) {
@@ -9,6 +11,19 @@ export function textOutOfTen(priority: number) {
   } else {
     return `High (${priority}/10)`;
   }
+}
+
+export function randArrayEle<T>(arr: T[]): T {
+  const randIdx = Math.floor(Math.random() * arr.length);
+  return arr[randIdx];
+}
+
+export function getRandomQuote(): Quote {
+  return randArrayEle(quotes);
+}
+
+export function randColor() {
+  return randArrayEle(colors);
 }
 
 export function filterTodos(todos: Todo[]) {
@@ -82,9 +97,3 @@ export function sortTodos(toSort: Todo[], sortOrder: TodoSortOrder): Todo[] {
       return sort(toSort).asc([(t) => t.createdAt.toUnixInteger]);
   }
 }
-
-export function extractColorString(tag: Tag) {
-  return `text-[rgb(${tag.colorValue.b} ${tag.colorValue.g} ${tag.colorValue.b})]`;
-}
-
-export function rgbToHex(num: number) {}

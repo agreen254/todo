@@ -10,6 +10,7 @@ import RemoveAllAlert from "./RemoveAllAlert";
 import TodoContext from "@/contexts/TodoContext";
 import TodoMapper from "./TodoMapper";
 import SortMenu from "./SortMenu";
+import { randColor } from "@/utils/helpers";
 
 const Body = () => {
   const {
@@ -30,11 +31,7 @@ const Body = () => {
     tags: [
       {
         name: "home",
-        colorValue: {
-          r: 100,
-          g: 0,
-          b: 100,
-        },
+        color: randColor(),
       },
     ],
   };

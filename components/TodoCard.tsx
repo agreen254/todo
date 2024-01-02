@@ -50,9 +50,7 @@ const TodoCard = ({ t, className }: Props) => {
       return (
         <Button
           className="hover:text-green-400/90"
-          onClick={() =>
-            dispatch({ command: "COMPLETE_TODO", toComplete: t })
-          }
+          onClick={() => dispatch({ command: "COMPLETE_TODO", toComplete: t })}
         >
           Complete
         </Button>
@@ -60,13 +58,11 @@ const TodoCard = ({ t, className }: Props) => {
     }
   };
 
-const handlePinButton = () => {
+  const handlePinButton = () => {
     if (t.isCompleted) return;
     if (t.isPinned) {
       return (
-        <Button
-          onClick={() => dispatch({ command: "UNPIN_TODO", toUnpin: t })}
-        >
+        <Button onClick={() => dispatch({ command: "UNPIN_TODO", toUnpin: t })}>
           Unpin
         </Button>
       );
@@ -122,32 +118,19 @@ const handlePinButton = () => {
         <p>
           <span>
             <ArrowUp className="w-4 h-4 mr-2 inline-block" />
-            <span className="text-muted-foreground">
-              Priority: {textOutOfTen(t.priority)}
-            </span>
+            <span className="text-muted-foreground">Priority: </span>
+            <span className="font-semibold">{textOutOfTen(t.priority)}</span>
           </span>
         </p>
         <p>
           <span>
             <Move className="w-4 h-4 mr-2 inline-block" />
-            <span className="text-muted-foreground">
-              Complexity: {textOutOfTen(t.complexity)}
-            </span>
+            <span className="text-muted-foreground">Complexity: </span>
+            <span className="font-semibold">{textOutOfTen(t.complexity)}</span>
           </span>
         </p>
       </CardContent>
       <CardFooter>
-        {/* <Button
-          onClick={() => dispatch({ actionName: "DELETE_TODO", toDelete: t })}
-          className="hover:text-red-300/90"
-        >
-          Delete
-        </Button>
-        <Link href={`/todo/edit/${t.id}`}>
-          <Button>Edit</Button>
-        </Link>
-        {handlePinButton()}
-        {handleCompleteButton()} */}
         {t.tags?.map((tag) => (
           <TagUnit key={t.id + tag.name} tag={tag} />
         ))}
