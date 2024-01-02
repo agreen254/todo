@@ -27,7 +27,7 @@ const RemoveAllDialog = () => {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button disabled={!all.length} className="hover:bg-red-500">
+        <Button disabled={!all.length} variant="destructive" className="focus-visible:ring-destructive">
           Delete All
         </Button>
       </AlertDialogTrigger>

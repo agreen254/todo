@@ -35,7 +35,7 @@ export type TodoSortOrder = (typeof todoSortPossibilities)[number];
 
 export type Tag = {
   name: string;
-  color: string;
+  color: number;
 };
 
 export type TodoContextType = {

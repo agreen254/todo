@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { getRandomQuote } from "@/utils/randQuote";
+import { getRandomQuote } from "@/utils/helpers";
 import { Quote } from "@/utils/types";
 
 const Footer = () => {

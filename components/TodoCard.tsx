@@ -1,7 +1,5 @@
 import { useContext } from "react";
-import Link from "next/link";
 import TodoContext from "@/contexts/TodoContext";
-import { DateTime } from "luxon";
 import { textOutOfTen } from "@/utils/helpers";
 import { cn } from "@/utils/cn";
 import { Button } from "./ui/button";

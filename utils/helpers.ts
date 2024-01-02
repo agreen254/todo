@@ -1,7 +1,6 @@
 import { sort } from "fast-sort";
-import { FilteredTodos, Quote, Tag, Todo, TodoSortOrder } from "./types";
+import { FilteredTodos, Quote, Todo, TodoSortOrder } from "./types";
 import { quotes } from "./quotes";
-import { colors } from "./colors";
 
 export function textOutOfTen(priority: number) {
   if (priority <= 3) {
@@ -20,10 +19,6 @@ export function randArrayEle<T>(arr: T[]): T {
 
 export function getRandomQuote(): Quote {
   return randArrayEle(quotes);
-}
-
-export function randColor() {
-  return randArrayEle(colors);
 }
 
 export function filterTodos(todos: Todo[]) {
