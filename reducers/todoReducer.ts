@@ -10,7 +10,7 @@ export function todoReducer(
   setSortOrder: (order: TodoSortOrder) => void,
   action: Actions
 ) {
-  switch (action.actionName) {
+  switch (action.command) {
     case "ADD_TODO": {
       const newTodos = [...todos, action.toAdd];
       setTodos(newTodos);

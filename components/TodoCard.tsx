@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import { Todo } from "@/utils/types";
 import ContextMenu from "./ContextMenu";
+import TagUnit from "./Tag";
 
 export type Props = {
   t: Todo;
@@ -40,7 +41,7 @@ const TodoCard = ({ t, className }: Props) => {
     if (t.isCompleted) {
       return (
         <Button
-          onClick={() => dispatch({ actionName: "REVERT_TODO", toRevert: t })}
+          onClick={() => dispatch({ command: "REVERT_TODO", toRevert: t })}
         >
           Revert
         </Button>
@@ -50,7 +51,7 @@ const TodoCard = ({ t, className }: Props) => {
         <Button
           className="hover:text-green-400/90"
           onClick={() =>
-            dispatch({ actionName: "COMPLETE_TODO", toComplete: t })
+            dispatch({ command: "COMPLETE_TODO", toComplete: t })
           }
         >
           Complete
@@ -59,19 +60,19 @@ const TodoCard = ({ t, className }: Props) => {
     }
   };
 
-  const handlePinButton = () => {
+const handlePinButton = () => {
     if (t.isCompleted) return;
     if (t.isPinned) {
       return (
         <Button
-          onClick={() => dispatch({ actionName: "UNPIN_TODO", toUnpin: t })}
+          onClick={() => dispatch({ command: "UNPIN_TODO", toUnpin: t })}
         >
           Unpin
         </Button>
       );
     } else {
       return (
-        <Button onClick={() => dispatch({ actionName: "PIN_TODO", toPin: t })}>
+        <Button onClick={() => dispatch({ command: "PIN_TODO", toPin: t })}>
           Pin
         </Button>
       );
@@ -136,7 +137,7 @@ const TodoCard = ({ t, className }: Props) => {
         </p>
       </CardContent>
       <CardFooter>
-        <Button
+        {/* <Button
           onClick={() => dispatch({ actionName: "DELETE_TODO", toDelete: t })}
           className="hover:text-red-300/90"
         >
@@ -146,7 +147,10 @@ const TodoCard = ({ t, className }: Props) => {
           <Button>Edit</Button>
         </Link>
         {handlePinButton()}
-        {handleCompleteButton()}
+        {handleCompleteButton()} */}
+        {t.tags?.map((tag) => (
+          <TagUnit key={t.id + tag.name} tag={tag} />
+        ))}
       </CardFooter>
     </Card>
   );

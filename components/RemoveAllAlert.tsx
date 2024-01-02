@@ -21,7 +21,7 @@ const RemoveAllDialog = () => {
     dispatch,
   } = useContext(TodoContext);
   const handleDeleteAll = () => {
-    dispatch({ actionName: "DELETE_ALL_TODOS" });
+    dispatch({ command: "DELETE_ALL_TODOS" });
   };
 
   return (

@@ -27,13 +27,22 @@ const Body = () => {
     isCompleted: false,
     isPinned: false,
     id: uid(),
-    tags: ["home", "chores"],
+    tags: [
+      {
+        name: "home",
+        colorValue: {
+          r: 100,
+          g: 0,
+          b: 100,
+        },
+      },
+    ],
   };
 
   return (
     <>
       <Button
-        onClick={() => dispatch({ actionName: "ADD_TODO", toAdd: dummyTodo })}
+        onClick={() => dispatch({ command: "ADD_TODO", toAdd: dummyTodo })}
       >
         Add Dummy
       </Button>

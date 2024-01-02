@@ -10,7 +10,7 @@ export type Todo = {
   complexity: number;
   description?: string;
   dueAt?: DateTime;
-  tags?: string[];
+  tags?: Tag[];
 };
 
 export type FilteredTodos = {
@@ -35,7 +35,11 @@ export type TodoSortOrder = (typeof todoSortPossibilities)[number];
 
 export type Tag = {
   name: string;
-  colorValue: string;
+  colorValue: {
+    r: number;
+    g: number;
+    b: number;
+  };
 };
 
 export type TodoContextType = {
@@ -59,46 +63,46 @@ export type Quote = {
 // REDUCER TYPES //
 ///////////////////
 type AddTodo = {
-  actionName: "ADD_TODO";
+  command: "ADD_TODO";
   toAdd: Todo;
 };
 
 type DeleteTodo = {
-  actionName: "DELETE_TODO";
+  command: "DELETE_TODO";
   toDelete: Todo;
 };
 
 type DeleteAllTodos = {
-  actionName: "DELETE_ALL_TODOS";
+  command: "DELETE_ALL_TODOS";
 };
 
 type EditTodo = {
-  actionName: "UNPIN_TODO";
+  command: "UNPIN_TODO";
   toUnpin: Todo;
 };
 
 type CompleteTodo = {
-  actionName: "EDIT_TODO";
+  command: "EDIT_TODO";
   editedTodo: Todo;
 };
 
 type PinTodo = {
-  actionName: "PIN_TODO";
+  command: "PIN_TODO";
   toPin: Todo;
 };
 
 type UnpinTodo = {
-  actionName: "COMPLETE_TODO";
+  command: "COMPLETE_TODO";
   toComplete: Todo;
 };
 
 type RevertTodo = {
-  actionName: "REVERT_TODO";
+  command: "REVERT_TODO";
   toRevert: Todo;
 };
 
 type SetSortOrder = {
-  actionName: "SET_SORT_ORDER";
+  command: "SET_SORT_ORDER";
   newOrder: TodoSortOrder;
 };
 

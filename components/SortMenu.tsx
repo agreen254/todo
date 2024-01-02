@@ -18,7 +18,7 @@ const SortMenu = () => {
     dispatch,
   } = useContext(TodoContext);
   const handleSortOrder = (newOrder: TodoSortOrder) => {
-    dispatch({ actionName: "SET_SORT_ORDER", newOrder: newOrder });
+    dispatch({ command: "SET_SORT_ORDER", newOrder: newOrder });
   };
 
   const isSelectedSort = (category: TodoSortOrder) => {

@@ -47,7 +47,7 @@ const ContextMenu = ({ t, deleteHandler }: Props) => {
             variant="ghost"
             className="w-full py-[24px] px-5 rounded-t-none rounded-b-md text-center dark:hover:bg-destructive/50 hover:bg-destructive/30 focus-visible:outline-red-300 dark:focus:outline-destructive text-base"
             onClick={() =>
-              deleteHandler({ actionName: "DELETE_TODO", toDelete: t })
+              deleteHandler({ command: "DELETE_TODO", toDelete: t })
             }
           >
             Delete
