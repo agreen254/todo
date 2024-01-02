@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { getRandomQuote } from "@/utils/helpers";
+import { randQuote } from "@/utils/helpers";
 import { Quote } from "@/utils/types";
 
 const Footer = () => {
@@ -9,7 +9,7 @@ const Footer = () => {
 
   // useEffect stops client/server mismatch by only running the code clientside
   useEffect(() => {
-    setQuote(getRandomQuote);
+    setQuote(randQuote);
   }, []);
 
   if (!quote) return;

@@ -1,8 +1,8 @@
 import { sort } from "fast-sort";
-import { FilteredTodos, Quote, Todo, TodoSortOrder } from "./types";
+import { FilteredTodos, Quote, Tag, Todo, TodoSortOrder } from "./types";
 import { quotes } from "./quotes";
 
-export function textOutOfTen(priority: number) {
+export function textOutOfTen(priority: number): string {
   if (priority <= 3) {
     return `Low (${priority}/10)`;
   } else if (priority <= 7) {
@@ -17,16 +17,35 @@ export function randArrayEle<T>(arr: T[]): T {
   return arr[randIdx];
 }
 
-export function getRandomQuote(): Quote {
+export function randQuote(): Quote {
   return randArrayEle(quotes);
 }
 
-export function filterTodos(todos: Todo[]) {
-  let result = {
+export function tagNameCount(todos: Todo[], name: string) {}
+
+export function allTagNames(todos: Todo[]) {
+  function todoTags(todo: Todo) {
+    const tags = todo.tags;
+    if (!tags) {
+      return [];
+    } else {
+      return tags.reduce((names: string[], tag) => {
+        return [...names, tag.name];
+      }, []);
+    }
+  }
+
+  return todos.reduce((names: string[], t) => {
+    return [...names, ...todoTags(t)];
+  }, []);
+}
+
+export function filterTodos(todos: Todo[]): FilteredTodos {
+  let result: FilteredTodos = {
     pinned: [],
     pending: [],
     completed: [],
-  } as FilteredTodos;
+  };
 
   for (let i = 0; i < todos.length; i++) {
     if (todos[i].isPinned) {

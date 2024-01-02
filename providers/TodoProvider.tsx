@@ -16,12 +16,20 @@ const TodoProvider = ({ children }: { children: React.ReactNode }) => {
 
   // abstract away all the setters
   const dispatch = (action: Actions) => {
-    todoReducer(todos, setTodos, sortOrder, setSortOrder, action);
+    todoReducer(
+      todos,
+      setTodos,
+      sortOrder,
+      setSortOrder,
+      tags,
+      setTags,
+      action
+    );
   };
 
   const { completed, pending, pinned } = filterTodos(todos);
 
-  const todoState = {
+  const state = {
     all: todos,
     completed: completed,
     pending: pending,
@@ -31,7 +39,7 @@ const TodoProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   return (
-    <TodoContext.Provider value={{ state: todoState, dispatch }}>
+    <TodoContext.Provider value={{ state, dispatch }}>
       {children}
     </TodoContext.Provider>
   );
