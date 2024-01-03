@@ -20,13 +20,14 @@ const Body = () => {
   const dummyTodo: Todo = {
     name: "this is a test to see how a really long title will look when it wraps around",
     description: "a short description of the task",
-    createdAt: DateTime.now(),
-    dueAt: DateTime.now().plus({ days: 7 }),
+    createdAt: DateTime.now().toISO(),
+    dueAt: DateTime.now().plus({ days: 7 }).toISO(),
     priority: 3,
     complexity: 5,
     isCompleted: false,
     isPinned: false,
     id: uid(),
+    repeatId: uid(),
     tags: [
       {
         name: "home",
@@ -43,20 +44,22 @@ const Body = () => {
         Add Dummy
       </Button>
       <SortMenu />
-      <h2 className="text-3xl ml-10">
-        {pending.length || pinned.length
-          ? "Pending Todos:"
-          : "No pending todos to show."}
-      </h2>
-      <Separator className="w-[65vw] my-2 h-[3px] rounded-tr-md rounded-br-md" />
+      {(!!pending.length || !!pinned.length) && (
+        <div>
+          <h2 className="text-3xl ml-10 text-primary">Pending:</h2>
+          <Separator className="bg-primary w-[65vw] my-2 h-[3px] rounded-tr-md rounded-br-md" />
+        </div>
+      )}
       <div className="flex justify-start flex-wrap max-w-[3340px] mx-auto">
         <TodoMapper todos={pinned} />
         <TodoMapper todos={pending} />
       </div>
-      <h2 className="ml-10 mt-12 text-3xl">
-        {completed.length ? "Completed Todos:" : "No completed todos to show."}
-      </h2>
-      <Separator className="w-[65vw] my-2 h-[3px] rounded-tr-md rounded-br-md" />
+      {!!completed.length && (
+        <div>
+          <h2 className="text-3xl ml-10 text-primary">Completed:</h2>
+          <Separator className="bg-primary w-[65vw] my-2 h-[3px] rounded-tr-md rounded-br-md" />
+        </div>
+      )}
       <div className="flex justify-start flex-wrap max-w-[3340px] mx-auto">
         <TodoMapper todos={completed} />
       </div>

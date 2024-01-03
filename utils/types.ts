@@ -1,15 +1,18 @@
-import { DateTime } from "luxon";
-
+// Ideally the dueAt and createdAt properties would be instances of the DateTime class, but the class information
+// gets erased when the data gets stringified to be stored in local storage.
+// This throws errors because you will try to access DateTime methods that are no longer available.
+// As a work around, the dates are stored as UTC strings and then converted to class instances when they are accessed at runtime.
 export type Todo = {
   name: string;
-  createdAt: DateTime;
+  createdAt: string;
   isCompleted: boolean;
   isPinned: boolean;
   id: string;
+  repeatId: string;
   priority: number;
   complexity: number;
   description?: string;
-  dueAt?: DateTime;
+  dueAt?: string;
   tags?: Tag[];
 };
 
@@ -33,10 +36,7 @@ export const todoSortForMapping = [
 const todoSortPossibilities = todoSortForMapping.flat();
 export type TodoSortOrder = (typeof todoSortPossibilities)[number];
 
-export type Tag = {
-  name: string;
-  color: number;
-};
+export type Tag = { name: string; color: number };
 
 export type TodoContextType = {
   state: {

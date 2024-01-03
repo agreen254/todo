@@ -1,13 +1,13 @@
 import { Tag } from "@/utils/types";
 
 const TagBadge = ({ tag }: { tag: Tag }) => {
-  if (!tag.color) return;
+  if (typeof tag.color === "undefined") return;
 
-  // you cannot render classNames in tailwind by directly using props that you pass
-  // to a component, you must map the props to a static className
-  // the color property of the tag type is an integer that serves as a key to this map
-  // it is retrieved at runtime so tailwind can properly render the background color
-  // the color will not show if you move the map to another file and then import it!
+  // You cannot render classNames in tailwind by directly using props that you pass
+  // to a component, you must map the props to a static className.
+  // The color property of the tag type is an integer that serves as a key to this map.
+  // It is retrieved at runtime so tailwind can properly render the background color.
+  // The color will not properly show if you move the map to another file and then import it!
   // more info: https://tailwindcss.com/docs/content-configuration#dynamic-class-names
   const colorsMap = new Map<number, string>([
     [0, "bg-red-500/50"],
