@@ -20,11 +20,12 @@ const CardActions = ({ t }: { t: Todo }) => {
     dispatch,
   } = useContext(TodoContext);
 
-  const pinIcon = () => {
+  const pinDisplay = () => {
     return t.isPinned ? (
       <Button
         variant="ghost"
         size="icon"
+        disabled={t.isCompleted}
         onClick={() => dispatch({ command: "UNPIN_TODO", toUnpin: t })}
       >
         <PinOff className="w-6 h-6" />
@@ -34,17 +35,25 @@ const CardActions = ({ t }: { t: Todo }) => {
         variant="ghost"
         size="icon"
         onClick={() => dispatch({ command: "PIN_TODO", toPin: t })}
-        disabled={pinned.length >= 3}
+        disabled={pinned.length >= 3 || t.isCompleted}
       >
         <Pin className="w-6 h-6" />
       </Button>
     );
   };
 
+  const handleCompleteClick = () => {
+    if (t.isCompleted) {
+      dispatch({ command: "REVERT_TODO", toRevert: t });
+    } else {
+      dispatch({ command: "COMPLETE_TODO", toComplete: t });
+    }
+  };
+
   return (
     <span className="flex justify-end">
-      {pinIcon()}
-      <Button variant="ghost" size="icon">
+      {pinDisplay()}
+      <Button variant="ghost" size="icon" onClick={() => handleCompleteClick()}>
         <CheckCircle
           className={cn("w-6 h-6 mx-2", t.isCompleted && "text-green-500")}
         />

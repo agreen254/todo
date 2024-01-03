@@ -55,7 +55,7 @@ const Body = () => {
         <TodoMapper todos={pending} />
       </div>
       {!!completed.length && (
-        <div>
+        <div className="mt-8">
           <h2 className="text-3xl ml-10 text-primary">Completed:</h2>
           <Separator className="bg-primary w-[65vw] my-2 h-[3px] rounded-tr-md rounded-br-md" />
         </div>

@@ -1,5 +1,3 @@
-import { useContext } from "react";
-import TodoContext from "@/contexts/TodoContext";
 import dueAtString from "@/utils/dueAtString";
 import txtOutOfTen from "@/utils/txtOutOfTen";
 import { cn } from "@/utils/cn";
@@ -15,17 +13,13 @@ export type Props = {
 };
 
 const TodoCard = ({ t, className }: Props) => {
-  const {
-    state: { pinned },
-    dispatch,
-  } = useContext(TodoContext);
   if (!t.dueAt) return;
 
   return (
     <Card className={cn(className)}>
       <div
         className={cn(
-          "flex justify-between items-center pt-5 mb-2 pb-[4px] px-5 rounded-t-md leading-8",
+          "flex justify-between items-center pt-5 mb-4 pb-[4px] px-5 rounded-t-md leading-8",
           t.isPinned && "bg-teal-500"
         )}
       >
@@ -34,7 +28,7 @@ const TodoCard = ({ t, className }: Props) => {
         </h3>
         <CardActions t={t} />
       </div>
-      <CardDescription className="px-5 relative top-[-10px] line-clamp-1">
+      <CardDescription className="px-5 mb-2 relative top-[-10px] line-clamp-1">
         {t.description}
       </CardDescription>
       <CardContent className="space-y-2">
@@ -60,7 +54,7 @@ const TodoCard = ({ t, className }: Props) => {
           </span>
         </p>
       </CardContent>
-      <CardFooter>
+      <CardFooter className="flex flex-wrap justify-start">
         {t.tags?.map((tag) => (
           <TagBadge key={t.id + tag.name} tag={tag} />
         ))}

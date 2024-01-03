@@ -1,10 +1,9 @@
 import { sort } from "fast-sort";
 import { Todo, TodoSortOrder } from "./types";
-import { DateTime } from "luxon";
 
 export default function sortTodos(
   toSort: Todo[],
-  sortOrder: TodoSortOrder
+  sortOrder: TodoSortOrder & "powerMode"
 ): Todo[] {
   switch (sortOrder) {
     case "name_asc": {
@@ -51,6 +50,11 @@ export default function sortTodos(
     case "complexity_desc":
       return sort(toSort).by([
         { desc: (t) => t.complexity },
+        { desc: (t) => t.createdAt },
+      ]);
+    case "powerMode":
+      return sort(toSort).by([
+        { asc: (t) => t.complexity + t.priority },
         { desc: (t) => t.createdAt },
       ]);
     default:
