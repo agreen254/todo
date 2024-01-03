@@ -59,46 +59,46 @@ export type Quote = {
 // REDUCER TYPES //
 ///////////////////
 type AddTodo = {
-  command: "ADD_TODO";
+  cmd: "ADD_TODO";
   toAdd: Todo;
 };
 
 type DeleteTodo = {
-  command: "DELETE_TODO";
+  cmd: "DELETE_TODO";
   toDelete: Todo;
 };
 
 type DeleteAllTodos = {
-  command: "DELETE_ALL_TODOS";
+  cmd: "DELETE_ALL_TODOS";
 };
 
 type EditTodo = {
-  command: "UNPIN_TODO";
+  cmd: "UNPIN_TODO";
   toUnpin: Todo;
 };
 
 type CompleteTodo = {
-  command: "EDIT_TODO";
+  cmd: "EDIT_TODO";
   editedTodo: Todo;
 };
 
 type PinTodo = {
-  command: "PIN_TODO";
+  cmd: "PIN_TODO";
   toPin: Todo;
 };
 
 type UnpinTodo = {
-  command: "COMPLETE_TODO";
+  cmd: "COMPLETE_TODO";
   toComplete: Todo;
 };
 
 type RevertTodo = {
-  command: "REVERT_TODO";
+  cmd: "REVERT_TODO";
   toRevert: Todo;
 };
 
 type SetSortOrder = {
-  command: "SET_SORT_ORDER";
+  cmd: "SET_SORT_ORDER";
   newOrder: TodoSortOrder;
 };
 

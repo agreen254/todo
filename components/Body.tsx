@@ -39,7 +39,7 @@ const Body = () => {
   return (
     <>
       <Button
-        onClick={() => dispatch({ command: "ADD_TODO", toAdd: dummyTodo })}
+        onClick={() => dispatch({ cmd: "ADD_TODO", toAdd: dummyTodo })}
       >
         Add Dummy
       </Button>

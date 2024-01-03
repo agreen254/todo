@@ -14,7 +14,7 @@ export function todoReducer(
   setTags: (tags: Tag[]) => void,
   action: Actions
 ) {
-  switch (action.command) {
+  switch (action.cmd) {
     case "ADD_TODO": {
       const newTodos = [...todos, action.toAdd];
       setTodos(newTodos);

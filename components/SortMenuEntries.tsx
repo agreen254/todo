@@ -31,7 +31,7 @@ const SortMenuEntries = () => {
               className="mr-4 transition-colors w-[calc(50%-12px)] font-semibold"
               variant={isSelectedSort(entry[0]) ? "selectedSort" : "default"}
               onClick={() =>
-                dispatch({ command: "SET_SORT_ORDER", newOrder: entry[0] })
+                dispatch({ cmd: "SET_SORT_ORDER", newOrder: entry[0] })
               }
             >
               {firstDisplay}
@@ -40,7 +40,7 @@ const SortMenuEntries = () => {
               className="transition-colors w-[calc(50%-12px)] font-semibold"
               variant={isSelectedSort(entry[1]) ? "selectedSort" : "default"}
               onClick={() =>
-                dispatch({ command: "SET_SORT_ORDER", newOrder: entry[1] })
+                dispatch({ cmd: "SET_SORT_ORDER", newOrder: entry[1] })
               }
             >
               {lastDisplay}

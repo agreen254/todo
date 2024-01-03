@@ -26,7 +26,7 @@ const CardActions = ({ t }: { t: Todo }) => {
         variant="ghost"
         size="icon"
         disabled={t.isCompleted}
-        onClick={() => dispatch({ command: "UNPIN_TODO", toUnpin: t })}
+        onClick={() => dispatch({ cmd: "UNPIN_TODO", toUnpin: t })}
       >
         <PinOff className="w-6 h-6" />
       </Button>
@@ -34,7 +34,7 @@ const CardActions = ({ t }: { t: Todo }) => {
       <Button
         variant="ghost"
         size="icon"
-        onClick={() => dispatch({ command: "PIN_TODO", toPin: t })}
+        onClick={() => dispatch({ cmd: "PIN_TODO", toPin: t })}
         disabled={pinned.length >= 3 || t.isCompleted}
       >
         <Pin className="w-6 h-6" />
@@ -44,9 +44,9 @@ const CardActions = ({ t }: { t: Todo }) => {
 
   const handleCompleteClick = () => {
     if (t.isCompleted) {
-      dispatch({ command: "REVERT_TODO", toRevert: t });
+      dispatch({ cmd: "REVERT_TODO", toRevert: t });
     } else {
-      dispatch({ command: "COMPLETE_TODO", toComplete: t });
+      dispatch({ cmd: "COMPLETE_TODO", toComplete: t });
     }
   };
 
@@ -87,7 +87,7 @@ const CardActions = ({ t }: { t: Todo }) => {
             <Button
               variant="ghost"
               className="w-full py-[24px] px-5 rounded-t-none rounded-b-md text-center dark:hover:bg-destructive/50 hover:bg-destructive/30 focus-visible:outline-red-300 dark:focus:outline-destructive text-base"
-              onClick={() => dispatch({ command: "DELETE_TODO", toDelete: t })}
+              onClick={() => dispatch({ cmd: "DELETE_TODO", toDelete: t })}
             >
               Delete
             </Button>
