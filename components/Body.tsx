@@ -9,7 +9,7 @@ import { uid } from "uid";
 import RemoveAllAlert from "./RemoveAllAlert";
 import TodoContext from "@/contexts/TodoContext";
 import TodoMapper from "./TodoMapper";
-import SortMenu from "./SortMenu";
+import SortMenu from "./SortMenu/SortMenu";
 
 const Body = () => {
   const {

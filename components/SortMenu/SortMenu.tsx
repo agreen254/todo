@@ -8,8 +8,8 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { Separator } from "./ui/separator";
-import { Button } from "./ui/button";
+import { Separator } from "../ui/separator";
+import { Button } from "../ui/button";
 import SortMenuEntries from "./SortMenuEntries";
 import { sortingMap } from "@/utils/maps";
 

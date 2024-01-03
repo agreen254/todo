@@ -1,5 +1,5 @@
 import { Todo } from "@/utils/types";
-import TodoCard from "./TodoCard";
+import TodoCard from "./TodoCard/TodoCard";
 
 const TodoMapper = ({ todos }: { todos: Todo[] }) => {
   return todos.map((t) => (

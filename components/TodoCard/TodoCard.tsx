@@ -1,7 +1,7 @@
 import dueAtString from "@/utils/dueAtString";
 import txtOutOfTen from "@/utils/txtOutOfTen";
 import { cn } from "@/utils/cn";
-import { Card, CardContent, CardDescription, CardFooter } from "./ui/card";
+import { Card, CardContent, CardDescription, CardFooter } from "../ui/card";
 import { ArrowUp, Calendar, Move } from "lucide-react";
 import { Todo } from "@/utils/types";
 import CardActions from "./CardActions";

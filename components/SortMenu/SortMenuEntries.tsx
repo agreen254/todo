@@ -2,10 +2,10 @@
 
 import { useContext } from "react";
 import TodoContext from "@/contexts/TodoContext";
-import { Separator } from "./ui/separator";
+import { Separator } from "../ui/separator";
 import { sortingMap } from "@/utils/maps";
 import { TodoSortOrder, todoSortForMapping } from "@/utils/types";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 
 const SortMenuEntries = () => {
   const {
