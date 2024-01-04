@@ -1,7 +1,7 @@
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 
-const TodoForm = (role: "Add" | "Edit") => {
+const TodoForm = (role: "add" | "edit" | "clone") => {
   return (
     <div>
       <h1>{`${role} Todo`}</h1>

@@ -1,12 +1,9 @@
 "use client";
 
 import { useContext } from "react";
-import { faker as f } from "@faker-js/faker";
-import { DateTime } from "luxon";
 import { Button } from "./ui/button";
 import { Separator } from "./ui/separator";
-import { Todo } from "@/utils/types";
-import { uid } from "uid";
+import dummyTodo from "@/utils/dummyTodo";
 import RemoveAllAlert from "./Dialogs/RemoveAllDialog";
 import TodoContext from "@/contexts/TodoContext";
 import TodoMapper from "./TodoMapper";
@@ -18,28 +15,9 @@ const Body = () => {
     dispatch,
   } = useContext(TodoContext);
 
-  const dummyTodo: Todo = {
-    name: f.lorem.words({ min: 1, max: 8 }),
-    description: f.lorem.words({ min: 3, max: 14 }),
-    createdAt: DateTime.now().toISO(),
-    dueAt: f.date
-      .between({
-        from: DateTime.now().toISO(),
-        to: DateTime.now().plus({ days: 30 }).toISO(),
-      })
-      .toISOString(),
-    priority: f.number.int({ min: 1, max: 10 }),
-    complexity: f.number.int({ min: 1, max: 10 }),
-    isCompleted: false,
-    isPinned: false,
-    id: uid(),
-    repeatId: uid(),
-    tags: ["home", "chores"],
-  };
-
   return (
     <>
-      <Button onClick={() => dispatch({ cmd: "ADD_TODO", toAdd: dummyTodo })}>
+      <Button onClick={() => dispatch({ cmd: "ADD_TODO", toAdd: dummyTodo() })}>
         Add Dummy
       </Button>
       <SortMenu />
