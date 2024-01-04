@@ -12,9 +12,9 @@ export type Todo = {
   repeatId: string;
   priority: number;
   complexity: number;
+  tags: string[];
   description?: string;
   dueAt?: string;
-  tags?: string[];
 };
 
 export type FilteredTodos = {

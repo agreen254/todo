@@ -3,8 +3,13 @@
 import { useContext } from "react";
 import TodoContext from "@/contexts/TodoContext";
 
-const TagBadge = ({ tag }: { tag: string}) => {
-  if (!tag) return;
+const TagBadge = ({ tag }: { tag: string }) => {
+  const {
+    state: { tags },
+  } = useContext(TodoContext);
+
+  const storedTag = tags.find((t) => t.name === tag);
+  if (!storedTag) return;
 
   // You cannot render classNames in tailwind by directly using props that you pass
   // to a component, you must map the props to a static className.
@@ -39,11 +44,11 @@ const TagBadge = ({ tag }: { tag: string}) => {
     [22, "bg-purple-700/50"],
     [23, "bg-purple-900/50"],
   ]);
-  const cn = colorsMap.get(tag.color)!;
+  const cn = colorsMap.get(storedTag.color)!;
 
   return (
     <span className={`px-3 py-2 rounded-[1rem] text-sm font-bold ${cn}`}>
-      {tag.name}
+      {storedTag.name}
     </span>
   );
 };

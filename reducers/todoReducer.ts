@@ -1,6 +1,5 @@
 import { Actions, Tag, Todo, TodoSortOrder } from "../utils/types";
-import addTagUpdater from "@/utils/addTagUpdater";
-import deleteTagUpdater from "@/utils/deleteTagUpdater";
+import addTodoTagsHandler from "@/utils/addTodoTagHandler";
 
 // handles all operations for the raw todo array that is found in local storage
 // the raw array is passed into the TodoContext, where it is processed (sorted, split into different parts, etc)
@@ -16,7 +15,7 @@ export function todoReducer(
 ) {
   switch (action.cmd) {
     case "ADD_TODO": {
-      action.toAdd.tags?.forEach((tag) => addTagUpdater(tags, setTags, tag));
+      addTodoTagsHandler(tags, action.toAdd.tags, setTags);
       const newTodos = [...todos, action.toAdd];
       setTodos(newTodos);
       return;
