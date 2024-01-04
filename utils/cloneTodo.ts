@@ -2,6 +2,8 @@ import { DateTime } from "luxon";
 import { Todo } from "./types";
 import { uid } from "uid";
 
+// TODO: determine luxon behavior for the following scenarios:
+// I declare a todo that is due on the 31st day of the month to repeat monthly. What happens for months that do not have a 31st day?
 export default function cloneTodo(
   toClone: Todo,
   delay: "days" | "weeks" | "months",
