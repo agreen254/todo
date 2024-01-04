@@ -20,7 +20,7 @@ const CardActions = ({ t }: { t: Todo }) => {
     dispatch,
   } = useContext(TodoContext);
 
-  const pinDisplay = () => {
+  const handlePinDisplay = () => {
     return t.isPinned ? (
       <Button
         variant="ghost"
@@ -42,22 +42,26 @@ const CardActions = ({ t }: { t: Todo }) => {
     );
   };
 
-  const handleCompleteClick = () => {
-    if (t.isCompleted) {
-      dispatch({ cmd: "REVERT_TODO", toRevert: t });
-    } else {
-      dispatch({ cmd: "COMPLETE_TODO", toComplete: t });
+  const handleCompleteDisplay = () => {
+    function handleCompleteClick() {
+      if (t.isCompleted) {
+        dispatch({ cmd: "REVERT_TODO", toRevert: t });
+      } else {
+        dispatch({ cmd: "COMPLETE_TODO", toComplete: t });
+      }
     }
-  };
 
-  return (
-    <span className="flex justify-end">
-      {pinDisplay()}
+    return (
       <Button variant="ghost" size="icon" onClick={() => handleCompleteClick()}>
         <CheckCircle
           className={cn("w-6 h-6 mx-2", t.isCompleted && "text-green-500")}
         />
       </Button>
+    );
+  };
+
+  const handleContextMenuDisplay = () => {
+    return (
       <Popover>
         <PopoverTrigger asChild>
           <Button variant="ghost" size="icon">
@@ -95,6 +99,14 @@ const CardActions = ({ t }: { t: Todo }) => {
           </div>
         </PopoverContent>
       </Popover>
+    );
+  };
+
+  return (
+    <span className="flex justify-end">
+      <span>{handlePinDisplay()}</span>
+      <span>{handleCompleteDisplay()}</span>
+      <span>{handleContextMenuDisplay()}</span>
     </span>
   );
 };

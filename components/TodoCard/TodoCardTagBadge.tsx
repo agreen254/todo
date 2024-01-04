@@ -15,7 +15,7 @@ const TagBadge = ({ tag }: { tag: string }) => {
   // to a component, you must map the props to a static className.
   // The color property of the tag type is an integer that serves as a key to this map.
   // It is retrieved at runtime so tailwind can render the background color.
-  // The color will not properly show if you move the map to another file and then import it,
+  // The color will not properly show if you move the map to another file and then import it;
   // the raw className strings must be present in this file!
   // more info: https://tailwindcss.com/docs/content-configuration#dynamic-class-names
   const colorsMap = new Map<number, string>([
