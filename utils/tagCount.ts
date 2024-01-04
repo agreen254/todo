@@ -1,25 +1,14 @@
-import { Todo } from "./types";
+import { Todo, Tag } from "./types";
 
-export default function tagCount(todos: Todo[], name: string) {
-  // tags of one todo
-  function todoTags(todo: Todo) {
-    const tags = todo.tags;
-    if (!tags) {
-      return [];
-    } else {
-      return tags.reduce((names: string[], tag) => {
-        return [...names, tag.name];
-      }, []);
-    }
-  }
+// I want to check to see if a tag exists.
+// If the tag doesn't already exist, I need to create a new one and place it into the local storage.
+// If the tag already exists, I don't need to do anything.
 
-  // tags of all todos
-  function allTagNames(todos: Todo[]) {
-    return todos.reduce((names: string[], t) => {
-      return [...names, ...todoTags(t)];
-    }, []);
-  }
+// isLastOccurrence -> check the todos
+// DNE -> check the todos
 
-  const names = allTagNames(todos);
-  return names.filter((n) => n === name).length;
+export default function tagCount(todos: Todo[], toCount: string) {
+  return todos.reduce((n, t) => {
+    return toCount === t.name ? n + 1 : n;
+  }, 0);
 }

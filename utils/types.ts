@@ -1,7 +1,8 @@
 // Ideally the dueAt and createdAt properties would be instances of the DateTime class, but the class information
 // gets erased when the data gets stringified to be stored in local storage.
-// This throws errors because you will try to access DateTime methods that are no longer available.
-// As a work around, the dates are stored as UTC strings and then converted to class instances when they are accessed at runtime.
+// This throws errors because you will try to access DateTime class methods that are no longer available.
+// The typescript compiler doesn't detect this if you just assign the type here.
+// As a workaround, the dates are all stored as ISO strings and then converted to class instances after they are pulled at runtime.
 export type Todo = {
   name: string;
   createdAt: string;
@@ -13,7 +14,7 @@ export type Todo = {
   complexity: number;
   description?: string;
   dueAt?: string;
-  tags?: Tag[];
+  tags?: string[];
 };
 
 export type FilteredTodos = {
@@ -36,6 +37,9 @@ export const todoSortForMapping = [
 const todoSortPossibilities = todoSortForMapping.flat();
 export type TodoSortOrder = (typeof todoSortPossibilities)[number];
 
+// The Tag type here is different than the string array type assigned to the tags property of the Todo type.
+// The Tag objects are what actually get assigned to the [tags, setTags] local storage; the name of the tag and integer to be
+// pulled from the colorMap (see the TodoCardTagBadge component) are accessed by comparison of the tags property from the Todo object at runtime.
 export type Tag = { name: string; color: number };
 
 export type TodoContextType = {
@@ -55,9 +59,7 @@ export type Quote = {
   a: string;
 };
 
-///////////////////
-// REDUCER TYPES //
-///////////////////
+// here are all the action types that the reducer uses:
 type AddTodo = {
   cmd: "ADD_TODO";
   toAdd: Todo;

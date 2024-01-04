@@ -1,18 +1,15 @@
+import newTag from "./newTag";
 import tagCount from "./tagCount";
-import { Tag, Todo } from "./types";
+import { Tag } from "./types";
 
 export default function addTagUpdater(
-  todos: Todo[],
   tags: Tag[],
   setTags: (tags: Tag[]) => void,
   name: string
 ) {
-  const count = tagCount(todos, name);
+  const count = tagCount(tags, name);
   if (count === 0) {
-    const newTag: Tag = {
-      name: name,
-      color: Math.floor(Math.random() * 24),
-    };
-    setTags([...tags, newTag]);
+    const toAdd = newTag(name);
+    setTags([...tags, toAdd]);
   }
 }

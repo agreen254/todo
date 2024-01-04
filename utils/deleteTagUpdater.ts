@@ -1,14 +1,14 @@
 import tagCount from "./tagCount";
-import { Tag, Todo } from "./types";
+import { Tag } from "./types";
 
 export default function deleteTagUpdater(
-  todos: Todo[],
   tags: Tag[],
   setTags: (tags: Tag[]) => void,
   name: string
 ) {
-  const count = tagCount(todos, name);
+  const count = tagCount(tags, name);
   if (count === 1) {
-    setTags(tags.filter((tag) => tag.name !== name));
+    const newTags = tags.filter((tag) => tag.name !== name);
+    setTags(newTags);
   }
 }

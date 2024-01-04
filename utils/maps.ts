@@ -1,6 +1,6 @@
 import { TodoSortOrder } from "./types";
 
-// more readable sorting names to render in the UI
+// renders more straightforward sorting names to the user
 export const sortingMap = new Map<TodoSortOrder, string>([
   ["default", "default"],
   ["name_asc", "name (A to Z)"],

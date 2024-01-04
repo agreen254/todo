@@ -16,6 +16,7 @@ export function todoReducer(
 ) {
   switch (action.cmd) {
     case "ADD_TODO": {
+      action.toAdd.tags?.forEach((tag) => addTagUpdater(tags, setTags, tag));
       const newTodos = [...todos, action.toAdd];
       setTodos(newTodos);
       return;

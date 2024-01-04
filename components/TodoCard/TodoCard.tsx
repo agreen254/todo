@@ -1,11 +1,11 @@
 import dueAtString from "@/utils/dueAtString";
-import txtOutOfTen from "@/utils/txtOutOfTen";
+import outOfTen from "@/utils/outOfTen";
 import { cn } from "@/utils/cn";
 import { Card, CardContent, CardDescription, CardFooter } from "../ui/card";
 import { ArrowUp, Calendar, Move } from "lucide-react";
 import { Todo } from "@/utils/types";
-import CardActions from "./CardActions";
-import TagBadge from "./TagBadge";
+import CardActions from "./TodoCardActions";
+import TagBadge from "./TodoCardTagBadge";
 
 export type Props = {
   t: Todo;
@@ -13,8 +13,6 @@ export type Props = {
 };
 
 const TodoCard = ({ t, className }: Props) => {
-  if (!t.dueAt) return;
-
   return (
     <Card className={cn(className)}>
       <div
@@ -43,20 +41,20 @@ const TodoCard = ({ t, className }: Props) => {
           <span>
             <ArrowUp className="w-4 h-4 mr-2 inline-block" />
             <span className="text-muted-foreground">Priority: </span>
-            <span className="font-semibold">{txtOutOfTen(t.priority)}</span>
+            <span className="font-semibold">{outOfTen(t.priority)}</span>
           </span>
         </p>
         <p>
           <span>
             <Move className="w-4 h-4 mr-2 inline-block" />
             <span className="text-muted-foreground">Complexity: </span>
-            <span className="font-semibold">{txtOutOfTen(t.complexity)}</span>
+            <span className="font-semibold">{outOfTen(t.complexity)}</span>
           </span>
         </p>
       </CardContent>
       <CardFooter className="flex flex-wrap justify-start">
         {t.tags?.map((tag) => (
-          <TagBadge key={t.id + tag.name} tag={tag} />
+          <TagBadge key={t.id + tag} tag={tag} />
         ))}
       </CardFooter>
     </Card>

@@ -6,7 +6,7 @@ import { Button } from "./ui/button";
 import { Separator } from "./ui/separator";
 import { Todo } from "@/utils/types";
 import { uid } from "uid";
-import RemoveAllAlert from "./RemoveAllAlert";
+import RemoveAllAlert from "./Dialogs/RemoveAllDialog";
 import TodoContext from "@/contexts/TodoContext";
 import TodoMapper from "./TodoMapper";
 import SortMenu from "./SortMenu/SortMenu";
@@ -28,19 +28,12 @@ const Body = () => {
     isPinned: false,
     id: uid(),
     repeatId: uid(),
-    tags: [
-      {
-        name: "home",
-        color: Math.floor(Math.random() * 24),
-      },
-    ],
+    tags: ["home"],
   };
 
   return (
     <>
-      <Button
-        onClick={() => dispatch({ cmd: "ADD_TODO", toAdd: dummyTodo })}
-      >
+      <Button onClick={() => dispatch({ cmd: "ADD_TODO", toAdd: dummyTodo })}>
         Add Dummy
       </Button>
       <SortMenu />
