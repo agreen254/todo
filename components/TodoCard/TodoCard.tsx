@@ -1,4 +1,4 @@
-import dueAtString from "@/utils/dueAtString";
+import dueAtString from "@/utils/parseDueAt";
 import outOfTen from "@/utils/outOfTen";
 import { cn } from "@/utils/cn";
 import { Card, CardContent, CardDescription, CardFooter } from "../ui/card";
