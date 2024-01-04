@@ -78,15 +78,16 @@ const CardActions = ({ t }: { t: Todo }) => {
             >
               Edit
             </Link>
-            <Link
-              href={`/todo/clone/${t.id}`}
-              className="w-full py-3 px-5 text-center dark:hover:bg-primary/50 hover:bg-primary/30 focus:outline-primary"
-            >
-              Clone
-            </Link>
             <Button
               variant="ghost"
-              className="w-full py-[24px] px-5 rounded-t-none rounded-b-md text-center dark:hover:bg-destructive/50 hover:bg-destructive/30 focus-visible:outline-red-300 dark:focus:outline-destructive text-base"
+              onClick={() => dispatch({ cmd: "CLONE_TODO", toClone: t })}
+              className="w-full py-[24px] px-5 rounded-none text-center dark:hover:bg-primary/50 hover:bg-primary/30 focus-visible:ring-offset-0 focus-visible:ring-primary"
+            >
+              Clone
+            </Button>
+            <Button
+              variant="ghost"
+              className="w-full py-[24px] px-5 rounded-t-none rounded-b-md text-center dark:hover:bg-destructive/50 hover:bg-destructive/30 focus-visible:ring-offset-0 focus-visible:ring-primary text-base"
               onClick={() => dispatch({ cmd: "DELETE_TODO", toDelete: t })}
             >
               Delete

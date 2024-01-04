@@ -5,7 +5,7 @@ import { Todo } from "./types";
 export default function dummyTodo(): Todo {
   return {
     name: f.lorem.words({ min: 1, max: 8 }),
-    description: f.lorem.words({ min: 3, max: 14 }),
+    description: f.lorem.words({ min: 3, max: 25 }),
     createdAt: DateTime.now().toISO(),
     dueAt: f.date
       .between({

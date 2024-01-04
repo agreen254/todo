@@ -11,7 +11,7 @@ export const fontSans = FontSans({
 });
 
 export const metadata: Metadata = {
-  title: "Todos",
+  title: "Todo App",
   description: "Aaron's implementation of the todo app",
 };
 
@@ -24,10 +24,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head />
       <body
-        className={cn(
-          "bg-background font-sans antialiased",
-          fontSans.variable
-        )}
+        className={cn("bg-background font-sans antialiased", fontSans.variable)}
       >
         <NextThemeProvider
           defaultTheme="light"

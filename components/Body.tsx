@@ -11,9 +11,21 @@ import SortMenu from "./SortMenu/SortMenu";
 
 const Body = () => {
   const {
-    state: { completed, pending, pinned },
+    state: { all, completed, pending, pinned },
     dispatch,
   } = useContext(TodoContext);
+
+  const hasNoPendingOrPinned = () => !!pending.length && !!pinned.length;
+  const hasNoCompleted = () => !!completed.length;
+  const hasNoEntries = () => all.length === 0;
+
+  // if (hasNoEntries()) {
+  //   return (
+  //     <h2 className="text-3xl font-bold text-center">
+  //       add a todo to get started
+  //     </h2>
+  //   );
+  // }
 
   return (
     <>
@@ -21,7 +33,7 @@ const Body = () => {
         Add Dummy
       </Button>
       <SortMenu />
-      {(!!pending.length || !!pinned.length) && (
+      {hasNoPendingOrPinned() && (
         <div>
           <h2 className="text-3xl ml-10 text-primary">Pending:</h2>
           <Separator className="bg-primary w-[65vw] my-2 h-[3px] rounded-l-none rounded-tr-md rounded-br-md" />
@@ -31,7 +43,7 @@ const Body = () => {
         <TodoMapper todos={pinned} />
         <TodoMapper todos={pending} />
       </div>
-      {!!completed.length && (
+      {hasNoCompleted() && (
         <div className="mt-8">
           <h2 className="text-3xl ml-10 text-primary">Completed:</h2>
           <Separator className="bg-primary w-[65vw] my-2 h-[3px] rounded-l-none rounded-tr-md rounded-br-md" />

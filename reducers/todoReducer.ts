@@ -1,9 +1,8 @@
+import cloneTodo from "@/utils/cloneTodo";
 import { Actions, Tag, Todo, TodoSortOrder } from "../utils/types";
 import tagsHandler from "@/utils/tagsHandler";
 
-// handles all operations for the raw todo array that is found in local storage
-// the raw array is passed into the TodoContext, where it is processed (sorted, split into different parts, etc)
-// the processed state is then passed to the provider
+// handles all operations on the global state
 export function todoReducer(
   todos: Todo[],
   setTodos: (ts: Todo[]) => void,
@@ -42,6 +41,11 @@ export function todoReducer(
           : t
       );
       setTodos(newTodos);
+      return;
+    }
+    case "CLONE_TODO": {
+      const clone = cloneTodo(action.toClone);
+      setTodos([...todos, clone]);
       return;
     }
     case "REVERT_TODO": {

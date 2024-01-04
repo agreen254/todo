@@ -1,24 +1,14 @@
-"use client";
-import { useContext } from "react";
-import TodoContext from "@/contexts/TodoContext";
-import TodoNotFound from "@/components/TodoNotFound";
+import dynamic from "next/dynamic";
+const DynamicEditForm = dynamic(() => import("@/components/Forms/EditForm"), {
+  ssr: false,
+});
 
-const AddTodoPage = ({ params: { id } }: { params: { id: string } }) => {
-  const {
-    state: { all },
-  } = useContext(TodoContext);
-  const t = all.find((t) => t.id === id);
-
-  if (!t) {
-    return <TodoNotFound />;
-  }
-
-  return (
-    <div>
-      <p>{t.name}</p>
-      <p>{t.dueAt?.toString()}</p>
-    </div>
-  );
+type Props = {
+  params: { id: string };
 };
 
-export default AddTodoPage;
+const EditTodo = ({ params: { id } }: Props) => {
+  return <DynamicEditForm id={id} />;
+};
+
+export default EditTodo;

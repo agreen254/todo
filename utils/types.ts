@@ -85,6 +85,11 @@ type CompleteTodo = {
   editedTodo: Todo;
 };
 
+type CloneTodo = {
+  cmd: "CLONE_TODO";
+  toClone: Todo;
+}
+
 type PinTodo = {
   cmd: "PIN_TODO";
   toPin: Todo;
@@ -111,6 +116,7 @@ export type Actions =
   | DeleteAllTodos
   | EditTodo
   | CompleteTodo
+  | CloneTodo
   | RevertTodo
   | PinTodo
   | UnpinTodo

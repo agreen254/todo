@@ -10,7 +10,7 @@ export default function sortTodos(
       return sort(toSort).by([
         { asc: (t) => t.name },
         // will fall back to this when needed to have a unique sorting point
-        // ones with the exact same creation ISO will keep their same locations respective to each other
+        // ones with identical creation date ISOs will keep their same respective locations
         { desc: (t) => t.createdAt },
       ]);
     }
