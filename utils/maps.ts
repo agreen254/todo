@@ -9,8 +9,8 @@ export const sortingMap = new Map<TodoSortOrder, string>([
   ["createdAt_desc", "youngest"],
   ["dueAt_asc", "most urgent"],
   ["dueAt_desc", "least urgent"],
-  ["priority_asc", "high priority"],
-  ["priority_desc", "low priority"],
-  ["complexity_asc", "high complexity"],
-  ["complexity_desc", "low complexity"],
+  ["priority_asc", "low priority"],
+  ["priority_desc", "high priority"],
+  ["complexity_asc", "low complexity"],
+  ["complexity_desc", "high complexity"],
 ]);

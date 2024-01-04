@@ -17,7 +17,7 @@ const TodoCard = ({ t, className }: Props) => {
     <Card className={cn(className)}>
       <div
         className={cn(
-          "flex justify-between items-center pt-5 mb-4 pb-[4px] px-5 rounded-t-md leading-8",
+          "flex justify-between items-center pt-5 mb-4 pb-[4px] px-5 rounded-t-md leading-8 transition-colors",
           t.isPinned && "bg-teal-500"
         )}
       >
@@ -52,7 +52,7 @@ const TodoCard = ({ t, className }: Props) => {
           </span>
         </p>
       </CardContent>
-      <CardFooter className="flex flex-wrap justify-start">
+      <CardFooter className="flex flex-wrap gap-2 justify-start">
         {t.tags?.map((tag) => (
           <TagBadge key={t.id + tag} tag={tag} />
         ))}

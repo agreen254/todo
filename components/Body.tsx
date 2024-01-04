@@ -1,6 +1,7 @@
 "use client";
 
 import { useContext } from "react";
+import { faker as f } from "@faker-js/faker";
 import { DateTime } from "luxon";
 import { Button } from "./ui/button";
 import { Separator } from "./ui/separator";
@@ -18,17 +19,22 @@ const Body = () => {
   } = useContext(TodoContext);
 
   const dummyTodo: Todo = {
-    name: "this is a test to see how a really long title will look when it wraps around",
-    description: "a short description of the task",
+    name: f.lorem.words({ min: 1, max: 8 }),
+    description: f.lorem.words({ min: 3, max: 14 }),
     createdAt: DateTime.now().toISO(),
-    dueAt: DateTime.now().plus({ days: 7 }).toISO(),
-    priority: 3,
-    complexity: 5,
+    dueAt: f.date
+      .between({
+        from: DateTime.now().toISO(),
+        to: DateTime.now().plus({ days: 30 }).toISO(),
+      })
+      .toISOString(),
+    priority: f.number.int({ min: 1, max: 10 }),
+    complexity: f.number.int({ min: 1, max: 10 }),
     isCompleted: false,
     isPinned: false,
     id: uid(),
     repeatId: uid(),
-    tags: ["home"],
+    tags: ["home", "chores"],
   };
 
   return (
@@ -40,7 +46,7 @@ const Body = () => {
       {(!!pending.length || !!pinned.length) && (
         <div>
           <h2 className="text-3xl ml-10 text-primary">Pending:</h2>
-          <Separator className="bg-primary w-[65vw] my-2 h-[3px] rounded-tr-md rounded-br-md" />
+          <Separator className="bg-primary w-[65vw] my-2 h-[3px] rounded-l-none rounded-tr-md rounded-br-md" />
         </div>
       )}
       <div className="flex justify-start flex-wrap max-w-[3340px] mx-auto">
@@ -50,7 +56,7 @@ const Body = () => {
       {!!completed.length && (
         <div className="mt-8">
           <h2 className="text-3xl ml-10 text-primary">Completed:</h2>
-          <Separator className="bg-primary w-[65vw] my-2 h-[3px] rounded-tr-md rounded-br-md" />
+          <Separator className="bg-primary w-[65vw] my-2 h-[3px] rounded-l-none rounded-tr-md rounded-br-md" />
         </div>
       )}
       <div className="flex justify-start flex-wrap max-w-[3340px] mx-auto">

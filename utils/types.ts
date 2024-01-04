@@ -27,10 +27,10 @@ export type FilteredTodos = {
 export const todoSortForMapping = [
   ["default"],
   ["name_asc", "name_desc"],
-  ["createdAt_asc", "createdAt_desc"],
   ["dueAt_asc", "dueAt_desc"],
-  ["priority_asc", "priority_desc"],
-  ["complexity_asc", "complexity_desc"],
+  ["priority_desc", "priority_asc"],
+  ["complexity_desc", "complexity_asc"],
+  ["createdAt_asc", "createdAt_desc"],
 ] as const;
 // then flatten it so we can infer a string union type
 // https://stackoverflow.com/questions/52085454/typescript-define-a-union-type-from-an-array-of-strings
@@ -38,8 +38,9 @@ const todoSortPossibilities = todoSortForMapping.flat();
 export type TodoSortOrder = (typeof todoSortPossibilities)[number];
 
 // The Tag type here is different than the string array type assigned to the tags property of the Todo type.
-// The Tag objects are what actually get assigned to the [tags, setTags] local storage; the name of the tag and integer to be
-// pulled from the colorMap (see the TodoCardTagBadge component) are accessed by comparison of the tags property from the Todo object at runtime.
+// The Tag objects are what actually get assigned to the [tags, setTags] local storage (see the TodoProvider component);
+// the name of the tag and integer to be pulled from the colorMap (see the TodoCardTagBadge component)
+// are accessed by comparison of the tags property from the Todo object at runtime.
 export type Tag = { name: string; color: number };
 
 export type TodoContextType = {
@@ -59,7 +60,7 @@ export type Quote = {
   a: string;
 };
 
-// here are all the action types that the reducer uses:
+// Here are all the action types that tell the reducer what is okay to do.
 type AddTodo = {
   cmd: "ADD_TODO";
   toAdd: Todo;
