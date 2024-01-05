@@ -19,6 +19,7 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
     "fast-sort": "^3.4.0",
+    "fastest-levenshtein": "^1.0.16",
     "lucide-react": "^0.302.0",
     "luxon": "^3.4.4",
     "next": "14.0.4",

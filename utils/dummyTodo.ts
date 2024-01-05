@@ -1,4 +1,5 @@
 import { faker as f } from "@faker-js/faker";
+import { uid } from "uid";
 import { DateTime } from "luxon";
 import { Todo } from "./types";
 
@@ -18,8 +19,8 @@ export default function dummyTodo(): Todo {
     complexity: f.number.int({ min: 1, max: 10 }),
     isCompleted: false,
     isPinned: false,
-    id: f.string.uuid(),
-    repeatId: f.string.uuid(),
+    id: uid(),
+    repeatId: uid(),
     tags: ["home", "chores"],
   };
 }

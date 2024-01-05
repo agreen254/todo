@@ -1,9 +1,3 @@
-// validation params:
-// tags can only be 16 chars long
-// descriptions can only be 150 chars long
-// titles can only be 50 chars long
-// can have a maximum of 5 tags on a todo
-
 import z from "zod";
 
 const todoFormSchema = z.object({

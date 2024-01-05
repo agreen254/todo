@@ -60,6 +60,11 @@ export type Quote = {
   a: string;
 };
 
+export type Lev = {
+  name: string;
+  distance: number;
+};
+
 // Here are all the action types that tell the reducer what is okay to do.
 type AddTodo = {
   cmd: "ADD_TODO";
@@ -88,7 +93,7 @@ type CompleteTodo = {
 type CloneTodo = {
   cmd: "CLONE_TODO";
   toClone: Todo;
-}
+};
 
 type PinTodo = {
   cmd: "PIN_TODO";

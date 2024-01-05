@@ -60,6 +60,7 @@ const CardActions = ({ t }: { t: Todo }) => {
     );
   };
 
+  // TODO: close popover when an item is cloned
   const handleContextMenuDisplay = () => {
     return (
       <Popover>
@@ -68,7 +69,7 @@ const CardActions = ({ t }: { t: Todo }) => {
             <MoreVertical className="w-6 h-6 mx-2" />
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-[120px] m-0 p-0 rounded-md">
+        <PopoverContent className="w-[120px] m-0 p-0 rounded-md hover:ring-2 hover:ring-ring transition-all">
           <div className={cn("flex flex-col justify-center")}>
             <Link
               href={`/todo/view/${t.id}`}

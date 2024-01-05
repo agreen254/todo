@@ -14,7 +14,13 @@ export type Props = {
 
 const TodoCard = ({ t, className }: Props) => {
   return (
-    <Card className={cn(className)}>
+    <Card
+      className={cn(
+        "hover:shadow-lg hover:ring-2 hover:ring-ring transition-all",
+        t.isPinned && "hover:ring-teal-500",
+        className
+      )}
+    >
       <div
         className={cn(
           "flex justify-between items-center pt-5 mb-4 pb-[4px] px-5 rounded-t-md leading-8 transition-colors",
@@ -32,7 +38,7 @@ const TodoCard = ({ t, className }: Props) => {
       <CardContent className="space-y-2">
         <p>
           <span>
-            <Calendar className="w-4 h-4 mr-2 inline-block translate-y-[-2px]" />
+            <Calendar className="w-4 h-4 mr-2 inline-block translate-y-[-1px]" />
             <span className="text-muted-foreground">Due Date: </span>
             <span className="font-semibold">{dueAtString(t.dueAt)}</span>
           </span>
