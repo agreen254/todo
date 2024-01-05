@@ -7,6 +7,15 @@ import { cn } from "@/utils/cn";
 import { Button } from "../ui/button";
 import { CheckCircle, MoreVertical, Pin, PinOff } from "lucide-react";
 import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+
+import {
   Popover,
   PopoverContent,
   PopoverTrigger,

@@ -4,7 +4,7 @@ import { useContext } from "react";
 import TodoContext from "@/contexts/TodoContext";
 import { Separator } from "../ui/separator";
 import { sortingMap } from "@/utils/maps";
-import { TodoSortOrder, todoSortForMapping } from "@/utils/types";
+import { TodoSortOrder, todoSortValues } from "@/utils/types";
 import { Button } from "../ui/button";
 
 const SortMenuEntries = () => {
@@ -16,7 +16,7 @@ const SortMenuEntries = () => {
     return sortOrder === category;
   };
 
-  return todoSortForMapping.map((entry, idx) => {
+  return todoSortValues.map((entry, idx) => {
     if (entry.length === 1) {
       // skip rendering "default" by itself
       return;

@@ -9,11 +9,18 @@ export default function search(
 ): Todo[] {
   if (query === "") return todos;
 
-  const queryLowered = query.toLowerCase();
+  const processedQuery = query.toLowerCase().trim();
 
   const validTodos = todos.reduce((valid: LevDistance[], t): LevDistance[] => {
-    const nameLowered = t.name.toLowerCase();
-    const dist = distance(queryLowered, nameLowered);
+    let nameLowered = t.name.toLowerCase();
+
+    // So the user doesn't have to input the entire title to get a match.
+    // If the query has similar letters as the start of the todo name, the query will be considered valid.
+    if (processedQuery.length < nameLowered.length) {
+      nameLowered = nameLowered.slice(0, processedQuery.length);
+    }
+
+    const dist = distance(processedQuery, nameLowered);
 
     return dist <= tolerance ? [...valid, { t: t, distance: dist }] : valid;
   }, []);

@@ -24,7 +24,7 @@ export type FilteredTodos = {
 };
 
 // create as an array first so we can map over it in the SortMenu component
-export const todoSortForMapping = [
+export const todoSortValues = [
   ["default"],
   ["name_asc", "name_desc"],
   ["dueAt_asc", "dueAt_desc"],
@@ -34,8 +34,12 @@ export const todoSortForMapping = [
 ] as const;
 // then flatten it so we can infer a string union type
 // https://stackoverflow.com/questions/52085454/typescript-define-a-union-type-from-an-array-of-strings
-const todoSortPossibilities = todoSortForMapping.flat();
+const todoSortPossibilities = todoSortValues.flat();
 export type TodoSortOrder = (typeof todoSortPossibilities)[number];
+
+// same thing here as above
+export const sortByVals = ["name", "dueAt", "description"] as const;
+export type SortBy = (typeof sortByVals)[number];
 
 // The Tag type here is different than the string array type assigned to the tags property of the Todo type.
 // The Tag objects are what actually get assigned to the [tags, setTags] local storage (see the TodoProvider component);
