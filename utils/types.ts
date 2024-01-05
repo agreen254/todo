@@ -60,8 +60,8 @@ export type Quote = {
   a: string;
 };
 
-export type Lev = {
-  name: string;
+export type LevDistance = {
+  t: Todo;
   distance: number;
 };
 

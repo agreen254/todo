@@ -8,6 +8,7 @@ import RemoveAllAlert from "./Dialogs/RemoveAllDialog";
 import TodoContext from "@/contexts/TodoContext";
 import TodoMapper from "./TodoMapper";
 import SortMenu from "./SortMenu/SortMenu";
+import SearchBar from "./SearchBar";
 
 const Body = () => {
   const {
@@ -29,10 +30,17 @@ const Body = () => {
 
   return (
     <>
-      <Button onClick={() => dispatch({ cmd: "ADD_TODO", toAdd: dummyTodo() })}>
-        Add Dummy
-      </Button>
-      <SortMenu />
+      <div>
+        <Button
+          onClick={() => dispatch({ cmd: "ADD_TODO", toAdd: dummyTodo() })}
+        >
+          Add Dummy
+        </Button>
+        <SortMenu />
+      </div>
+      <div className="flex justify-center">
+        <SearchBar />
+      </div>
       {hasNoPendingOrPinned() && (
         <div>
           <h2 className="text-3xl ml-10 text-primary">Pending:</h2>

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import TodoContext from "@/contexts/TodoContext";
 import { cn } from "@/utils/cn";
 import { Button } from "../ui/button";
@@ -19,6 +19,7 @@ const CardActions = ({ t }: { t: Todo }) => {
     state: { pinned },
     dispatch,
   } = useContext(TodoContext);
+  const [popoverOpen, setPopoverOpen] = useState(false);
 
   const handlePinDisplay = () => {
     return t.isPinned ? (
@@ -63,7 +64,7 @@ const CardActions = ({ t }: { t: Todo }) => {
   // TODO: close popover when an item is cloned
   const handleContextMenuDisplay = () => {
     return (
-      <Popover>
+      <Popover open={popoverOpen} onOpenChange={setPopoverOpen}>
         <PopoverTrigger asChild>
           <Button variant="ghost" size="icon">
             <MoreVertical className="w-6 h-6 mx-2" />
@@ -85,7 +86,10 @@ const CardActions = ({ t }: { t: Todo }) => {
             </Link>
             <Button
               variant="ghost"
-              onClick={() => dispatch({ cmd: "CLONE_TODO", toClone: t })}
+              onClick={() => {
+                dispatch({ cmd: "CLONE_TODO", toClone: t });
+                setPopoverOpen(false);
+              }}
               className="w-full py-[24px] px-5 rounded-none text-center dark:hover:bg-primary/50 hover:bg-primary/30 focus-visible:ring-offset-0 focus-visible:ring-primary"
             >
               Clone
