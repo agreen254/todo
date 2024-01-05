@@ -16,7 +16,7 @@ const TodoCard = ({ t, className }: Props) => {
   return (
     <Card
       className={cn(
-        "hover:shadow-lg hover:ring-2 hover:ring-ring transition-all",
+        "hover:shadow-lg hover:ring-2 hover:ring-ring hover:dark:shadow-lg hover:dark:shadow-slate-600 transition-all",
         t.isPinned && "hover:ring-teal-500",
         className
       )}
@@ -35,24 +35,24 @@ const TodoCard = ({ t, className }: Props) => {
       <CardDescription className="px-5 mb-2 relative top-[-10px] line-clamp-1">
         {t.description}
       </CardDescription>
-      <CardContent className="space-y-2">
+      <CardContent className="space-y-3">
         <p>
           <span>
-            <Calendar className="w-4 h-4 mr-2 inline-block translate-y-[-1px]" />
+            <Calendar className="w-4 h-4 mr-2 inline-block translate-y-[-2px]" />
             <span className="text-muted-foreground">Due Date: </span>
             <span className="font-semibold">{dueAtString(t.dueAt)}</span>
           </span>
         </p>
         <p>
           <span>
-            <ArrowUp className="w-4 h-4 mr-2 inline-block" />
+            <ArrowUp className="w-4 h-4 mr-2 inline-block translate-y-[-2px]" />
             <span className="text-muted-foreground">Priority: </span>
             <span className="font-semibold">{outOfTen(t.priority)}</span>
           </span>
         </p>
         <p>
           <span>
-            <Move className="w-4 h-4 mr-2 inline-block" />
+            <Move className="w-4 h-4 mr-2 inline-block translate-y-[-2px]" />
             <span className="text-muted-foreground">Complexity: </span>
             <span className="font-semibold">{outOfTen(t.complexity)}</span>
           </span>

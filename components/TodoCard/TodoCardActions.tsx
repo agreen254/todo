@@ -70,17 +70,22 @@ const CardActions = ({ t }: { t: Todo }) => {
             <MoreVertical className="w-6 h-6 mx-2" />
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-[120px] m-0 p-0 rounded-md hover:ring-2 hover:ring-ring transition-all">
+        <PopoverContent
+          className={cn(
+            "w-[120px] m-0 p-0 rounded-md hover:ring-2 hover:ring-ring transition-all",
+            t.isPinned && "hover:ring-teal-500"
+          )}
+        >
           <div className={cn("flex flex-col justify-center")}>
             <Link
               href={`/todo/view/${t.id}`}
-              className="w-full rounded-t-md py-3 px-5 text-center dark:hover:bg-primary/50 hover:bg-primary/30 focus:outline-primary"
+              className="w-full rounded-t-md py-3 px-5 text-center dark:hover:bg-primary/50 hover:bg-primary/30 focus:outline-primary font-semibold text-sm"
             >
               View
             </Link>
             <Link
               href={`/todo/edit/${t.id}`}
-              className="w-full py-3 px-5 text-center dark:hover:bg-primary/50 hover:bg-primary/30 focus:outline-primary"
+              className="w-full py-3 px-5 text-center dark:hover:bg-primary/50 hover:bg-primary/30 focus:outline-primary font-semibold text-sm"
             >
               Edit
             </Link>
@@ -90,13 +95,13 @@ const CardActions = ({ t }: { t: Todo }) => {
                 dispatch({ cmd: "CLONE_TODO", toClone: t });
                 setPopoverOpen(false);
               }}
-              className="w-full py-[24px] px-5 rounded-none text-center dark:hover:bg-primary/50 hover:bg-primary/30 focus-visible:ring-offset-0 focus-visible:ring-primary"
+              className="w-full py-[24px] px-5 rounded-none text-center dark:hover:bg-primary/50 hover:bg-primary/30 focus-visible:ring-offset-0 focus-visible:ring-primary font-semibold text-sm" 
             >
               Clone
             </Button>
             <Button
               variant="ghost"
-              className="w-full py-[24px] px-5 rounded-t-none rounded-b-md text-center dark:hover:bg-destructive/50 hover:bg-destructive/30 focus-visible:ring-offset-0 focus-visible:ring-primary text-base"
+              className="w-full py-[24px] px-5 rounded-t-none rounded-b-md text-center dark:hover:bg-destructive/50 hover:bg-destructive/30 focus-visible:ring-offset-0 focus-visible:ring-primary font-semibold text-sm"
               onClick={() => dispatch({ cmd: "DELETE_TODO", toDelete: t })}
             >
               Delete
