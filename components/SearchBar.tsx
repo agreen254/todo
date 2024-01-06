@@ -31,7 +31,9 @@ const SearchBar = () => {
   });
 
   const {
-    state: { all },
+    state: {
+      todos: { allTodos: all },
+    },
   } = useContext(TodoContext);
 
   const router = useRouter();
@@ -86,7 +88,7 @@ const SearchBar = () => {
                     <FormControl>
                       <RadioGroupItem value="name" />
                     </FormControl>
-                    <FormLabel className="font-semibold ml-2 translate-y-[-4px]">
+                    <FormLabel className="font-semibold ml-[6px] translate-y-[-4px]">
                       name
                     </FormLabel>
                   </FormItem>
@@ -94,7 +96,7 @@ const SearchBar = () => {
                     <FormControl>
                       <RadioGroupItem value="description" />
                     </FormControl>
-                    <FormLabel className="font-semibold ml-2 translate-y-[-4px]">
+                    <FormLabel className="font-semibold ml-[6px] translate-y-[-4px]">
                       description
                     </FormLabel>
                   </FormItem>
@@ -102,7 +104,7 @@ const SearchBar = () => {
                     <FormControl>
                       <RadioGroupItem value="dueAt" />
                     </FormControl>
-                    <FormLabel className="font-semibold ml-2 translate-y-[-4px]">
+                    <FormLabel className="font-semibold ml-[6px] translate-y-[-4px]">
                       due date
                     </FormLabel>
                   </FormItem>

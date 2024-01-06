@@ -13,12 +13,25 @@ import {
 import { Separator } from "../ui/separator";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { Label } from "../ui/label";
+import { Tag } from "@/utils/types";
 
 const FilterByTags = () => {
-  const [isOpen, setIsOpen] = useState(false);
   const {
-    state: { tags },
+    state: {
+      tags: { allTags, filterTags },
+    },
+    dispatch,
   } = useContext(TodoContext);
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleCheck = (tag: Tag) => {
+    if (filterTags.includes(tag.name)) {
+      const newTags = filterTags.filter((name) => name !== tag.name);
+      dispatch({ cmd: "SET_FILTER_TAGS", tags: newTags });
+    } else {
+      dispatch({ cmd: "SET_FILTER_TAGS", tags: [...filterTags, tag.name] });
+    }
+  };
 
   const handleChevron = () => {
     return isOpen ? (
@@ -34,14 +47,24 @@ const FilterByTags = () => {
         <Button>tags {handleChevron()}</Button>
       </PopoverTrigger>
       <PopoverContent className="max-w-[200px] w-[95vw] hover:ring-2 hover:ring-ring">
-        <p className="text-sm text-muted-foreground">current selected tags:</p>
-        <Separator className="w-full my-2" />
-        {tags.map((tag) => (
-          <div className="flex items-end mb-2">
-            <Checkbox id={tag.name} className="mr-1" />
+        {allTags.map((tag) => (
+          <div className="flex items-end mb-2" key={tag.name}>
+            <Checkbox
+              id={tag.name}
+              className="mr-1"
+              checked={filterTags.includes(tag.name)}
+              onClick={() => handleCheck(tag)}
+            />
             <Label htmlFor={tag.name}>{tag.name}</Label>
           </div>
         ))}
+        <Separator className="w-full my-2" />
+        <p className="text-sm text-muted-foreground">current selected tags:</p>
+        <p className="text-sm text-muted-foreground">
+          {filterTags.map((tagName) => (
+            <span key={tagName + "span"}>{`${tagName} `}</span>
+          ))}
+        </p>
       </PopoverContent>
     </Popover>
   );

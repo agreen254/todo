@@ -6,9 +6,11 @@ import TodoNotFound from "../TodoNotFound";
 
 const EditForm = ({ id }: { id: string }) => {
   const {
-    state: { all },
+    state: {
+      todos: { allTodos },
+    },
   } = useContext(TodoContext);
-  const t = all.find((t) => t.id === id);
+  const t = allTodos.find((t) => t.id === id);
 
   useEffect(() => {
     if (t) {

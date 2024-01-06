@@ -18,9 +18,9 @@ export type Todo = {
 };
 
 export type FilteredTodos = {
-  pinned: Todo[];
-  pending: Todo[];
-  completed: Todo[];
+  pinnedTodos: Todo[];
+  pendingTodos: Todo[];
+  completedTodos: Todo[];
 };
 
 // create as an array first so we can map over it in the SortMenu component
@@ -49,12 +49,17 @@ export type Tag = { name: string; color: number };
 
 export type TodoContextType = {
   state: {
-    all: Todo[];
-    completed: Todo[];
-    pending: Todo[];
-    pinned: Todo[];
+    todos: {
+      allTodos: Todo[];
+      completedTodos: Todo[];
+      pendingTodos: Todo[];
+      pinnedTodos: Todo[];
+    };
     sortOrder: TodoSortOrder;
-    tags: Tag[];
+    tags: {
+      allTags: Tag[];
+      filterTags: string[];
+    };
   };
   dispatch: (action: Actions) => void;
 };
@@ -119,6 +124,11 @@ type SetSortOrder = {
   newOrder: TodoSortOrder;
 };
 
+type SetFilterTags = {
+  cmd: "SET_FILTER_TAGS";
+  tags: string[];
+};
+
 export type Actions =
   | AddTodo
   | DeleteTodo
@@ -129,4 +139,5 @@ export type Actions =
   | RevertTodo
   | PinTodo
   | UnpinTodo
-  | SetSortOrder;
+  | SetSortOrder
+  | SetFilterTags;

@@ -10,17 +10,19 @@ import TodoContext from "@/contexts/TodoContext";
 import TodoMapper from "./TodoMapper";
 import SortMenu from "./Sort/SortMenu";
 import SearchBar from "./SearchBar";
-import TagsForm from "./Forms/TagsForm";
 
 const Body = () => {
   const {
-    state: { all, completed, pending, pinned },
+    state: {
+      todos: { allTodos, completedTodos, pendingTodos, pinnedTodos },
+    },
     dispatch,
   } = useContext(TodoContext);
 
-  const hasNoPendingOrPinned = () => !!pending.length && !!pinned.length;
-  const hasNoCompleted = () => !!completed.length;
-  const hasNoEntries = () => all.length === 0;
+  const hasNoPendingOrPinned = () =>
+    !!pendingTodos.length && !!pinnedTodos.length;
+  const hasNoCompleted = () => !!completedTodos.length;
+  const hasNoEntries = () => allTodos.length === 0;
 
   // if (hasNoEntries()) {
   //   return (
@@ -44,9 +46,6 @@ const Body = () => {
       <div className="flex justify-center">
         <SearchBar />
       </div>
-      <div>
-        <TagsForm />
-      </div>
       {hasNoPendingOrPinned() && (
         <div>
           <h2 className="text-3xl ml-10 text-primary">Pending:</h2>
@@ -54,8 +53,8 @@ const Body = () => {
         </div>
       )}
       <div className="flex justify-start flex-wrap max-w-[3340px] mx-auto">
-        <TodoMapper todos={pinned} />
-        <TodoMapper todos={pending} />
+        <TodoMapper todos={pinnedTodos} />
+        <TodoMapper todos={pendingTodos} />
       </div>
       {hasNoCompleted() && (
         <div className="mt-8">
@@ -64,7 +63,7 @@ const Body = () => {
         </div>
       )}
       <div className="flex justify-start flex-wrap max-w-[3340px] mx-auto">
-        <TodoMapper todos={completed} />
+        <TodoMapper todos={completedTodos} />
       </div>
       <RemoveAllAlert />
     </>

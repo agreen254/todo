@@ -2,6 +2,9 @@ import { faker as f } from "@faker-js/faker";
 import { uid } from "uid";
 import { DateTime } from "luxon";
 import { Todo } from "./types";
+import randArrayEle from "./randEle";
+
+const potentialTags = [["home"], ["chores"], ["work"]];
 
 // use in development to generate example todos
 export default function dummyTodo(): Todo {
@@ -15,12 +18,12 @@ export default function dummyTodo(): Todo {
         to: DateTime.now().plus({ days: 30 }).toISO(),
       })
       .toISOString(),
-    priority: f.number.int({ min: 1, max: 10 }),
-    complexity: f.number.int({ min: 1, max: 10 }),
+    priority: f.number.int({ min: 0, max: 10 }),
+    complexity: f.number.int({ min: 0, max: 10 }),
     isCompleted: false,
     isPinned: false,
     id: uid(),
     repeatId: uid(),
-    tags: ["home", "chores"],
+    tags: randArrayEle(potentialTags),
   };
 }

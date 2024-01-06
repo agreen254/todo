@@ -5,10 +5,12 @@ import TodoContext from "@/contexts/TodoContext";
 
 const TagBadge = ({ tag }: { tag: string }) => {
   const {
-    state: { tags },
+    state: {
+      tags: { allTags: all },
+    },
   } = useContext(TodoContext);
 
-  const storedTag = tags.find((t) => t.name === tag);
+  const storedTag = all.find((t) => t.name === tag);
   if (!storedTag) return;
 
   // You cannot render classNames in tailwind by directly using props that you pass
