@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Noto_Sans as FontSans } from "next/font/google";
+import { Inter as FontSans } from "next/font/google";
 import NextThemeProvider from "../providers/NextThemeProvider";
 import TodoProvider from "../providers/TodoProvider";
 import "./globals.css";

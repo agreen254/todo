@@ -17,14 +17,14 @@ const TodoCard = ({ t, className }: Props) => {
     <Card
       className={cn(
         "hover:shadow-lg hover:shadow-slate-300 hover:ring-2 hover:ring-ring/60 dark:hover:ring-ring hover:dark:shadow-lg hover:dark:shadow-slate-600 transition-all",
-        t.isPinned && "hover:ring-teal-500",
+        t.isPinned && "hover:ring-teal-300 dark:hover:ring-teal-500",
         className
       )}
     >
       <div
         className={cn(
           "flex justify-between items-center pt-5 mb-4 pb-[4px] px-5 rounded-t-md leading-8 transition-colors",
-          t.isPinned && "bg-teal-500"
+          t.isPinned && "bg-teal-300 dark:bg-teal-500"
         )}
       >
         <h3 className="max-w-[calc(100%-30px)] line-clamp-1 text-xl md:text-2xl">

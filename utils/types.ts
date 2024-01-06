@@ -38,8 +38,8 @@ const todoSortPossibilities = todoSortValues.flat();
 export type TodoSortOrder = (typeof todoSortPossibilities)[number];
 
 // same thing here as above
-export const sortByVals = ["name", "dueAt", "description"] as const;
-export type SortBy = (typeof sortByVals)[number];
+export const searchSpecifierValues = ["name", "dueAt", "description"] as const;
+export type SearchSpecifier = (typeof searchSpecifierValues)[number];
 
 // The Tag type here is different than the string array type assigned to the tags property of the Todo type.
 // The Tag objects are what actually get assigned to the [tags, setTags] local storage (see the TodoProvider component);

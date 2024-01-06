@@ -3,9 +3,19 @@
 import Link from "next/link";
 import { useContext, useState } from "react";
 import TodoContext from "@/contexts/TodoContext";
+import { Todo } from "@/utils/types";
 import { cn } from "@/utils/cn";
 import { Button } from "../ui/button";
-import { CheckCircle, MoreVertical, Pin, PinOff } from "lucide-react";
+import {
+  BookCopy,
+  CheckCircle,
+  Eye,
+  MoreVertical,
+  PenSquare,
+  Pin,
+  PinOff,
+  Trash2,
+} from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,16 +23,8 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+} from "@/components/ui/dropdown-menu";
 
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import { Todo } from "@/utils/types";
-
-// pass the handler as a reference so we can invoke it later
 const CardActions = ({ t }: { t: Todo }) => {
   const {
     state: { pinned },
@@ -70,54 +72,72 @@ const CardActions = ({ t }: { t: Todo }) => {
     );
   };
 
-  // TODO: close popover when an item is cloned
   const handleContextMenuDisplay = () => {
     return (
-      <Popover open={popoverOpen} onOpenChange={setPopoverOpen}>
-        <PopoverTrigger asChild>
+      <DropdownMenu open={popoverOpen} onOpenChange={setPopoverOpen}>
+        <DropdownMenuTrigger asChild>
           <Button variant="ghost" size="icon">
             <MoreVertical className="w-6 h-6 mx-2" />
           </Button>
-        </PopoverTrigger>
-        <PopoverContent
+        </DropdownMenuTrigger>
+        <DropdownMenuContent
           className={cn(
-            "w-[120px] m-0 p-0 rounded-md hover:ring-2 hover:ring-ring transition-all",
-            t.isPinned && "hover:ring-teal-500"
+            "w-[120px] m-0 p-0 hover:ring-2 hover:ring-ring transition-all font-semibold",
+            t.isPinned && "hover:ring-teal-500 dark:hover:ring-teal-700"
           )}
         >
-          <div className={cn("flex flex-col justify-center")}>
+          <DropdownMenuLabel className="font-bold">Actions</DropdownMenuLabel>
+          <DropdownMenuSeparator />
+          <DropdownMenuItem className="rounded-none text-base py-0">
             <Link
               href={`/todo/view/${t.id}`}
-              className="w-full rounded-t-md py-3 px-5 text-center dark:hover:bg-primary/50 hover:bg-primary/30 focus:outline-primary font-semibold text-sm"
+              className="w-full flex justify-between py-3 my-0"
             >
-              View
+              <span>View</span>
+              <span>
+                <Eye className="inline-block h-5 w-5" />
+              </span>
             </Link>
+          </DropdownMenuItem>
+          <DropdownMenuItem className="rounded-none text-base py-0">
             <Link
-              href={`/todo/edit/${t.id}`}
-              className="w-full py-3 px-5 text-center dark:hover:bg-primary/50 hover:bg-primary/30 focus:outline-primary font-semibold text-sm"
+              href={`/todo/view/${t.id}`}
+              className="w-full flex justify-between py-3 my-0"
             >
-              Edit
+              <span>Edit</span>
+              <span>
+                <PenSquare className="inline-block ml-1 h-5 w-5" />
+              </span>
             </Link>
+          </DropdownMenuItem>
+          <DropdownMenuItem className="rounded-none py-0">
             <Button
               variant="ghost"
               onClick={() => {
                 dispatch({ cmd: "CLONE_TODO", toClone: t });
                 setPopoverOpen(false);
               }}
-              className="w-full py-[24px] px-5 rounded-none text-center dark:hover:bg-primary/50 hover:bg-primary/30 focus-visible:ring-offset-0 focus-visible:ring-primary font-semibold text-sm" 
+              className="w-full flex justify-between p-0 m-0 text-base font-semibold"
             >
               Clone
+              <BookCopy className="w-5 h-5" />
             </Button>
+          </DropdownMenuItem>
+          <DropdownMenuItem>
             <Button
               variant="ghost"
-              className="w-full py-[24px] px-5 rounded-t-none rounded-b-md text-center dark:hover:bg-destructive/50 hover:bg-destructive/30 focus-visible:ring-offset-0 focus-visible:ring-primary font-semibold text-sm"
-              onClick={() => dispatch({ cmd: "DELETE_TODO", toDelete: t })}
+              onClick={() => {
+                dispatch({ cmd: "CLONE_TODO", toClone: t });
+                setPopoverOpen(false);
+              }}
+              className="w-full flex justify-between p-0 m-0 text-base font-semibold"
             >
               Delete
+              <Trash2 className="w-5 h-5" />
             </Button>
-          </div>
-        </PopoverContent>
-      </Popover>
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
     );
   };
 

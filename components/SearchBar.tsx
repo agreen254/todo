@@ -1,10 +1,20 @@
 "use client";
 
-import { useContext, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import TodoContext from "@/contexts/TodoContext";
+import { SearchSpecifier } from "@/utils/types";
 import search from "@/utils/search";
 import { Search } from "lucide-react";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
@@ -18,14 +28,18 @@ const SearchBar = () => {
 
   const router = useRouter();
   const searchParams = useSearchParams();
-  const queryString = searchParams.get("q") || "";
-  const queryKind = searchParams.get("type") || "";
-  const [queryState, setQueryState] = useState(queryString);
+  const qString = searchParams.get("query") || "";
+  const qKind = searchParams.get("type") || "";
+
+  const [queryState, setQueryState] = useState(qString);
+  const [queryKind, setQueryKind] = useState(qKind);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    router.push(`?q=${queryState}`);
+    router.push(`?query=${queryState}&type=${queryKind}`);
   };
+
+  const handleSearch = (kind: string) => {};
 
   if (!all.length) return;
 
@@ -54,6 +68,7 @@ const SearchBar = () => {
         <div>
           <RadioGroup
             defaultValue="name"
+            onValueChange={(e) => setQueryKind(e)}
             className="space-x-3 mt-[-30px] mb-4 w-full flex justify-start"
           >
             <span className="flex items-center">
@@ -77,7 +92,7 @@ const SearchBar = () => {
           </RadioGroup>
         </div>
       </form>
-      {search(queryString, all, 1).map((t) => (
+      {search(qString, all, queryKind).map((t) => (
         <p key={t.id + "query"}>
           <span>{t.name}</span>
           <span>{t.id}</span>

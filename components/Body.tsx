@@ -9,6 +9,7 @@ import TodoContext from "@/contexts/TodoContext";
 import TodoMapper from "./TodoMapper";
 import SortMenu from "./SortMenu/SortMenu";
 import SearchBar from "./SearchBar";
+import AltSearch from "./AltSearch";
 
 const Body = () => {
   const {
@@ -39,7 +40,8 @@ const Body = () => {
         <SortMenu />
       </div>
       <div className="flex justify-center">
-        <SearchBar />
+        {/* <SearchBar /> */}
+        <AltSearch />
       </div>
       {hasNoPendingOrPinned() && (
         <div>
