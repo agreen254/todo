@@ -1,8 +1,8 @@
 "use client";
 
 import z from "zod";
-import { useContext, useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useContext } from "react";
+import { useRouter } from "next/navigation";
 import TodoContext from "@/contexts/TodoContext";
 import search from "@/utils/search";
 import { Search } from "lucide-react";
@@ -11,101 +11,100 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { searchFormSchema as formSchema } from "@/validation/schema";
+import { searchFormDefaults as defaultValues } from "@/validation/schema";
+import { SearchFormData as FormData } from "@/validation/schema";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
-import { Label } from "./ui/label";
 import { RadioGroup, RadioGroupItem } from "./ui/radio-group";
 
-const FormSchema = z.object({
-  query: z
-    .string()
-    .max(255, { message: "Queries are limited to 255 characters." }),
-  type: z.enum(["name", "description", "dueAt"], {
-    required_error: "You need to select a notification type.",
-  }),
-});
-
-type FormData = z.infer<typeof FormSchema>;
-
-const defaultValues: Partial<FormData> = {
-  query: "",
-  type: "name",
-};
-
 const AltSearch = () => {
-  const form = useForm<z.infer<typeof FormSchema>>({
-    resolver: zodResolver(FormSchema),
+  const form = useForm<FormData>({
+    resolver: zodResolver(formSchema),
     defaultValues,
     mode: "onChange",
   });
 
   const {
     state: { all },
-    dispatch,
   } = useContext(TodoContext);
 
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const qString = searchParams.get("query") || "";
-  const qKind = searchParams.get("type") || "";
-
-  function onSubmit(data: z.infer<typeof FormSchema>) {
-    router.push(`?query=${data.query}&type=${data.type}`);
+  function onSubmit(data: z.infer<typeof formSchema>) {
+    router.push(`search?query=${data.query}&type=${data.type}`);
   }
 
   if (!all.length) return;
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="w-2/3 space-y-6">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="">
+        <Button
+          variant="ghost"
+          size="icon"
+          type="submit"
+          className="translate-y-[53px] translate-x-[min(305px,calc(90vw-44px))]"
+        >
+          <Search />
+        </Button>
         <FormField
           control={form.control}
           name="query"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Query</FormLabel>
+              <FormLabel className="hidden">Query</FormLabel>
               <FormControl>
-                <Input placeholder="search query" {...field} />
+                <Input
+                  placeholder="search todos"
+                  type="text"
+                  className="px-3 py-6 w-[min(350px,90vw)]"
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
-        ></FormField>
+        />
         <FormField
           control={form.control}
           name="type"
           render={({ field }) => (
-            <FormItem className="space-y-3">
-              <FormLabel>Notify me about...</FormLabel>
+            <FormItem className="">
+              <FormLabel className="hidden">Select search type</FormLabel>
               <FormControl>
                 <RadioGroup
                   onValueChange={field.onChange}
                   defaultValue={field.value}
-                  className="flex flex-col space-y-1"
+                  className="space-x-3 mt-[-30px] mb-4 w-full flex justify-start"
                 >
-                  <FormItem className="flex items-center space-x-3 space-y-0">
+                  <FormItem className="flex items-center">
                     <FormControl>
                       <RadioGroupItem value="name" />
                     </FormControl>
-                    <FormLabel className="font-normal">name</FormLabel>
+                    <FormLabel className="font-semibold ml-2 translate-y-[-4px]">
+                      name
+                    </FormLabel>
                   </FormItem>
-                  <FormItem className="flex items-center space-x-3 space-y-0">
+                  <FormItem className="flex items-center">
                     <FormControl>
                       <RadioGroupItem value="description" />
                     </FormControl>
-                    <FormLabel className="font-normal">description</FormLabel>
+                    <FormLabel className="font-semibold ml-2 translate-y-[-4px]">
+                      description
+                    </FormLabel>
                   </FormItem>
-                  <FormItem className="flex items-center space-x-3 space-y-0">
+                  <FormItem className="flex items-center">
                     <FormControl>
                       <RadioGroupItem value="dueAt" />
                     </FormControl>
-                    <FormLabel className="font-normal">due at</FormLabel>
+                    <FormLabel className="font-semibold ml-2 translate-y-[-4px]">
+                      due date
+                    </FormLabel>
                   </FormItem>
                 </RadioGroup>
               </FormControl>
@@ -113,7 +112,6 @@ const AltSearch = () => {
             </FormItem>
           )}
         />
-        <Button type="submit">Submit</Button>
       </form>
     </Form>
   );

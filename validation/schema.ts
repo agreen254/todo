@@ -14,5 +14,21 @@ const todoFormSchema = z.object({
     )
     .max(6, { message: "todos must have 6 tags or less." }),
 });
-
 export type TodoFormData = z.infer<typeof todoFormSchema>;
+
+export const searchFormSchema = z.object({
+  query: z
+    .string()
+    .max(255, { message: "Queries are limited to 255 characters." }),
+  type: z.enum(["name", "description", "dueAt"], {
+    required_error: "You need to select a notification type.",
+  }),
+});
+export type SearchFormData = z.infer<typeof searchFormSchema>;
+// We need the default values because shad forms are controlled.
+// If we do not provide these, it will throw an error because we changed
+// from an undefined value for one of the fields.
+export const searchFormDefaults: Partial<SearchFormData> = {
+  query: "",
+  type: "name",
+};
