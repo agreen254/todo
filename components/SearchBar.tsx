@@ -1,104 +1,119 @@
 "use client";
 
-import { useContext, useRef, useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import z from "zod";
+import { useContext } from "react";
+import { useRouter } from "next/navigation";
 import TodoContext from "@/contexts/TodoContext";
-import { SearchSpecifier } from "@/utils/types";
-import search from "@/utils/search";
+import searchTodos from "@/utils/searchTodos";
 import { Search } from "lucide-react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { searchFormSchema as formSchema } from "@/validation/schema";
+import { searchFormDefaults as defaultValues } from "@/validation/schema";
+import { SearchFormData as FormData } from "@/validation/schema";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
-import { Label } from "./ui/label";
 import { RadioGroup, RadioGroupItem } from "./ui/radio-group";
 
 const SearchBar = () => {
+  const form = useForm<FormData>({
+    resolver: zodResolver(formSchema),
+    defaultValues,
+    mode: "onChange",
+  });
+
   const {
     state: { all },
-    dispatch,
   } = useContext(TodoContext);
 
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const qString = searchParams.get("query") || "";
-  const qKind = searchParams.get("type") || "";
-
-  const [queryState, setQueryState] = useState(qString);
-  const [queryKind, setQueryKind] = useState(qKind);
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    router.push(`?query=${queryState}&type=${queryKind}`);
-  };
-
-  const handleSearch = (kind: string) => {};
+  function onSubmit(data: z.infer<typeof formSchema>) {
+    router.push(`search?query=${data.query}&type=${data.type}`);
+  }
 
   if (!all.length) return;
 
   return (
-    <div>
-      <p>{queryKind}</p>
-      <form onSubmit={handleSubmit}>
-        <Label htmlFor="search" className="hidden">
-          Input search term
-        </Label>
-        <Input
-          id="search"
-          value={queryState}
-          onChange={(e) => setQueryState(e.target.value)}
-          placeholder="search todos"
-          type="text"
-          className="px-3 py-6 w-[min(350px,90vw)]"
-        />
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)}>
         <Button
           variant="ghost"
           size="icon"
-          className="translate-y-[-44px] translate-x-[min(305px,calc(90vw-44px))]"
+          type="submit"
+          className="translate-y-[53px] translate-x-[min(305px,calc(90vw-44px))]"
         >
           <Search />
         </Button>
-        <div>
-          <RadioGroup
-            defaultValue="name"
-            onValueChange={(e) => setQueryKind(e)}
-            className="space-x-3 mt-[-30px] mb-4 w-full flex justify-start"
-          >
-            <span className="flex items-center">
-              <RadioGroupItem value="name" id="rName" />
-              <Label htmlFor="rName" className="ml-1">
-                name
-              </Label>
-            </span>
-            <span className="flex items-center">
-              <RadioGroupItem value="description" id="rDescription" />
-              <Label htmlFor="rDescription" className="ml-1">
-                description
-              </Label>
-            </span>
-            <span className="flex items-center">
-              <RadioGroupItem value="dueAt" id="rDueAt" />
-              <Label htmlFor="rDueAt" className="ml-1">
-                due date
-              </Label>
-            </span>
-          </RadioGroup>
-        </div>
+        <FormField
+          control={form.control}
+          name="query"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel className="hidden">Query</FormLabel>
+              <FormControl>
+                <Input
+                  placeholder="search todos"
+                  type="text"
+                  className="px-3 py-6 w-[min(350px,90vw)]"
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="type"
+          render={({ field }) => (
+            <FormItem className="">
+              <FormLabel className="hidden">Select search type</FormLabel>
+              <FormControl>
+                <RadioGroup
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                  className="space-x-3 mt-[-30px] mb-4 w-full flex justify-start"
+                >
+                  <FormItem className="flex items-center">
+                    <FormControl>
+                      <RadioGroupItem value="name" />
+                    </FormControl>
+                    <FormLabel className="font-semibold ml-2 translate-y-[-4px]">
+                      name
+                    </FormLabel>
+                  </FormItem>
+                  <FormItem className="flex items-center">
+                    <FormControl>
+                      <RadioGroupItem value="description" />
+                    </FormControl>
+                    <FormLabel className="font-semibold ml-2 translate-y-[-4px]">
+                      description
+                    </FormLabel>
+                  </FormItem>
+                  <FormItem className="flex items-center">
+                    <FormControl>
+                      <RadioGroupItem value="dueAt" />
+                    </FormControl>
+                    <FormLabel className="font-semibold ml-2 translate-y-[-4px]">
+                      due date
+                    </FormLabel>
+                  </FormItem>
+                </RadioGroup>
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
       </form>
-      {search(qString, all, queryKind).map((t) => (
-        <p key={t.id + "query"}>
-          <span>{t.name}</span>
-          <span>{t.id}</span>
-        </p>
-      ))}
-    </div>
+    </Form>
   );
 };
 

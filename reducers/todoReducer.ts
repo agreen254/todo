@@ -1,6 +1,6 @@
 import cloneTodo from "@/utils/cloneTodo";
-import { Actions, Tag, Todo, TodoSortOrder } from "../utils/types";
 import tagsHandler from "@/utils/tagsHandler";
+import { Actions, Tag, Todo, TodoSortOrder } from "../utils/types";
 
 // handles all operations on the global state
 export function todoReducer(

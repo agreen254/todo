@@ -4,12 +4,13 @@ import { useContext } from "react";
 import { Button } from "./ui/button";
 import { Separator } from "./ui/separator";
 import dummyTodo from "@/utils/dummyTodo";
+import FilterByTags from "./Sort/FilterByTags";
 import RemoveAllAlert from "./Dialogs/RemoveAllDialog";
 import TodoContext from "@/contexts/TodoContext";
 import TodoMapper from "./TodoMapper";
-import SortMenu from "./SortMenu/SortMenu";
+import SortMenu from "./Sort/SortMenu";
 import SearchBar from "./SearchBar";
-import AltSearch from "./AltSearch";
+import TagsForm from "./Forms/TagsForm";
 
 const Body = () => {
   const {
@@ -38,10 +39,13 @@ const Body = () => {
           Add Dummy
         </Button>
         <SortMenu />
+        <FilterByTags />
       </div>
       <div className="flex justify-center">
-        {/* <SearchBar /> */}
-        <AltSearch />
+        <SearchBar />
+      </div>
+      <div>
+        <TagsForm />
       </div>
       {hasNoPendingOrPinned() && (
         <div>

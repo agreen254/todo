@@ -2,7 +2,7 @@
 
 import { useContext, useState } from "react";
 import TodoContext from "@/contexts/TodoContext";
-import { XCircle } from "lucide-react";
+import { ChevronDown, ChevronUp, XCircle } from "lucide-react";
 import {
   Popover,
   PopoverContent,
@@ -19,10 +19,18 @@ const SortMenu = () => {
     state: { sortOrder },
   } = useContext(TodoContext);
 
+  const handleChevron = () => {
+    return isOpen ? (
+      <ChevronUp className="w-4 h-4 ml-2" />
+    ) : (
+      <ChevronDown className="w-4 h-4 ml-2" />
+    );
+  };
+
   return (
     <Popover open={isOpen} onOpenChange={setIsOpen}>
       <PopoverTrigger asChild>
-        <Button>sort</Button>
+        <Button>sort {handleChevron()}</Button>
       </PopoverTrigger>
       <PopoverContent className="max-w-[400px] w-[95vw] hover:ring-2 hover:ring-ring">
         <span className="text-sm text-muted-foreground">
