@@ -10,6 +10,7 @@ import TodoContext from "@/contexts/TodoContext";
 import TodoMapper from "./TodoMapper";
 import SortMenu from "./Sort/SortMenu";
 import SearchBar from "./SearchBar";
+import ThemeToggle from "./ThemeToggle";
 
 const Body = () => {
   const {
@@ -34,7 +35,7 @@ const Body = () => {
 
   return (
     <>
-      <div>
+      <div className="flex justify-center gap-4 mt-4">
         <Button
           onClick={() => dispatch({ cmd: "ADD_TODO", toAdd: dummyTodo() })}
         >
@@ -42,6 +43,7 @@ const Body = () => {
         </Button>
         <SortMenu />
         <FilterByTags />
+        <ThemeToggle />
       </div>
       <div className="flex justify-center">
         <SearchBar />
@@ -62,7 +64,7 @@ const Body = () => {
           <Separator className="bg-primary w-[65vw] my-2 h-[3px] rounded-l-none rounded-tr-md rounded-br-md" />
         </div>
       )}
-      <div className="flex justify-start flex-wrap max-w-[3340px] mx-auto">
+      <div className="flex justify-start flex-wrap max--[3340px] mx-auto">
         <TodoMapper todos={completedTodos} />
       </div>
       <RemoveAllAlert />

@@ -4,6 +4,8 @@ import NextThemeProvider from "../providers/NextThemeProvider";
 import TodoProvider from "../providers/TodoProvider";
 import "./globals.css";
 import { cn } from "@/utils/cn";
+import ThemeSwitcher from "@/components/ThemeSwitcher";
+import ThemeToggle from "@/components/ThemeToggle";
 
 export const fontSans = FontSans({
   subsets: ["latin"],
@@ -31,7 +33,12 @@ export default function RootLayout({
           attribute="class"
           disableTransitionOnChange
         >
-          <TodoProvider>{children}</TodoProvider>
+          <TodoProvider>
+            {/* <header className="h-12 w-full fixed top-0 left-0 z-10 flex justify-end">
+              <ThemeToggle />
+            </header> */}
+            {children}
+          </TodoProvider>
         </NextThemeProvider>
       </body>
     </html>

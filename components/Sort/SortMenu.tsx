@@ -33,20 +33,10 @@ const SortMenu = () => {
         <Button>sort {handleChevron()}</Button>
       </PopoverTrigger>
       <PopoverContent className="max-w-[400px] w-[95vw] hover:ring-2 hover:ring-ring">
-        <span className="text-sm text-muted-foreground">
-          current sort order: {sortingMap.get(sortOrder)}
-        </span>
-        <Separator className="w-full my-2" />
         <SortMenuEntries />
-        <div className="w-full flex justify-center">
-          <Button
-            className="mt-2 w-full font-bold"
-            onClick={() => setIsOpen(false)}
-          >
-            <XCircle className="mr-2 translate-y-[1px]" />
-            close menu
-          </Button>
-        </div>
+        <p className="text-sm text-muted-foreground">
+          current sort order: {sortingMap.get(sortOrder)}
+        </p>
       </PopoverContent>
     </Popover>
   );

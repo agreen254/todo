@@ -11,7 +11,6 @@ export default function Home() {
   return (
     <>
       <main>
-        <ThemeSwitcher />
         <DynamicBody />
       </main>
       <footer className="min-h-[100px] mt-5 mb-[100px] lg:mb-auto overflow-y-auto">

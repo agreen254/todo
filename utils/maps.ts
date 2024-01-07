@@ -14,3 +14,10 @@ export const sortingMap = new Map<TodoSortOrder, string>([
   ["complexity_asc", "low complexity"],
   ["complexity_desc", "high complexity"],
 ]);
+
+// same but for rendering in the search results page
+export const searchByMap = new Map<string, string>([
+  ["name", "names"],
+  ["description", "descriptions"],
+  ["dueAt", "due dates"],
+]);

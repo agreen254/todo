@@ -29,11 +29,11 @@ const TodoCardContextMenu = ({ t }: { t: Todo }) => {
       </DropdownMenuTrigger>
       <DropdownMenuContent
         className={cn(
-          "w-[120px] m-0 p-0 hover:ring-2 hover:ring-ring transition-all font-semibold",
+          "w-[120px] m-0 p-0 hover:ring-2 hover:ring-ring transition-all font-medium dark:font-semibold",
           t.isPinned && "hover:ring-teal-500 dark:hover:ring-teal-700"
         )}
       >
-        <DropdownMenuLabel className="font-bold">Actions</DropdownMenuLabel>
+        <DropdownMenuLabel className="dark:font-bold font-semibold">Actions</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem className="rounded-none text-base py-0">
           <Link
@@ -64,7 +64,7 @@ const TodoCardContextMenu = ({ t }: { t: Todo }) => {
               dispatch({ cmd: "CLONE_TODO", toClone: t });
               setIsOpen(false);
             }}
-            className="w-full flex justify-between p-0 m-0 text-base font-semibold"
+            className="w-full flex justify-between p-0 m-0 text-base"
           >
             Clone
             <BookCopy className="w-5 h-5" />
@@ -76,7 +76,7 @@ const TodoCardContextMenu = ({ t }: { t: Todo }) => {
             onClick={() => {
               dispatch({ cmd: "DELETE_TODO", toDelete: t });
             }}
-            className="w-full flex justify-between p-0 m-0 text-base font-semibold"
+            className="w-full flex justify-between p-0 m-0 text-base"
           >
             Delete
             <Trash2 className="w-5 h-5" />
