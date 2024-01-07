@@ -36,19 +36,27 @@ const TodoProvider = ({ children }: { children: React.ReactNode }) => {
 
   const filteredTodos = filterByTags(todos, filterTags);
   const sortedTodos = sortTodos(filteredTodos, sortOrder);
-  const {
-    completedTodos: completed,
-    pendingTodos: pending,
-    pinnedTodos: pinned,
-  } = splitTodos(sortedTodos);
+  // const {
+  //   completedTodos: completed,
+  //   pendingTodos: pending,
+  //   pinnedTodos: pinned,
+  // } = splitTodos(sortedTodos);
 
+  // const state = {
+  //   todos: {
+  //     allTodos: todos,
+  //     completedTodos: completed,
+  //     pendingTodos: pending,
+  //     pinnedTodos: pinned,
+  //   },
+  //   sortOrder: sortOrder,
+  //   tags: {
+  //     allTags: tags,
+  //     filterTags: filterTags,
+  //   },
+  // };
   const state = {
-    todos: {
-      allTodos: todos,
-      completedTodos: completed,
-      pendingTodos: pending,
-      pinnedTodos: pinned,
-    },
+    todos: todos,
     sortOrder: sortOrder,
     tags: {
       allTags: tags,

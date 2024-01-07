@@ -2,7 +2,7 @@
 
 import { useContext, useEffect } from "react";
 import TodoContext from "@/contexts/TodoContext";
-import TodoNotFound from "../TodoNotFound";
+import TodoNotFound from "../Errors/TodoNotFound";
 
 const EditForm = ({ id }: { id: string }) => {
   const {

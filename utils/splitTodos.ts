@@ -1,7 +1,7 @@
-import { Todo, FilteredTodos } from "./types";
+import { Todo, SplitTodos } from "./types";
 
-export default function splitTodos(todos: Todo[]): FilteredTodos {
-  let result: FilteredTodos = {
+export default function splitTodos(todos: Todo[]): SplitTodos {
+  let result: SplitTodos = {
     pinnedTodos: [],
     pendingTodos: [],
     completedTodos: [],

@@ -18,7 +18,7 @@ import TodoContext from "@/contexts/TodoContext";
 const RemoveAllDialog = () => {
   const {
     state: {
-      todos: { allTodos },
+      todos,
     },
     dispatch,
   } = useContext(TodoContext);
@@ -30,7 +30,7 @@ const RemoveAllDialog = () => {
     <AlertDialog>
       <AlertDialogTrigger asChild>
         <Button
-          disabled={!allTodos.length}
+          disabled={!todos.length}
           variant="destructive"
           className="focus-visible:ring-destructive"
         >

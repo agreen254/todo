@@ -2,7 +2,7 @@
 
 import { useContext } from "react";
 import TodoContext from "@/contexts/TodoContext";
-import TodoNotFound from "@/components/TodoNotFound";
+import TodoNotFound from "@/components/Errors/TodoNotFound";
 
 const ViewTodo = ({ params: { id } }: { params: { id: string } }) => {
   const {

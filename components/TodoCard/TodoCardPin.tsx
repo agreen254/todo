@@ -6,9 +6,7 @@ import { Todo } from "@/utils/types";
 
 const TodoCardPin = ({ t }: { t: Todo }) => {
   const {
-    state: {
-      todos: { pinnedTodos },
-    },
+    state: { todos },
     dispatch,
   } = useContext(TodoContext);
 
@@ -26,7 +24,7 @@ const TodoCardPin = ({ t }: { t: Todo }) => {
       variant="ghost"
       size="icon"
       onClick={() => dispatch({ cmd: "PIN_TODO", toPin: t })}
-      disabled={pinnedTodos.length >= 3 || t.isCompleted}
+      disabled={todos.filter((t) => t.isCompleted).length >= 3 || t.isCompleted}
     >
       <Pin className="w-6 h-6 mx-2" />
     </Button>

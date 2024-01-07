@@ -32,7 +32,7 @@ const SearchBar = () => {
 
   const {
     state: {
-      todos: { allTodos: all },
+      todos,
     },
   } = useContext(TodoContext);
 
@@ -41,7 +41,7 @@ const SearchBar = () => {
     router.push(`search?query=${data.query}&type=${data.type}`);
   }
 
-  if (!all.length) return;
+  if (!todos.length) return;
 
   return (
     <Form {...form}>

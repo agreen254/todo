@@ -17,7 +17,7 @@ export type Todo = {
   dueAt?: string;
 };
 
-export type FilteredTodos = {
+export type SplitTodos = {
   pinnedTodos: Todo[];
   pendingTodos: Todo[];
   completedTodos: Todo[];
@@ -37,7 +37,6 @@ export const todoSortValues = [
 const todoSortPossibilities = todoSortValues.flat();
 export type TodoSortOrder = (typeof todoSortPossibilities)[number];
 
-// same thing here as above
 export const searchSpecifierValues = ["name", "dueAt", "description"] as const;
 export type SearchSpecifier = (typeof searchSpecifierValues)[number];
 
@@ -47,20 +46,19 @@ export type SearchSpecifier = (typeof searchSpecifierValues)[number];
 // are accessed by comparison of the tags property from the Todo object at runtime.
 export type Tag = { name: string; color: number };
 
-export type TodoContextType = {
-  state: {
-    todos: {
-      allTodos: Todo[];
-      completedTodos: Todo[];
-      pendingTodos: Todo[];
-      pinnedTodos: Todo[];
-    };
-    sortOrder: TodoSortOrder;
-    tags: {
-      allTags: Tag[];
-      filterTags: string[];
-    };
+// The sort ordering and tags selected for filtering are preserved local storage for the home page only.
+// Whenever a search occurs, the search page will have a client-side sort and filter that is not persisted in local storage.
+// Changes to the todo arrays themselves resulting from the search page will still persist, however.
+export type TodoContextState = {
+  todos: Todo[];
+  sortOrder: TodoSortOrder;
+  tags: {
+    allTags: Tag[];
+    filterTags: string[];
   };
+};
+export type TodoContextType = {
+  state: TodoContextState;
   dispatch: (action: Actions) => void;
 };
 

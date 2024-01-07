@@ -6,6 +6,5 @@ export default function filterByTags(todos: Todo[], filterTagNames: string[]) {
   }
 
   if (!filterTagNames.length) return todos;
-  console.log(filterTagNames);
   return todos.filter((t) => isValid(t));
 }

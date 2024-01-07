@@ -11,19 +11,16 @@ import TodoMapper from "./TodoMapper";
 import SortMenu from "./Sort/SortMenu";
 import SearchBar from "./SearchBar";
 import ThemeToggle from "./ThemeToggle";
+import processTodos from "@/utils/processTodos";
 
 const Body = () => {
-  const {
-    state: {
-      todos: { allTodos, completedTodos, pendingTodos, pinnedTodos },
-    },
-    dispatch,
-  } = useContext(TodoContext);
+  const { state, dispatch } = useContext(TodoContext);
+  const { pinnedTodos, pendingTodos, completedTodos } = processTodos(state);
 
   const hasNoPendingOrPinned = () =>
     !!pendingTodos.length && !!pinnedTodos.length;
   const hasNoCompleted = () => !!completedTodos.length;
-  const hasNoEntries = () => allTodos.length === 0;
+  const hasNoEntries = () => state.todos.length === 0;
 
   // if (hasNoEntries()) {
   //   return (

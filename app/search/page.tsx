@@ -1,9 +1,9 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import TodoNotFound from "@/components/Errors/TodoNotFound";
 import { Separator } from "@/components/ui/separator";
 import { searchByMap } from "@/utils/maps";
-import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 
 const SearchPage = () => {
@@ -12,19 +12,7 @@ const SearchPage = () => {
   const typeParam = searchParams.get("type") || "";
 
   const typeRender = searchByMap.get(typeParam);
-  if (!typeRender)
-    return (
-      <div className="flex flex-col justify-center">
-        <h1 className="text-3xl font-bold mt-12 ml-4 text-center">
-          Error: Invalid Search.
-        </h1>
-        <div className="flex justify-center mt-2">
-          <Button role="link" className="w-[180px]">
-            <Link href="/">Return Home</Link>
-          </Button>
-        </div>
-      </div>
-    );
+  if (!typeRender) return <TodoNotFound />;
 
   return (
     <>
