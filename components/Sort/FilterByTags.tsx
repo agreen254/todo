@@ -46,7 +46,7 @@ const FilterByTags = () => {
       <PopoverTrigger asChild>
         <Button>tags {handleChevron()}</Button>
       </PopoverTrigger>
-      <PopoverContent className="max-w-[200px] w-[95vw] hover:ring-2 hover:ring-ring">
+      <PopoverContent className="max-w-[200px] w-[95vw] hover:border-primary transition-colors">
         {allTags.map((tag) => (
           <div className="flex items-end mb-2" key={tag.name}>
             <Checkbox

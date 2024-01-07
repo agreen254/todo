@@ -2,9 +2,10 @@ import { Todo } from "./types";
 
 export default function filterByTags(todos: Todo[], filterTagNames: string[]) {
   function isValid(t: Todo) {
-    return t.tags.every((tag) => filterTagNames.includes(tag) || false);
+    return filterTagNames.every((tag) => t.tags.includes(tag));
   }
 
   if (!filterTagNames.length) return todos;
+  console.log(filterTagNames);
   return todos.filter((t) => isValid(t));
 }

@@ -32,7 +32,7 @@ const SortMenu = () => {
       <PopoverTrigger asChild>
         <Button>sort {handleChevron()}</Button>
       </PopoverTrigger>
-      <PopoverContent className="max-w-[400px] w-[95vw] hover:ring-2 hover:ring-ring">
+      <PopoverContent className="max-w-[400px] w-[95vw] hover:border-primary transition-colors">
         <SortMenuEntries />
         <p className="text-sm text-muted-foreground">
           current sort order: {sortingMap.get(sortOrder)}
