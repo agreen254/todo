@@ -1,9 +1,9 @@
 "use client";
 
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import TodoContext from "@/contexts/TodoContext";
 import Link from "next/link";
-import TodoNotFound from "@/components/Errors/TodoNotFound";
+import InvalidSearch from "@/components/Errors/InvalidSearch";
 import { Separator } from "@/components/ui/separator";
 import { searchByMap } from "@/utils/maps";
 import processTodos from "@/utils/processTodos";
@@ -29,7 +29,16 @@ const SearchPage = () => {
     useState<TodoSortOrder>("default");
   const [localFilterTags, setLocalFilterTags] = useState<string[]>([]);
 
-  if (!typeParam) return <TodoNotFound />;
+  // will throw hydration error on refresh without checking mount
+  // can also separate below logic to a dynamic import component
+  const [isMounted, setIsMounted] = useState(false);
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+  if (!isMounted) {
+    return null;
+  }
+  if (!typeParam) return <InvalidSearch />;
 
   const valid = searchTodos(queryParam, typeParam, todos);
   const validSorted = sortTodos(valid, localSortOrder);
@@ -53,7 +62,7 @@ const SearchPage = () => {
       </h1>
       <Separator className="w-[65vw] h-1 my-2 rounded-r-md bg-primary/50 dark:bg-primary" />
       <div className="flex justify-start gap-4 ml-4 mb-4">
-        <SortMenu sortOrder={localSortOrder} />
+        <SortMenu sortOrder={localSortOrder} setSortOrder={setLocalSortOrder} />
         <FilterByTags
           filterTags={localFilterTags}
           setFilterTags={setLocalFilterTags}

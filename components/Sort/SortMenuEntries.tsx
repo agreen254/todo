@@ -7,11 +7,25 @@ import { sortingMap } from "@/utils/maps";
 import { TodoSortOrder, todoSortValues } from "@/utils/types";
 import { Button } from "../ui/button";
 
-const SortMenuEntries = () => {
-  const {
-    state: { sortOrder },
-    dispatch,
-  } = useContext(TodoContext);
+type Props = {
+  sortOrder: TodoSortOrder;
+  setSortOrder?: (newOrder: TodoSortOrder) => void;
+};
+
+const SortMenuEntries = ({ sortOrder, setSortOrder }: Props) => {
+  const { dispatch } = useContext(TodoContext);
+  const handleSelectSort = (selectedOrder: TodoSortOrder) => {
+    if (setSortOrder) {
+      selectedOrder === sortOrder
+        ? setSortOrder(selectedOrder)
+        : setSortOrder("default");
+    } else {
+      selectedOrder === sortOrder
+        ? dispatch({ cmd: "SET_SORT_ORDER", newOrder: selectedOrder })
+        : dispatch({ cmd: "SET_SORT_ORDER", newOrder: "default" });
+    }
+  };
+
   const isSelectedSort = (category: TodoSortOrder) => {
     return sortOrder === category;
   };
@@ -30,18 +44,14 @@ const SortMenuEntries = () => {
             <Button
               className="mr-4 transition-colors w-[calc(50%-12px)] font-semibold"
               variant={isSelectedSort(entry[0]) ? "selectedSort" : "default"}
-              onClick={() =>
-                dispatch({ cmd: "SET_SORT_ORDER", newOrder: entry[0] })
-              }
+              onClick={() => handleSelectSort(entry[0])}
             >
               {firstDisplay}
             </Button>
             <Button
               className="transition-colors w-[calc(50%-12px)] font-semibold"
               variant={isSelectedSort(entry[1]) ? "selectedSort" : "default"}
-              onClick={() =>
-                dispatch({ cmd: "SET_SORT_ORDER", newOrder: entry[1] })
-              }
+              onClick={() => handleSelectSort(entry[1])}
             >
               {lastDisplay}
             </Button>

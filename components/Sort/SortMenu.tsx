@@ -12,7 +12,12 @@ import SortMenuEntries from "./SortMenuEntries";
 import { sortingMap } from "@/utils/maps";
 import { TodoSortOrder } from "@/utils/types";
 
-const SortMenu = ({ sortOrder }: { sortOrder: TodoSortOrder }) => {
+type Props = {
+  sortOrder: TodoSortOrder;
+  setSortOrder?: (newOrder: TodoSortOrder) => void;
+};
+
+const SortMenu = ({ sortOrder, setSortOrder }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleChevron = () => {
@@ -29,7 +34,11 @@ const SortMenu = ({ sortOrder }: { sortOrder: TodoSortOrder }) => {
         <Button>sort {handleChevron()}</Button>
       </PopoverTrigger>
       <PopoverContent className="max-w-[400px] w-[95vw] hover:border-primary transition-colors">
-        <SortMenuEntries />
+        {sortOrder ? (
+          <SortMenuEntries sortOrder={sortOrder} setSortOrder={setSortOrder} />
+        ) : (
+          <SortMenuEntries sortOrder={sortOrder} />
+        )}
         <p className="text-sm text-muted-foreground">
           current sort order: {sortingMap.get(sortOrder)}
         </p>

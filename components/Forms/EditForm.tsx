@@ -10,12 +10,6 @@ const EditForm = ({ id }: { id: string }) => {
   } = useContext(TodoContext);
   const t = todos.find((t) => t.id === id);
 
-  useEffect(() => {
-    if (t) {
-      document.title = `Edit: ${t.name}`;
-    }
-  }, []);
-
   if (!t) {
     return <TodoNotFound />;
   }

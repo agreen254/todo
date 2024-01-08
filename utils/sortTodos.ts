@@ -3,7 +3,7 @@ import { Todo, TodoSortOrder } from "./types";
 
 export default function sortTodos(
   toSort: Todo[],
-  sortOrder: TodoSortOrder
+  sortOrder: TodoSortOrder,
 ): Todo[] {
   switch (sortOrder) {
     case "name_asc": {

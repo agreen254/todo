@@ -40,21 +40,21 @@ const TodoCard = ({ t, className }: Props) => {
           <span>
             <Calendar className="w-4 h-4 mr-2 inline-block translate-y-[-2px]" />
             <span className="text-muted-foreground">Due Date: </span>
-            <span className="font-semibold">{dueAtString(t.dueAt)}</span>
+            <span className="font-medium dark:font-semibold">{dueAtString(t.dueAt)}</span>
           </span>
         </p>
         <p>
           <span>
             <ArrowUp className="w-4 h-4 mr-2 inline-block translate-y-[-2px]" />
             <span className="text-muted-foreground">Priority: </span>
-            <span className="font-semibold">{outOfTen(t.priority)}</span>
+            <span className="font-medium dark:font-semibold">{outOfTen(t.priority)}</span>
           </span>
         </p>
         <p>
           <span>
             <Move className="w-4 h-4 mr-2 inline-block translate-y-[-2px]" />
             <span className="text-muted-foreground">Complexity: </span>
-            <span className="font-semibold">{outOfTen(t.complexity)}</span>
+            <span className="font-medium dark:font-semibold">{outOfTen(t.complexity)}</span>
           </span>
         </p>
       </CardContent>

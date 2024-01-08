@@ -1,7 +1,6 @@
-import { distance } from "fastest-levenshtein";
 import { sort } from "fast-sort";
 import dueAtString from "./parseDueAt";
-import { SearchSpecifier, Todo } from "./types";
+import { Todo } from "./types";
 
 export default function searchTodos(
   query: string,

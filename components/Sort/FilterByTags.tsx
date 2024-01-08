@@ -44,7 +44,6 @@ const FilterByTags = ({ filterTags, setFilterTags }: Props) => {
         const newTags = filterTags.filter((name) => name !== tag.name);
         setFilterTags(newTags);
       } else {
-        dispatch({ cmd: "SET_FILTER_TAGS", tags: [...filterTags, tag.name] });
         setFilterTags([...filterTags, tag.name]);
       }
     }
