@@ -17,12 +17,12 @@ const SortMenuEntries = ({ sortOrder, setSortOrder }: Props) => {
   const handleSelectSort = (selectedOrder: TodoSortOrder) => {
     if (setSortOrder) {
       selectedOrder === sortOrder
-        ? setSortOrder(selectedOrder)
-        : setSortOrder("default");
+        ? setSortOrder("default")
+        : setSortOrder(selectedOrder);
     } else {
       selectedOrder === sortOrder
-        ? dispatch({ cmd: "SET_SORT_ORDER", newOrder: selectedOrder })
-        : dispatch({ cmd: "SET_SORT_ORDER", newOrder: "default" });
+        ? dispatch({ cmd: "SET_SORT_ORDER", newOrder: "default" })
+        : dispatch({ cmd: "SET_SORT_ORDER", newOrder: selectedOrder });
     }
   };
 

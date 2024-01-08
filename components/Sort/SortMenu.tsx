@@ -34,11 +34,7 @@ const SortMenu = ({ sortOrder, setSortOrder }: Props) => {
         <Button>sort {handleChevron()}</Button>
       </PopoverTrigger>
       <PopoverContent className="max-w-[400px] w-[95vw] hover:border-primary transition-colors">
-        {sortOrder ? (
-          <SortMenuEntries sortOrder={sortOrder} setSortOrder={setSortOrder} />
-        ) : (
-          <SortMenuEntries sortOrder={sortOrder} />
-        )}
+        <SortMenuEntries sortOrder={sortOrder} setSortOrder={setSortOrder} />
         <p className="text-sm text-muted-foreground">
           current sort order: {sortingMap.get(sortOrder)}
         </p>
