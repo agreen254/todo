@@ -1,11 +1,12 @@
 import { distance } from "fastest-levenshtein";
 import { sort } from "fast-sort";
+import dueAtString from "./parseDueAt";
 import { SearchSpecifier, Todo } from "./types";
 
 export default function searchTodos(
   query: string,
-  todos: Todo[],
-  kind: string
+  kind: string,
+  todos: Todo[]
 ): Todo[] {
   if (query === "") return todos;
 
@@ -16,7 +17,9 @@ export default function searchTodos(
         return t.description?.toLowerCase().includes(processedQuery) ? [t] : [];
       }
       case "dueAt": {
-        return t.dueAt?.toLowerCase().includes(processedQuery) ? [t] : [];
+        return dueAtString(t.dueAt).toLowerCase().includes(processedQuery)
+          ? [t]
+          : [];
       }
       case "name":
       default: {

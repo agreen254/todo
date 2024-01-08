@@ -1,15 +1,24 @@
 "use client";
 
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import TodoContext from "@/contexts/TodoContext";
 import TodoNotFound from "@/components/Errors/TodoNotFound";
 
-const ViewTodo = ({ params: { id } }: { params: { id: string } }) => {
-  const {
-    state: { all },
-  } = useContext(TodoContext);
+type Props = {
+  params: { id: string };
+};
 
-  const t = all.find((ele) => ele.id === id);
+const ViewTodo = ({ params: { id } }: Props) => {
+  const {
+    state: { todos },
+  } = useContext(TodoContext);
+  const t = todos.find((t) => t.id === id);
+
+  useEffect(() => {
+    if (t) {
+      document.title = `View: ${t.name}`;
+    }
+  });
 
   if (!t) {
     <TodoNotFound />;

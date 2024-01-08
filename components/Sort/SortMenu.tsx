@@ -1,23 +1,19 @@
 "use client";
 
-import { useContext, useState } from "react";
-import TodoContext from "@/contexts/TodoContext";
-import { ChevronDown, ChevronUp, XCircle } from "lucide-react";
+import { useState } from "react";
+import { ChevronDown, ChevronUp } from "lucide-react";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { Separator } from "../ui/separator";
 import { Button } from "../ui/button";
 import SortMenuEntries from "./SortMenuEntries";
 import { sortingMap } from "@/utils/maps";
+import { TodoSortOrder } from "@/utils/types";
 
-const SortMenu = () => {
+const SortMenu = ({ sortOrder }: { sortOrder: TodoSortOrder }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const {
-    state: { sortOrder },
-  } = useContext(TodoContext);
 
   const handleChevron = () => {
     return isOpen ? (

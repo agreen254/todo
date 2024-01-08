@@ -38,7 +38,7 @@ const SearchBar = () => {
 
   const router = useRouter();
   function onSubmit(data: z.infer<typeof formSchema>) {
-    router.push(`search?query=${data.query}&type=${data.type}`);
+    router.push(`search?query=${data.query.trim()}&type=${data.type}`);
   }
 
   if (!todos.length) return;

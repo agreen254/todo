@@ -6,15 +6,13 @@ import TodoNotFound from "../Errors/TodoNotFound";
 
 const EditForm = ({ id }: { id: string }) => {
   const {
-    state: {
-      todos: { allTodos },
-    },
+    state: { todos },
   } = useContext(TodoContext);
-  const t = allTodos.find((t) => t.id === id);
+  const t = todos.find((t) => t.id === id);
 
   useEffect(() => {
     if (t) {
-      document.title = `Edit Todo: ${t.name}`;
+      document.title = `Edit: ${t.name}`;
     }
   }, []);
 

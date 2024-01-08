@@ -15,7 +15,11 @@ import processTodos from "@/utils/processTodos";
 
 const Body = () => {
   const { state, dispatch } = useContext(TodoContext);
-  const { pinnedTodos, pendingTodos, completedTodos } = processTodos(state);
+  const { pinnedTodos, pendingTodos, completedTodos } = processTodos(
+    state.todos,
+    state.sortOrder,
+    state.tags.filterTags
+  );
 
   const hasNoPendingOrPinned = () =>
     !!pendingTodos.length && !!pinnedTodos.length;
@@ -38,8 +42,8 @@ const Body = () => {
         >
           Add Dummy
         </Button>
-        <SortMenu />
-        <FilterByTags />
+        <SortMenu sortOrder={state.sortOrder} />
+        <FilterByTags filterTags={state.tags.filterTags} />
         <ThemeToggle />
       </div>
       <div className="flex justify-center">

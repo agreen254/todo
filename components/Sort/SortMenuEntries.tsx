@@ -18,8 +18,7 @@ const SortMenuEntries = () => {
 
   return todoSortValues.map((entry, idx) => {
     if (entry.length === 1) {
-      // skip rendering "default" by itself
-      return;
+      return; // skip rendering "default" by itself
     } else {
       const [firstDisplay, lastDisplay] = [
         sortingMap.get(entry[0]),

@@ -27,7 +27,8 @@ export const todoFormDefaults: Partial<TodoFormData> = {
 export const searchFormSchema = z.object({
   query: z
     .string()
-    .max(255, { message: "Queries are limited to 255 characters." }),
+    .max(255, { message: "Queries are limited to 255 characters." })
+    .refine((s) => s.trim(), "Please enter a search term."),
   type: z.enum(["name", "description", "dueAt"], {
     required_error: "You need to select a search type.",
   }),

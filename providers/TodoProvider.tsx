@@ -3,10 +3,7 @@
 import TodoContext from "../contexts/TodoContext";
 import useLocalStorage from "../hooks/useLocalStorage";
 import { todoReducer } from "../reducers/todoReducer";
-import splitTodos from "@/utils/splitTodos";
-import sortTodos from "@/utils/sortTodos";
 import { Actions, Tag, Todo, TodoSortOrder } from "../utils/types";
-import filterByTags from "@/utils/filterByTags";
 
 const TodoProvider = ({ children }: { children: React.ReactNode }) => {
   const [todos, setTodos] = useLocalStorage<Todo[]>("todos", []);
@@ -34,27 +31,6 @@ const TodoProvider = ({ children }: { children: React.ReactNode }) => {
     );
   };
 
-  const filteredTodos = filterByTags(todos, filterTags);
-  const sortedTodos = sortTodos(filteredTodos, sortOrder);
-  // const {
-  //   completedTodos: completed,
-  //   pendingTodos: pending,
-  //   pinnedTodos: pinned,
-  // } = splitTodos(sortedTodos);
-
-  // const state = {
-  //   todos: {
-  //     allTodos: todos,
-  //     completedTodos: completed,
-  //     pendingTodos: pending,
-  //     pinnedTodos: pinned,
-  //   },
-  //   sortOrder: sortOrder,
-  //   tags: {
-  //     allTags: tags,
-  //     filterTags: filterTags,
-  //   },
-  // };
   const state = {
     todos: todos,
     sortOrder: sortOrder,

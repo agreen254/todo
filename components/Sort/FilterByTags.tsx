@@ -15,21 +15,38 @@ import { ChevronDown, ChevronUp } from "lucide-react";
 import { Label } from "../ui/label";
 import { Tag } from "@/utils/types";
 
-const FilterByTags = () => {
+// If we provide a setter to this component, it tells the component
+// that the state not persisted in the local storage.
+type Props = {
+  filterTags: string[];
+  setFilterTags?: (tags: string[]) => void;
+};
+
+const FilterByTags = ({ filterTags, setFilterTags }: Props) => {
   const {
     state: {
-      tags: { allTags, filterTags },
+      tags: { allTags },
     },
     dispatch,
   } = useContext(TodoContext);
   const [isOpen, setIsOpen] = useState(false);
 
   const handleCheck = (tag: Tag) => {
-    if (filterTags.includes(tag.name)) {
-      const newTags = filterTags.filter((name) => name !== tag.name);
-      dispatch({ cmd: "SET_FILTER_TAGS", tags: newTags });
+    if (!setFilterTags) {
+      if (filterTags.includes(tag.name)) {
+        const newTags = filterTags.filter((name) => name !== tag.name);
+        dispatch({ cmd: "SET_FILTER_TAGS", tags: newTags });
+      } else {
+        dispatch({ cmd: "SET_FILTER_TAGS", tags: [...filterTags, tag.name] });
+      }
     } else {
-      dispatch({ cmd: "SET_FILTER_TAGS", tags: [...filterTags, tag.name] });
+      if (filterTags.includes(tag.name)) {
+        const newTags = filterTags.filter((name) => name !== tag.name);
+        setFilterTags(newTags);
+      } else {
+        dispatch({ cmd: "SET_FILTER_TAGS", tags: [...filterTags, tag.name] });
+        setFilterTags([...filterTags, tag.name]);
+      }
     }
   };
 
@@ -54,12 +71,19 @@ const FilterByTags = () => {
               className="mr-1"
               checked={filterTags.includes(tag.name)}
               onClick={() => handleCheck(tag)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  handleCheck(tag);
+                }
+              }}
             />
             <Label htmlFor={tag.name}>{tag.name}</Label>
           </div>
         ))}
         <Separator className="w-full my-2" />
-        <p className="text-sm text-muted-foreground">current selected tags:</p>
+        <p className="text-sm text-muted-foreground">
+          selected tags: {filterTags.length === 0 && "N/A"}
+        </p>
         <p className="text-sm text-muted-foreground">
           {filterTags.map((tagName) => (
             <span key={tagName + "span"}>{`${tagName} `}</span>

@@ -1,0 +1,1 @@
+const alphaNumeric = /^\w+$/;

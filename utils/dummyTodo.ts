@@ -4,7 +4,14 @@ import { DateTime } from "luxon";
 import { Todo } from "./types";
 import randArrayEle from "./randEle";
 
-const potentialTags = [["home"], ["chores"], ["work"]];
+const potentialTags = [
+  ["home"],
+  ["chores"],
+  ["work"],
+  ["home", "chores"],
+  ["work", "chores"],
+  ["school"],
+];
 
 // use in development to generate example todos
 export default function dummyTodo(): Todo {
