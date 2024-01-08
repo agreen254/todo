@@ -79,7 +79,7 @@ const FilterByTags = ({ filterTags, setFilterTags }: Props) => {
             <Label htmlFor={tag.name}>{tag.name}</Label>
           </div>
         ))}
-        <Separator className="w-full my-2" />
+        <Separator className="w-full mb-2 mt-3" />
         <p className="text-sm text-muted-foreground">
           selected tags: {filterTags.length === 0 && "N/A"}
         </p>

@@ -14,14 +14,8 @@ const ViewTodo = ({ params: { id } }: Props) => {
   } = useContext(TodoContext);
   const t = todos.find((t) => t.id === id);
 
-  useEffect(() => {
-    if (t) {
-      document.title = `View: ${t.name}`;
-    }
-  });
-
   if (!t) {
-    <TodoNotFound />;
+    return <TodoNotFound />;
   }
 
   return (

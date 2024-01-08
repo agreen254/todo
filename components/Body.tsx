@@ -1,6 +1,6 @@
 "use client";
 
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Button } from "./ui/button";
 import { Separator } from "./ui/separator";
 import dummyTodo from "@/utils/dummyTodo";
@@ -15,10 +15,12 @@ import processTodos from "@/utils/processTodos";
 
 const Body = () => {
   const { state, dispatch } = useContext(TodoContext);
+  const [filterTags, setFilterTags] = useState<string[]>([]);
+
   const { pinnedTodos, pendingTodos, completedTodos } = processTodos(
     state.todos,
     state.sortOrder,
-    state.tags.filterTags
+    filterTags
   );
 
   const hasNoPendingOrPinned = () =>
@@ -43,7 +45,7 @@ const Body = () => {
           Add Dummy
         </Button>
         <SortMenu sortOrder={state.sortOrder} />
-        <FilterByTags filterTags={state.tags.filterTags} />
+        <FilterByTags filterTags={filterTags} setFilterTags={setFilterTags} />
         <ThemeToggle />
       </div>
       <div className="flex justify-center">

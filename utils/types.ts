@@ -26,6 +26,7 @@ export type SplitTodos = {
 // create as an array first so we can map over it in the SortMenu component
 export const todoSortValues = [
   ["default"],
+  ["powerMode"],
   ["name_asc", "name_desc"],
   ["dueAt_asc", "dueAt_desc"],
   ["priority_desc", "priority_asc"],
@@ -54,7 +55,6 @@ export type TodoContextState = {
   sortOrder: TodoSortOrder;
   tags: {
     allTags: Tag[];
-    filterTags: string[];
   };
 };
 export type TodoContextType = {

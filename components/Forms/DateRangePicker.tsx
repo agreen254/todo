@@ -17,12 +17,12 @@ import {
 const DateRangePicker = ({
   className,
 }: React.HTMLAttributes<HTMLDivElement>) => {
-  const [date, setDate] = React.useState<DateRange | undefined>({
-    // from: new Date(2022, 0, 20),
-    from: undefined, 
-    // to: addDays(new Date(2022, 0, 20), 20),
-    to: undefined, 
-  });
+  const [date, setDate] = React.useState<DateRange | undefined>(
+    {
+      from: new Date(),
+      to: addDays(new Date(), 7),
+    }
+  );
 
   return (
     <div className={cn("grid gap-2", className)}>
@@ -59,6 +59,7 @@ const DateRangePicker = ({
             selected={date}
             onSelect={setDate}
             numberOfMonths={2}
+            disabled={(date) => date < new Date()}
           />
         </PopoverContent>
       </Popover>

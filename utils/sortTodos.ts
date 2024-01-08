@@ -53,11 +53,11 @@ export default function sortTodos(
         { desc: (t) => t.complexity },
         { desc: (t) => t.createdAt },
       ]);
-    // case "powerMode":
-    //   return sort(toSort).by([
-    //     { asc: (t) => t.complexity + t.priority },
-    //     { desc: (t) => t.createdAt },
-    //   ]);
+    case "powerMode":
+      return sort(toSort).by([
+        { asc: (t) => t.complexity + t.priority },
+        { desc: (t) => t.createdAt },
+      ]);
     default:
       return sort(toSort).asc([(t) => t.createdAt]);
   }

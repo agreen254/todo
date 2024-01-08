@@ -17,7 +17,7 @@ const TodoCard = ({ t, className }: Props) => {
     <Card
       className={cn(
         "hover:shadow-lg hover:shadow-slate-300 hover:ring-2 hover:ring-ring/60 dark:hover:ring-ring hover:dark:shadow-lg hover:dark:shadow-slate-600 transition-all",
-        t.isPinned && "hover:ring-teal-300 dark:hover:ring-teal-500",
+        t.isPinned && "hover:ring-teal-300 hover:border-teal-300 dark:hover:ring-teal-500 dark:hover:border-teal-500",
         className
       )}
     >

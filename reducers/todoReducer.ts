@@ -10,7 +10,6 @@ export function todoReducer(
   setSortOrder: (order: TodoSortOrder) => void,
   tags: Tag[],
   setTags: (tags: Tag[]) => void,
-  setFilterTags: (tags: string[]) => void,
   action: Actions
 ) {
   switch (action.cmd) {
@@ -77,9 +76,6 @@ export function todoReducer(
       }
       setSortOrder(action.newOrder);
       return;
-    }
-    case "SET_FILTER_TAGS": {
-      setFilterTags(action.tags);
     }
     default: {
       return;

@@ -8,10 +8,6 @@ import { Actions, Tag, Todo, TodoSortOrder } from "../utils/types";
 const TodoProvider = ({ children }: { children: React.ReactNode }) => {
   const [todos, setTodos] = useLocalStorage<Todo[]>("todos", []);
   const [tags, setTags] = useLocalStorage<Tag[]>("tags", []);
-  const [filterTags, setFilterTags] = useLocalStorage<string[]>(
-    "filterTags",
-    []
-  );
   const [sortOrder, setSortOrder] = useLocalStorage<TodoSortOrder>(
     "sortOrder",
     "default"
@@ -26,7 +22,6 @@ const TodoProvider = ({ children }: { children: React.ReactNode }) => {
       setSortOrder,
       tags,
       setTags,
-      setFilterTags,
       action
     );
   };
@@ -36,7 +31,6 @@ const TodoProvider = ({ children }: { children: React.ReactNode }) => {
     sortOrder: sortOrder,
     tags: {
       allTags: tags,
-      filterTags: filterTags,
     },
   };
 
