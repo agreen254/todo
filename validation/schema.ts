@@ -8,6 +8,7 @@ export const todoFormSchema = z.object({
   description: z
     .string()
     .max(150, { message: "Description must be 150 characters or shorter." }),
+  dueAt: z.date().optional(),
   tags: z
     .array(
       z.string().max(15, { message: "Tags must be 15 characters or shorter." })

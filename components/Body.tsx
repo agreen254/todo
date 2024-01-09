@@ -11,7 +11,7 @@ import RemoveAllAlert from "./Dialogs/RemoveAllDialog";
 import TodoContext from "@/contexts/TodoContext";
 import TodoMapper from "./TodoMapper";
 import SortMenu from "./Sort/SortMenu";
-import SearchBar from "./SearchBar";
+import SearchForm from "./Forms/SearchForm";
 import ThemeToggle from "./ThemeToggle";
 import processTodos from "@/utils/processTodos";
 import { add } from "date-fns";
@@ -77,7 +77,7 @@ const Body = () => {
       <div className="flex flex-col justify-center items-center">
         <div className="relative">
           <ThemeToggle />
-          <SearchBar />
+          <SearchForm />
         </div>
         <div className="w-[min(350px,90vw)] mt-4 space-x-4">
           <SortMenu sortOrder={state.sortOrder} />

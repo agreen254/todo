@@ -1,5 +1,6 @@
 import cloneTodo from "@/utils/cloneTodo";
 import tagsHandler from "@/utils/tagsHandler";
+import { formatISO } from "date-fns";
 import { Actions, Tag, Todo, TodoSortOrder } from "../utils/types";
 
 // handles all operations on the global state
@@ -37,7 +38,12 @@ export function todoReducer(
     case "COMPLETE_TODO": {
       const newTodos = todos.map((t) =>
         t.id === action.toComplete.id
-          ? { ...t, isCompleted: true, isPinned: false }
+          ? {
+              ...t,
+              isCompleted: true,
+              isPinned: false,
+              completedAt: formatISO(Date()),
+            }
           : t
       );
       setTodos(newTodos);

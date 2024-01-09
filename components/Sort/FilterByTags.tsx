@@ -20,7 +20,7 @@ import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
 // that the state not persisted in the local storage.
 type Props = {
   filterTags: string[];
-  setFilterTags?: (tags: string[]) => void;
+  setFilterTags: (tags: string[]) => void;
   setFilterTagsSchema: (sch: FilterTagsSchema) => void;
 };
 
@@ -33,25 +33,15 @@ const FilterByTags = ({
     state: {
       tags: { allTags },
     },
-    dispatch,
   } = useContext(TodoContext);
   const [isOpen, setIsOpen] = useState(false);
 
   const handleCheck = (tag: Tag) => {
-    if (!setFilterTags) {
-      if (filterTags.includes(tag.name)) {
-        const newTags = filterTags.filter((name) => name !== tag.name);
-        dispatch({ cmd: "SET_FILTER_TAGS", tags: newTags });
-      } else {
-        dispatch({ cmd: "SET_FILTER_TAGS", tags: [...filterTags, tag.name] });
-      }
+    if (filterTags.includes(tag.name)) {
+      const newTags = filterTags.filter((name) => name !== tag.name);
+      setFilterTags(newTags);
     } else {
-      if (filterTags.includes(tag.name)) {
-        const newTags = filterTags.filter((name) => name !== tag.name);
-        setFilterTags(newTags);
-      } else {
-        setFilterTags([...filterTags, tag.name]);
-      }
+      setFilterTags([...filterTags, tag.name]);
     }
   };
 

@@ -25,6 +25,7 @@ const TodoCardContextMenu = ({ t }: { t: Todo }) => {
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" size="icon">
           <MoreVertical className="w-6 h-6 mx-2" />
+          <span className="sr-only">open menu for more actions</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent

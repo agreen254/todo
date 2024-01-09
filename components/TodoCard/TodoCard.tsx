@@ -1,4 +1,4 @@
-import dueAtString from "@/utils/parseDueAt";
+import parseDate from "@/utils/parseDate";
 import outOfTen from "@/utils/outOfTen";
 import { cn } from "@/utils/cn";
 import { Card, CardContent, CardDescription, CardFooter } from "../ui/card";
@@ -17,7 +17,8 @@ const TodoCard = ({ t, className }: Props) => {
     <Card
       className={cn(
         "hover:shadow-lg hover:shadow-slate-300 hover:ring-2 hover:ring-ring/60 dark:hover:ring-ring hover:dark:shadow-lg hover:dark:shadow-slate-600 transition-all",
-        t.isPinned && "hover:ring-teal-300 hover:border-teal-300 dark:hover:ring-teal-500 dark:hover:border-teal-500",
+        t.isPinned &&
+          "hover:ring-teal-300 hover:border-teal-300 dark:hover:ring-teal-500 dark:hover:border-teal-500",
         className
       )}
     >
@@ -40,23 +41,34 @@ const TodoCard = ({ t, className }: Props) => {
           <span>
             <Calendar className="w-4 h-4 mr-2 inline-block translate-y-[-2px]" />
             <span className="text-muted-foreground">Due Date: </span>
-            <span className="font-medium dark:font-semibold">{dueAtString(t.dueAt)}</span>
+            <span className="font-medium dark:font-semibold">
+              {parseDate(t.dueAt)}
+            </span>
           </span>
         </p>
         <p>
           <span>
             <ArrowUp className="w-4 h-4 mr-2 inline-block translate-y-[-2px]" />
             <span className="text-muted-foreground">Priority: </span>
-            <span className="font-medium dark:font-semibold">{outOfTen(t.priority)}</span>
+            <span className="font-medium dark:font-semibold">
+              {outOfTen(t.priority)}
+            </span>
           </span>
         </p>
         <p>
           <span>
             <Move className="w-4 h-4 mr-2 inline-block translate-y-[-2px]" />
             <span className="text-muted-foreground">Complexity: </span>
-            <span className="font-medium dark:font-semibold">{outOfTen(t.complexity)}</span>
+            <span className="font-medium dark:font-semibold">
+              {outOfTen(t.complexity)}
+            </span>
           </span>
         </p>
+        {t.isCompleted && (
+          <p className="text-sm text-muted-foreground italic">
+            Completed: {parseDate(t.completedAt)}
+          </p>
+        )}
       </CardContent>
       <CardFooter className="flex flex-wrap gap-2 justify-start">
         {t.tags.map((tag) => (

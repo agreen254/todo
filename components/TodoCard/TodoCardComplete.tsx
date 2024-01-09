@@ -21,6 +21,11 @@ const TodoCardComplete = ({ t }: { t: Todo }) => {
       <CheckCircle
         className={cn("w-6 h-6 mx-2", t.isCompleted && "text-green-500")}
       />
+      <span className="sr-only">
+        {t.isCompleted
+          ? "revert completion of this todo"
+          : "complete this todo"}
+      </span>
     </Button>
   );
 };

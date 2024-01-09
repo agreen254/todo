@@ -4,11 +4,11 @@ export default function filterByTags(
   todos: Todo[],
   filterTagNames: string[],
   method: "inclusive" | "exclusive"
-) {
-  function isValidExclusive(t: Todo) {
+): Todo[] {
+  function isValidExclusive(t: Todo): boolean {
     return filterTagNames.every((tag) => t.tags.includes(tag));
   }
-  function isValidInclusive(t: Todo) {
+  function isValidInclusive(t: Todo): boolean {
     return t.tags.some((tag) => filterTagNames.includes(tag));
   }
 

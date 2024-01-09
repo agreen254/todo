@@ -1,9 +1,7 @@
 "use client";
 
 import z from "zod";
-import { useContext } from "react";
 import { useRouter } from "next/navigation";
-import TodoContext from "@/contexts/TodoContext";
 import { Search } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -18,25 +16,19 @@ import {
 import { searchFormSchema as formSchema } from "@/validation/schema";
 import { searchFormDefaults as defaultValues } from "@/validation/schema";
 import { SearchFormData as FormData } from "@/validation/schema";
-import { Button } from "./ui/button";
-import { Input } from "./ui/input";
-import { RadioGroup, RadioGroupItem } from "./ui/radio-group";
+import { Button } from "../ui/button";
+import { Input } from "../ui/input";
+import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
 
-const SearchBar = () => {
+const SearchForm = () => {
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues,
     mode: "onChange",
   });
 
-  const {
-    state: {
-      todos,
-    },
-  } = useContext(TodoContext);
-
   const router = useRouter();
-  function onSubmit(data: z.infer<typeof formSchema>) {
+  const onSubmit = (data: z.infer<typeof formSchema>) => {
     router.push(`search?query=${data.query.trim()}&type=${data.type}`);
   }
 
@@ -56,7 +48,7 @@ const SearchBar = () => {
           name="query"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="hidden">Query</FormLabel>
+              <FormLabel className="sr-only">enter query</FormLabel>
               <FormControl>
                 <Input
                   placeholder="search todos"
@@ -116,4 +108,4 @@ const SearchBar = () => {
   );
 };
 
-export default SearchBar;
+export default SearchForm;

@@ -1,5 +1,5 @@
 import { sort } from "fast-sort";
-import dueAtString from "./parseDueAt";
+import parseDate from "./parseDate";
 import { Todo } from "./types";
 
 export default function searchTodos(
@@ -16,7 +16,7 @@ export default function searchTodos(
         return t.description?.toLowerCase().includes(processedQuery) ? [t] : [];
       }
       case "dueAt": {
-        return dueAtString(t.dueAt).toLowerCase().includes(processedQuery)
+        return parseDate(t.dueAt).toLowerCase().includes(processedQuery)
           ? [t]
           : [];
       }

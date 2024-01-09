@@ -10,6 +10,9 @@ const TodoCardPin = ({ t }: { t: Todo }) => {
     dispatch,
   } = useContext(TodoContext);
 
+  const shouldDisable = () =>
+    todos.filter((t) => t.isCompleted).length >= 3 || t.isCompleted;
+
   return t.isPinned ? (
     <Button
       variant="ghost"
@@ -17,6 +20,7 @@ const TodoCardPin = ({ t }: { t: Todo }) => {
       disabled={t.isCompleted}
       onClick={() => dispatch({ cmd: "UNPIN_TODO", toUnpin: t })}
     >
+      <span className="sr-only">unpin this todo</span>
       <PinOff className="w-6 h-6 mx-2" />
     </Button>
   ) : (
@@ -24,8 +28,9 @@ const TodoCardPin = ({ t }: { t: Todo }) => {
       variant="ghost"
       size="icon"
       onClick={() => dispatch({ cmd: "PIN_TODO", toPin: t })}
-      disabled={todos.filter((t) => t.isCompleted).length >= 3 || t.isCompleted}
+      disabled={shouldDisable()}
     >
+      <span className="sr-only">pin this todo</span>
       <Pin className="w-6 h-6 mx-2" />
     </Button>
   );

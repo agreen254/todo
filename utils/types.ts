@@ -1,8 +1,5 @@
-// Ideally the dueAt and createdAt properties would be instances of the DateTime class, but the class information
-// gets erased when the data gets stringified to be stored in local storage.
-// This throws errors because you will try to access DateTime class methods that are no longer available.
-// The typescript compiler doesn't detect this if you just assign the type here.
-// As a workaround, the dates are all stored as ISO strings and then converted to class instances after they are pulled at runtime.
+// Store dates as an ISO string because any class information is erased when the data is stringified for local storage.
+// Construct new class instances at runtime.
 export type Todo = {
   name: string;
   createdAt: string;
@@ -15,6 +12,7 @@ export type Todo = {
   tags: string[];
   description?: string;
   dueAt?: string;
+  completedAt?: string;
 };
 
 export type SplitTodos = {
@@ -47,8 +45,8 @@ export type SearchSpecifier = (typeof searchSpecifierValues)[number];
 // are accessed by comparison of the tags property from the Todo object at runtime.
 export type Tag = { name: string; color: number };
 
-// The sort ordering and tags selected for filtering are preserved local storage for the home page only.
-// Whenever a search occurs, the search page will have a client-side sort and filter that is not persisted in local storage.
+// The sort order is preserved in local storage for the home page only.
+// Whenever a search occurs, the search page will have a separate sort order.
 // Changes to the todo arrays themselves resulting from the search page will still persist, however.
 export type TodoContextState = {
   todos: Todo[];
