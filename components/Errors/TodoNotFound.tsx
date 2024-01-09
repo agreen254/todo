@@ -3,7 +3,7 @@ import { Button } from "../ui/button";
 
 const TodoNotFound = () => {
   return (
-    <div className="flex flex-col justify-center items-center mt-[10vh]">
+    <div className="flex flex-col justify-center items-center mt-[10vh] h-[50vh]">
       <h1 className="text-4xl font-bold mb-6">
         The requested todo could not be found.
       </h1>

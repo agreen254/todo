@@ -11,7 +11,7 @@ import searchTodos from "@/utils/searchTodos";
 import sortTodos from "@/utils/sortTodos";
 import { useSearchParams } from "next/navigation";
 import TodoCard from "@/components/TodoCard/TodoCard";
-import { TodoSortOrder } from "@/utils/types";
+import { FilterTagsSchema, TodoSortOrder } from "@/utils/types";
 import SortMenu from "@/components/Sort/SortMenu";
 import FilterByTags from "@/components/Sort/FilterByTags";
 import filterByTags from "@/utils/filterByTags";
@@ -28,6 +28,8 @@ const SearchPage = () => {
   const [localSortOrder, setLocalSortOrder] =
     useState<TodoSortOrder>("default");
   const [localFilterTags, setLocalFilterTags] = useState<string[]>([]);
+  const [localFilterSchema, setLocalFilterSchema] =
+    useState<FilterTagsSchema>("exclusive");
 
   // will throw hydration error on refresh without checking mount
   // can also separate below logic to a dynamic import component
@@ -42,11 +44,11 @@ const SearchPage = () => {
 
   const valid = searchTodos(queryParam, typeParam, todos);
   const validSorted = sortTodos(valid, localSortOrder);
-  const validFiltered = filterByTags(validSorted, localFilterTags, "exclusive");
   const { pinnedTodos, pendingTodos, completedTodos } = processTodos(
-    validFiltered,
+    validSorted,
     localSortOrder,
-    localFilterTags
+    localFilterTags,
+    localFilterSchema
   );
   const allTodos = [...pinnedTodos, ...pendingTodos, ...completedTodos];
 
@@ -66,6 +68,7 @@ const SearchPage = () => {
         <FilterByTags
           filterTags={localFilterTags}
           setFilterTags={setLocalFilterTags}
+          setFilterTagsSchema={setLocalFilterSchema}
         />
         <ThemeToggle />
       </div>

@@ -24,7 +24,11 @@ type Props = {
   setFilterTagsSchema: (sch: FilterTagsSchema) => void;
 };
 
-const FilterByTags = ({ filterTags, setFilterTags, setFilterTagsSchema }: Props) => {
+const FilterByTags = ({
+  filterTags,
+  setFilterTags,
+  setFilterTagsSchema,
+}: Props) => {
   const {
     state: {
       tags: { allTags },
@@ -87,16 +91,10 @@ const FilterByTags = ({ filterTags, setFilterTags, setFilterTagsSchema }: Props)
           </div>
         ))}
         <Separator className="w-full mb-2 mt-3" />
-        <p className="text-sm text-muted-foreground">
-          selected tags: {filterTags.length === 0 && "N/A"}
-        </p>
-        <p className="text-sm text-muted-foreground">
-          {filterTags.map((tagName) => (
-            <span key={tagName + "span"}>{`${tagName} `}</span>
-          ))}
-        </p>
-        <Separator className="w-full mb-2 mt-3" />
-        <RadioGroup defaultValue="exclusive" onValueChange={(v: FilterTagsSchema) => setFilterTagsSchema(v)}>
+        <RadioGroup
+          defaultValue="exclusive"
+          onValueChange={(v: FilterTagsSchema) => setFilterTagsSchema(v)}
+        >
           <div className="flex items-center space-x-2">
             <RadioGroupItem value="exclusive" id="r1" />
             <Label htmlFor="r1">exclusive select</Label>
@@ -106,6 +104,15 @@ const FilterByTags = ({ filterTags, setFilterTags, setFilterTagsSchema }: Props)
             <Label htmlFor="r2">inclusive select</Label>
           </div>
         </RadioGroup>
+        <Separator className="w-full mb-2 mt-3" />
+        <p className="text-sm text-muted-foreground">
+          selected tags: {filterTags.length === 0 && "N/A"}
+        </p>
+        <p className="text-sm text-muted-foreground">
+          {filterTags.map((tagName) => (
+            <span key={tagName + "span"}>{`${tagName} `}</span>
+          ))}
+        </p>
       </PopoverContent>
     </Popover>
   );

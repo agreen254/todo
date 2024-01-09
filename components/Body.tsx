@@ -3,7 +3,7 @@
 import { useContext, useState } from "react";
 import { Button } from "./ui/button";
 import { Separator } from "./ui/separator";
-import { Plus, Power } from "lucide-react";
+import { Plus } from "lucide-react";
 import Link from "next/link";
 import dummyTodo from "@/utils/dummyTodo";
 import FilterByTags from "./Sort/FilterByTags";
@@ -15,6 +15,7 @@ import SearchBar from "./SearchBar";
 import ThemeToggle from "./ThemeToggle";
 import processTodos from "@/utils/processTodos";
 import { add } from "date-fns";
+import PowerModeDialog from "./Dialogs/PowerModeDialog";
 
 const Body = () => {
   const { state, dispatch } = useContext(TodoContext);
@@ -34,14 +35,6 @@ const Body = () => {
     !!pendingTodos.length || !!pinnedTodos.length;
   const hasNoCompleted = () => !!completedTodos.length;
   const hasEntries = () => !!state.todos.length;
-
-  // if (hasNoEntries()) {
-  //   return (
-  //     <h2 className="text-3xl font-bold text-center">
-  //       add a todo to get started
-  //     </h2>
-  //   );
-  // }
 
   return (
     <>
@@ -74,11 +67,13 @@ const Body = () => {
             Add Todo
           </Button>
         </Link>
-        <Button className="w-[180px] px-5 py-8 text-lg font-medium dark:font-semibold rounded-full hover:shadow-md hover:scale-[1.05] transition-all">
-          <Power className="w-6 h-6 mr-2" />
-          Power Mode
-        </Button>
+        <PowerModeDialog />
       </div>
+      {!hasEntries() && (
+        <h2 className="text-3xl font-bold text-center mt-4">
+          add a todo to get started
+        </h2>
+      )}
       <div className="flex flex-col justify-center items-center">
         <div className="relative">
           <ThemeToggle />
@@ -86,7 +81,11 @@ const Body = () => {
         </div>
         <div className="w-[min(350px,90vw)] mt-4 space-x-4">
           <SortMenu sortOrder={state.sortOrder} />
-          <FilterByTags filterTags={filterTags} setFilterTags={setFilterTags} setFilterTagsSchema={setFilterTagsSchema}/>
+          <FilterByTags
+            filterTags={filterTags}
+            setFilterTags={setFilterTags}
+            setFilterTagsSchema={setFilterTagsSchema}
+          />
         </div>
       </div>
       {hasPendingOrPinned() && (

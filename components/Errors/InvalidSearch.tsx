@@ -8,9 +8,11 @@ const InvalidSearch = () => {
         Error: Invalid Search.
       </h1>
       <div className="flex justify-center mt-2">
-        <Button role="link" className="w-[180px]">
-          <Link href="/">Return Home</Link>
-        </Button>
+        <Link href="/">
+          <Button role="link" className="w-[180px]">
+            Return Home
+          </Button>
+        </Link>
       </div>
     </div>
   );
