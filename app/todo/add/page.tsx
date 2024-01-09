@@ -1,4 +1,6 @@
 import AddForm from "@/components/Forms/AddForm";
+import { TimePickerForm } from "@/components/ui/time-picker/time-picker-wrapper";
+import { DateTimePicker } from "@/components/ui/time-picker/date-time-picker-demo";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -6,7 +8,12 @@ export const metadata: Metadata = {
 };
 
 const AddTodoPage = () => {
-  return <AddForm />;
+  return (
+    <div className="flex flex-col items-center justify-center">
+      <AddForm />
+      <DateTimePicker />
+    </div>
+  );
 };
 
 export default AddTodoPage;

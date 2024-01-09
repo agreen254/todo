@@ -13,6 +13,22 @@ export type Props = {
 };
 
 const TodoCard = ({ t, className }: Props) => {
+  const renderDueDate = () => {
+    const colors = {
+      red: "text-red-600 dark:text-red-500 font-semibold",
+      orange: "text-orange-400 dark:text-orange-500 font-semibold",
+      foreground: "text-foreground-muted",
+    };
+    const parsed = parseDate(t.dueAt);
+    const color = colors[parsed.color];
+    // return parsed === "N/A" ? (
+    //   <span className="italic">N/A</span>
+    // ) : (
+    //   <span>{parsed}</span>
+    // );
+    return <span className={color}>{parsed.str}</span>;
+  };
+
   return (
     <Card
       className={cn(
@@ -34,7 +50,7 @@ const TodoCard = ({ t, className }: Props) => {
         <CardActions t={t} />
       </div>
       <CardDescription className="px-5 mb-2 relative top-[-10px] line-clamp-1">
-        {t.description}
+        {t.description || <span className="italic">no description</span>}
       </CardDescription>
       <CardContent className="space-y-3">
         <p>
@@ -42,7 +58,7 @@ const TodoCard = ({ t, className }: Props) => {
             <Calendar className="w-4 h-4 mr-2 inline-block translate-y-[-2px]" />
             <span className="text-muted-foreground">Due Date: </span>
             <span className="font-medium dark:font-semibold">
-              {parseDate(t.dueAt)}
+              {renderDueDate()}
             </span>
           </span>
         </p>
@@ -66,7 +82,7 @@ const TodoCard = ({ t, className }: Props) => {
         </p>
         {t.isCompleted && (
           <p className="text-sm text-muted-foreground italic">
-            Completed: {parseDate(t.completedAt)}
+            Completed: {parseDate(t.completedAt).str}
           </p>
         )}
       </CardContent>

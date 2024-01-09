@@ -17,12 +17,12 @@ const potentialTags = [
 export default function dummyTodo(): Todo {
   return {
     name: f.lorem.words({ min: 1, max: 8 }),
-    description: f.lorem.words({ min: 3, max: 25 }),
+    description: f.lorem.words({ min: 0, max: 25 }),
     createdAt: DateTime.now().toISO(),
     dueAt: f.date
       .between({
         from: DateTime.now().toISO(),
-        to: DateTime.now().plus({ days: 30 }).toISO(),
+        to: DateTime.now().plus({ days: 5 }).toISO(),
       })
       .toISOString(),
     priority: f.number.int({ min: 0, max: 10 }),

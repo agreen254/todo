@@ -19,8 +19,6 @@ import {
 } from "@/components/ui/form";
 import { Input } from "../ui/input";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
-import DatePicker from "./DatePicker";
-import DateRangePicker from "./DateRangePicker";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -43,7 +41,7 @@ const AddForm = () => {
   // </div>;
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col justify-center w-[350px] space-y-4">
         <FormField
           control={form.control}
           name="title"
@@ -87,7 +85,7 @@ const AddForm = () => {
                       )}
                     >
                       {field.value ? (
-                        format(field.value, "PPP")
+                        format(field.value, "PP")
                       ) : (
                         <span>Pick a date</span>
                       )}

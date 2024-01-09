@@ -1,14 +1,23 @@
 import { differenceInCalendarDays, format, formatRelative } from "date-fns";
 
-export default function parseDate(dueAt: string | undefined): string {
-  if (!dueAt) return "N/A";
+export default function parseDate(dueAt: string | undefined): {
+  str: string;
+  color: "orange" | "red" | "foreground";
+} {
+  if (!dueAt) return { str: "N/A", color: "foreground" };
   const current = new Date();
   const due = new Date(dueAt);
-  const diff = differenceInCalendarDays(current, due);
+  const diff = differenceInCalendarDays(due, current);
 
   if (Math.abs(diff) > 6) {
-    return format(due, "PPp");
+    return { str: format(due, "PPp"), color: "foreground" };
   } else {
-    return formatRelative(dueAt, current);
+    if (diff < 1) {
+      return { str: formatRelative(dueAt, current), color: "red" };
+    } else if (diff <= 3) {
+      return { str: formatRelative(dueAt, current), color: "orange" };
+    } else {
+      return { str: formatRelative(dueAt, current), color: "foreground" };
+    }
   }
 }
