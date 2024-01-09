@@ -62,14 +62,11 @@ export type TodoContextType = {
   dispatch: (action: Actions) => void;
 };
 
+export type FilterTagsSchema = "exclusive" | "inclusive";
+
 export type Quote = {
   q: string;
   a: string;
-};
-
-export type LevDistance = {
-  t: Todo;
-  distance: number;
 };
 
 // Here are all the action types that tell the reducer what is okay to do.

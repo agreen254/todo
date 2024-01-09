@@ -4,7 +4,6 @@ import z from "zod";
 import { useContext } from "react";
 import { useRouter } from "next/navigation";
 import TodoContext from "@/contexts/TodoContext";
-import searchTodos from "@/utils/searchTodos";
 import { Search } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -41,8 +40,6 @@ const SearchBar = () => {
     router.push(`search?query=${data.query.trim()}&type=${data.type}`);
   }
 
-  if (!todos.length) return;
-
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -52,7 +49,7 @@ const SearchBar = () => {
           type="submit"
           className="translate-y-[53px] translate-x-[min(305px,calc(90vw-44px))]"
         >
-          <Search />
+          <Search className="w-[50%] h-[50%]" />
         </Button>
         <FormField
           control={form.control}

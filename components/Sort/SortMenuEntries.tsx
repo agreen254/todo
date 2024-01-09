@@ -32,7 +32,7 @@ const SortMenuEntries = ({ sortOrder, setSortOrder }: Props) => {
 
   return todoSortValues.map((entry, idx) => {
     if (entry.length === 1) {
-      return; // skip rendering "default" by itself
+      return; // skip rendering "default" and "powerMode" options
     } else {
       const [firstDisplay, lastDisplay] = [
         sortingMap.get(entry[0]),
@@ -42,14 +42,14 @@ const SortMenuEntries = ({ sortOrder, setSortOrder }: Props) => {
         <div key={`sortMap${idx}`} className="my-2">
           <span className="flex justify-between">
             <Button
-              className="mr-4 transition-colors w-[calc(50%-12px)] font-semibold"
+              className="mr-4 transition-all hover:scale-[1.05] w-[calc(50%-12px)] dark:font-semibold"
               variant={isSelectedSort(entry[0]) ? "selectedSort" : "default"}
               onClick={() => handleSelectSort(entry[0])}
             >
               {firstDisplay}
             </Button>
             <Button
-              className="transition-colors w-[calc(50%-12px)] font-semibold"
+              className="transition-all hover:scale-[1.05] w-[calc(50%-12px)] dark:font-semibold"
               variant={isSelectedSort(entry[1]) ? "selectedSort" : "default"}
               onClick={() => handleSelectSort(entry[1])}
             >

@@ -42,7 +42,7 @@ const SearchPage = () => {
 
   const valid = searchTodos(queryParam, typeParam, todos);
   const validSorted = sortTodos(valid, localSortOrder);
-  const validFiltered = filterByTags(validSorted, localFilterTags);
+  const validFiltered = filterByTags(validSorted, localFilterTags, "exclusive");
   const { pinnedTodos, pendingTodos, completedTodos } = processTodos(
     validFiltered,
     localSortOrder,

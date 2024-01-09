@@ -33,9 +33,10 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <TodoProvider>
-            {/* <header className="h-12 w-full fixed top-0 left-0 z-10 flex justify-end backdrop-blur-md">
+            {/* <header className="h-12 w-full fixed top-0 left-0 z-10 flex justify-end bg-primary/50 backdrop-blur-md">
               <ThemeToggle />
-            </header> */}
+            </header>
+            <div className="mb-12"></div> */}
             {children}
           </TodoProvider>
         </NextThemeProvider>

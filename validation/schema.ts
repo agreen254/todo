@@ -3,16 +3,16 @@ import z from "zod";
 export const todoFormSchema = z.object({
   title: z
     .string()
-    .min(1, { message: "title is required." })
-    .max(50, { message: "title must be 50 characters or shorter." }),
+    .min(1, { message: "Title is required." })
+    .max(50, { message: "Title must be 50 characters or shorter." }),
   description: z
     .string()
-    .max(150, { message: "description must be 150 characters or shorter." }),
+    .max(150, { message: "Description must be 150 characters or shorter." }),
   tags: z
     .array(
-      z.string().max(16, { message: "tags must be 16 characters or shorter." })
+      z.string().max(15, { message: "Tags must be 15 characters or shorter." })
     )
-    .max(6, { message: "todos must have 6 tags or less." }),
+    .max(6, { message: "Todos must have 6 tags or less." }),
 });
 export type TodoFormData = z.infer<typeof todoFormSchema>;
 // We need the default values because shad forms are controlled.

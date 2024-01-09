@@ -6,9 +6,10 @@ import splitTodos from "./splitTodos";
 export default function processTodos(
   todos: Todo[],
   sortOrder: TodoSortOrder,
-  filterTags: string[]
+  filterTags: string[],
+  filterTagsSchema: "exclusive" | "inclusive"
 ): SplitTodos {
-  const filtered = filterByTags(todos, filterTags);
+  const filtered = filterByTags(todos, filterTags, filterTagsSchema);
   const sorted = sortTodos(filtered, sortOrder);
   return splitTodos(sorted);
 }

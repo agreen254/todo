@@ -31,9 +31,9 @@ const SortMenu = ({ sortOrder, setSortOrder }: Props) => {
   return (
     <Popover open={isOpen} onOpenChange={setIsOpen}>
       <PopoverTrigger asChild>
-        <Button>sort {handleChevron()}</Button>
+        <Button className="transition-all hover:scale-[1.05]">sort {handleChevron()}</Button>
       </PopoverTrigger>
-      <PopoverContent className="max-w-[400px] w-[95vw] hover:border-primary transition-colors">
+      <PopoverContent align="center" className="max-w-[400px] w-[95vw] hover:border-primary transition-colors">
         <SortMenuEntries sortOrder={sortOrder} setSortOrder={setSortOrder} />
         <p className="text-sm text-muted-foreground">
           current sort order: {sortingMap.get(sortOrder)}

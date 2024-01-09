@@ -14,10 +14,9 @@ export default function repeatTodo(
   const due = DateTime.fromISO(toClone.dueAt);
   const diff = endDate.diff(due, delay);
 
+  let newTodos = [];
   if (delay === "days") {
     const numRepeats = diff.days;
-
-    let newTodos = [];
     for (let i = 1; i <= numRepeats; i++) {
       newTodos.push({
         ...toClone,
@@ -26,11 +25,8 @@ export default function repeatTodo(
         dueAt: due.plus({ days: i }).toISO()!,
       } as Todo);
     }
-    return newTodos;
   } else if (delay === "weeks") {
     const numRepeats = diff.weeks;
-
-    let newTodos = [];
     for (let i = 1; i <= numRepeats; i++) {
       newTodos.push({
         ...toClone,
@@ -39,11 +35,8 @@ export default function repeatTodo(
         dueAt: due.plus({ weeks: i }).toISO()!,
       } as Todo);
     }
-    return newTodos;
   } else {
     const numRepeats = diff.months;
-
-    let newTodos = [];
     for (let i = 1; i <= numRepeats; i++) {
       newTodos.push({
         ...toClone,
@@ -52,6 +45,7 @@ export default function repeatTodo(
         dueAt: due.plus({ months: i }).toISO()!,
       } as Todo);
     }
-    return newTodos;
   }
+
+  return newTodos;
 }

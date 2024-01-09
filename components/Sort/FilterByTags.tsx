@@ -13,16 +13,18 @@ import {
 import { Separator } from "../ui/separator";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { Label } from "../ui/label";
-import { Tag } from "@/utils/types";
+import { FilterTagsSchema, Tag } from "@/utils/types";
+import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
 
 // If we provide a setter to this component, it tells the component
 // that the state not persisted in the local storage.
 type Props = {
   filterTags: string[];
   setFilterTags?: (tags: string[]) => void;
+  setFilterTagsSchema: (sch: FilterTagsSchema) => void;
 };
 
-const FilterByTags = ({ filterTags, setFilterTags }: Props) => {
+const FilterByTags = ({ filterTags, setFilterTags, setFilterTagsSchema }: Props) => {
   const {
     state: {
       tags: { allTags },
@@ -60,9 +62,14 @@ const FilterByTags = ({ filterTags, setFilterTags }: Props) => {
   return (
     <Popover open={isOpen} onOpenChange={setIsOpen}>
       <PopoverTrigger asChild>
-        <Button>tags {handleChevron()}</Button>
+        <Button className="transition-all hover:scale-[1.05]">
+          tags {handleChevron()}
+        </Button>
       </PopoverTrigger>
-      <PopoverContent className="max-w-[200px] w-[95vw] hover:border-primary transition-colors">
+      <PopoverContent
+        align="start"
+        className="max-w-[200px] w-[95vw] hover:border-primary transition-colors"
+      >
         {allTags.map((tag) => (
           <div className="flex items-end mb-2" key={tag.name}>
             <Checkbox
@@ -88,6 +95,17 @@ const FilterByTags = ({ filterTags, setFilterTags }: Props) => {
             <span key={tagName + "span"}>{`${tagName} `}</span>
           ))}
         </p>
+        <Separator className="w-full mb-2 mt-3" />
+        <RadioGroup defaultValue="exclusive" onValueChange={(v: FilterTagsSchema) => setFilterTagsSchema(v)}>
+          <div className="flex items-center space-x-2">
+            <RadioGroupItem value="exclusive" id="r1" />
+            <Label htmlFor="r1">exclusive select</Label>
+          </div>
+          <div className="flex items-center space-x-2">
+            <RadioGroupItem value="inclusive" id="r2" />
+            <Label htmlFor="r2">inclusive select</Label>
+          </div>
+        </RadioGroup>
       </PopoverContent>
     </Popover>
   );
