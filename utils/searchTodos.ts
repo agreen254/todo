@@ -1,4 +1,3 @@
-import { sort } from "fast-sort";
 import parseDate from "./parseDate";
 import { Todo } from "./types";
 
@@ -16,7 +15,7 @@ export default function searchTodos(
         return t.description?.toLowerCase().includes(processedQuery) ? [t] : [];
       }
       case "dueAt": {
-        return parseDate(t.dueAt).toLowerCase().includes(processedQuery)
+        return parseDate(t.dueAt).str.toLowerCase().includes(processedQuery)
           ? [t]
           : [];
       }

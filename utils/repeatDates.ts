@@ -1,23 +1,23 @@
-import { DateTime } from "luxon";
+import { add, isValid } from "date-fns";
 
 export default function repeatDates(
   initialDueDate: string,
   finalDueDate: string,
   period: "monthly" | "weekly" | "daily"
 ) {
-  const init = DateTime.fromISO(initialDueDate);
-  const final = DateTime.fromISO(finalDueDate);
+  const init = new Date(initialDueDate);
+  const final = new Date(finalDueDate);
   if (!init || !final) return [];
 
   let currentDate = init;
   let dates = [currentDate];
   while (currentDate <= final) {
     if (period === "monthly") {
-      currentDate = currentDate.plus({ months: 1 });
+      currentDate = add(currentDate, { months: 1 });
     } else if (period === "weekly") {
-      currentDate = currentDate.plus({ weeks: 1 });
+      currentDate = add(currentDate, { weeks: 1 });
     } else {
-      currentDate = currentDate.plus({ days: 1 });
+      currentDate = add(currentDate, { days: 1 });
     }
     dates.push(currentDate);
   }

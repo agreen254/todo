@@ -1,5 +1,5 @@
 // Store dates as an ISO string because any class information is erased when the data is stringified for local storage.
-// Construct new class instances at runtime.
+// Construct new class instances for date manipulation at runtime.
 export type Todo = {
   name: string;
   createdAt: string;
@@ -10,9 +10,10 @@ export type Todo = {
   priority: number;
   complexity: number;
   tags: string[];
+  completedAt?: string;
   description?: string;
   dueAt?: string;
-  completedAt?: string;
+  subTasks?: string[];
 };
 
 export type SplitTodos = {

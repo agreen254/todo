@@ -28,7 +28,7 @@ export function TimePicker({
   return (
     <div className="flex items-end gap-2">
       <div className="grid gap-1 text-center">
-        <Label htmlFor="hours" className="text-xs">
+        <Label htmlFor="hours" className="sr-only">
           Hour
         </Label>
         <TimePickerInput
@@ -36,22 +36,26 @@ export function TimePicker({
           date={date}
           setDate={setDate}
           ref={hourRef}
+          id="hours"
           onRightFocus={() => minuteRef.current?.focus()}
         />
       </div>
       <div className="grid gap-1 text-center">
-        <Label htmlFor="minutes" className="text-xs">
+        <Label htmlFor="minutes" className="sr-only">
           Minute
         </Label>
         <TimePickerInput
           picker="minutes"
+          id="minutes"
           date={date}
           setDate={setDate}
           ref={minuteRef}
           onLeftFocus={() => hourRef.current?.focus()}
         />
       </div>
-      {period === "12hours" && <TimePeriodSelect setMeridiem={setMeridiem} />}
+      {period === "12hours" && (
+        <TimePeriodSelect meridiem={meridiem} setMeridiem={setMeridiem} />
+      )}
       <div className="flex h-10 items-center">
         <Clock className="ml-2 h-4 w-4" />
       </div>

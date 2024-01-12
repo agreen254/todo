@@ -13,7 +13,7 @@ const PowerModeDialog = () => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button className="w-[180px] px-5 py-8 text-lg font-medium dark:font-semibold rounded-full hover:shadow-md hover:scale-[1.05] transition-all">
+        <Button className="w-[180px] px-5 py-8 text-lg font-medium dark:font-semibold rounded-full hover:shadow-md hover:scale-[1.05] hover:translate-y-[-4px] hover:dark:shadow-slate-700 transition-all">
           <Power className="w-6 h-6 mr-2" />
           Power Mode
         </Button>

@@ -14,8 +14,9 @@ import SortMenu from "./Sort/SortMenu";
 import SearchForm from "./Forms/SearchForm";
 import ThemeToggle from "./ThemeToggle";
 import processTodos from "@/utils/processTodos";
-import { add } from "date-fns";
+import { add, format, isValid } from "date-fns";
 import PowerModeDialog from "./Dialogs/PowerModeDialog";
+import ProgressRing from "./ProgressRing/ProgressRing";
 
 const Body = () => {
   const { state, dispatch } = useContext(TodoContext);
@@ -34,7 +35,7 @@ const Body = () => {
   const hasPendingOrPinned = () =>
     !!pendingTodos.length || !!pinnedTodos.length;
   const hasNoCompleted = () => !!completedTodos.length;
-  const hasEntries = () => !!state.todos.length;
+  const hasNoEntries = () => !!!state.todos.length;
 
   return (
     <>
@@ -44,24 +45,24 @@ const Body = () => {
           console.log(date);
           const newDate = add(date, { months: 1 });
           const newDateTwo = add(date, { months: 3 });
-          console.log(newDate);
-          console.log(newDateTwo);
+          const a = format(newDate, "PP");
         }}
       >
         Test
       </Button>
-      <div className="flex justify-center gap-4 mt-4">
+      <div className="flex flex-col justify-center gap-4 mt-4">
         <Button
           onClick={() => dispatch({ cmd: "ADD_TODO", toAdd: dummyTodo() })}
         >
           Add Dummy
         </Button>
+        <ProgressRing progress={10} radius={25} />
       </div>
-      <div className="flex justify-center gap-12">
-        <Link href="/todo/add" className="w-[min(40%,150px)]">
+      <div className="flex flex-wrap justify-center gap-4 md:gap-6">
+        <Link href="/todo/add" className="w-[180px]">
           <Button
             role="link"
-            className="w-[180px] px-5 py-8 text-lg font-medium dark:font-semibold rounded-full hover:shadow-md hover:scale-[1.05] transition-all"
+            className="w-[180px] px-5 py-8 text-lg font-medium dark:font-semibold rounded-full hover:shadow-lg hover:scale-[1.05] hover:translate-y-[-4px] hover:dark:shadow-slate-700 transition-all"
           >
             <Plus className="w-6 h-6 mr-2" />
             Add Todo
@@ -69,7 +70,7 @@ const Body = () => {
         </Link>
         <PowerModeDialog />
       </div>
-      {!hasEntries() && (
+      {hasNoEntries() && (
         <h2 className="text-3xl font-bold text-center mt-4">
           add a todo to get started
         </h2>

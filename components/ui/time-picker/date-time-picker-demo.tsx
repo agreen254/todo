@@ -1,5 +1,8 @@
 "use client";
 
+// adapted from https://github.com/openstatusHQ/time-picker
+// to support 12 hour times
+
 import * as React from "react";
 import { format } from "date-fns";
 import { Calendar as CalendarIcon } from "lucide-react";
@@ -20,6 +23,11 @@ export function DateTimePicker() {
   const period: PeriodSelectorType = "12hours";
   const [date, setDate] = React.useState<Date>();
   const [meridiem, setMeridiem] = React.useState<Meridies>("AM");
+
+  // add the AM or PM suffix
+  const handleDate = () => {
+    if (date) return new Date(`${format(date, "PP, HH:mm")} ${meridiem}`);
+  };
 
   return (
     <Popover>
@@ -55,7 +63,7 @@ export function DateTimePicker() {
             setMeridiem={setMeridiem}
           />
         </div>
-        <Button onClick={() => console.log(date)}>Show Date</Button>
+        <Button onClick={() => console.log(handleDate())}>Show Date</Button>
       </PopoverContent>
     </Popover>
   );

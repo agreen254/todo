@@ -6,6 +6,7 @@ import { ArrowUp, Calendar, Move } from "lucide-react";
 import { Todo } from "@/utils/types";
 import CardActions from "./TodoCardActions";
 import TagBadge from "./TodoCardTagBadge";
+import ProgressRing from "../ProgressRing/ProgressRing";
 
 export type Props = {
   t: Todo;
@@ -13,6 +14,13 @@ export type Props = {
 };
 
 const TodoCard = ({ t, className }: Props) => {
+  const hasSubTasks = !!t.subTasks?.length;
+  const progress = 100;
+  
+  // At 100 progress, there is still a bit that isn't filled in.
+  // By bumping it up to 101, it shows full completion.
+  const displayProgress = progress === 100 ? 101 : progress;
+
   const renderDueDate = () => {
     const colors = {
       red: "text-red-600 dark:text-red-500 font-semibold",
@@ -21,12 +29,17 @@ const TodoCard = ({ t, className }: Props) => {
     };
     const parsed = parseDate(t.dueAt);
     const color = colors[parsed.color];
-    // return parsed === "N/A" ? (
-    //   <span className="italic">N/A</span>
-    // ) : (
-    //   <span>{parsed}</span>
-    // );
-    return <span className={color}>{parsed.str}</span>;
+    return (
+      <span
+        className={cn(
+          color,
+          t.isCompleted &&
+            "text-muted-foreground dark:text-muted-foreground line-through"
+        )}
+      >
+        {parsed.str}
+      </span>
+    );
   };
 
   return (
@@ -52,39 +65,45 @@ const TodoCard = ({ t, className }: Props) => {
       <CardDescription className="px-5 mb-2 relative top-[-10px] line-clamp-1">
         {t.description || <span className="italic">no description</span>}
       </CardDescription>
-      <CardContent className="space-y-3">
-        <p>
-          <span>
-            <Calendar className="w-4 h-4 mr-2 inline-block translate-y-[-2px]" />
-            <span className="text-muted-foreground">Due Date: </span>
-            <span className="font-medium dark:font-semibold">
-              {renderDueDate()}
+      <CardContent className="flex justify-between items-center">
+        <div className="space-y-3">
+          <p>
+            <span>
+              <Calendar className="w-4 h-4 mr-2 inline-block translate-y-[-2px]" />
+              <span className="text-muted-foreground">Due Date: </span>
+              <span className="font-medium dark:font-semibold">
+                {renderDueDate()}
+              </span>
             </span>
-          </span>
-        </p>
-        <p>
-          <span>
-            <ArrowUp className="w-4 h-4 mr-2 inline-block translate-y-[-2px]" />
-            <span className="text-muted-foreground">Priority: </span>
-            <span className="font-medium dark:font-semibold">
-              {outOfTen(t.priority)}
-            </span>
-          </span>
-        </p>
-        <p>
-          <span>
-            <Move className="w-4 h-4 mr-2 inline-block translate-y-[-2px]" />
-            <span className="text-muted-foreground">Complexity: </span>
-            <span className="font-medium dark:font-semibold">
-              {outOfTen(t.complexity)}
-            </span>
-          </span>
-        </p>
-        {t.isCompleted && (
-          <p className="text-sm text-muted-foreground italic">
-            Completed: {parseDate(t.completedAt).str}
           </p>
-        )}
+          <p>
+            <span>
+              <ArrowUp className="w-4 h-4 mr-2 inline-block translate-y-[-2px]" />
+              <span className="text-muted-foreground">Priority: </span>
+              <span className="font-medium dark:font-semibold">
+                {outOfTen(t.priority)}
+              </span>
+            </span>
+          </p>
+          <p>
+            <span>
+              <Move className="w-4 h-4 mr-2 inline-block translate-y-[-2px]" />
+              <span className="text-muted-foreground">Complexity: </span>
+              <span className="font-medium dark:font-semibold">
+                {outOfTen(t.complexity)}
+              </span>
+            </span>
+          </p>
+          {t.isCompleted && (
+            <p className="text-sm text-muted-foreground italic">
+              Completed: {parseDate(t.completedAt).str}
+            </p>
+          )}
+        </div>
+        <div className="relative">
+          <ProgressRing progress={displayProgress} radius={40} />
+          <span className={cn("absolute top-[28px]", progress < 100 ? "left-[24px]" : "left-[21px]")}>{progress}%</span>
+        </div>
       </CardContent>
       <CardFooter className="flex flex-wrap gap-2 justify-start">
         {t.tags.map((tag) => (

@@ -11,17 +11,18 @@ import {
 import { Meridies } from "./time-picker-utils";
 
 type Props = {
+  meridiem: Meridies;
   setMeridiem: (m: Meridies) => void;
 };
 
-export function TimePeriodSelect({ setMeridiem }: Props) {
+export function TimePeriodSelect({ meridiem, setMeridiem }: Props) {
   return (
     <div className="flex h-10 items-center">
       <Select
-        defaultValue="AM"
+        defaultValue={meridiem}
         onValueChange={(value: Meridies) => setMeridiem(value)}
       >
-        <SelectTrigger className="w-[65px]">
+        <SelectTrigger className="w-[65px] focus:bg-accent focus:text-accent-foreground">
           <SelectValue />
         </SelectTrigger>
         <SelectContent>
@@ -32,3 +33,4 @@ export function TimePeriodSelect({ setMeridiem }: Props) {
     </div>
   );
 }
+
