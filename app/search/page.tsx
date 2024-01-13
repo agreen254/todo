@@ -10,6 +10,7 @@ import processTodos from "@/utils/processTodos";
 import searchTodos from "@/utils/searchTodos";
 import sortTodos from "@/utils/sortTodos";
 import { useSearchParams } from "next/navigation";
+import GradSeparator from "@/components/GradSeparator";
 import TodoCard from "@/components/TodoCard/TodoCard";
 import { FilterTagsSchema, TodoSortOrder } from "@/utils/types";
 import SortMenu from "@/components/Sort/SortMenu";
@@ -62,7 +63,7 @@ const SearchPage = () => {
         </span>{" "}
         containing<span className="font-bold"> "{queryParam}"</span>
       </h1>
-      <Separator className="w-[65vw] h-1 my-2 rounded-r-md bg-primary/50 dark:bg-primary" />
+      <GradSeparator />
       <div className="flex justify-start gap-4 ml-4 mb-4">
         <SortMenu sortOrder={localSortOrder} setSortOrder={setLocalSortOrder} />
         <FilterByTags

@@ -2,11 +2,12 @@
 
 import { useContext, useState } from "react";
 import { Button } from "./ui/button";
-import { Separator } from "./ui/separator";
 import { Plus } from "lucide-react";
 import Link from "next/link";
 import dummyTodo from "@/utils/dummyTodo";
 import FilterByTags from "./Sort/FilterByTags";
+import GradHeader from "./GradHeader";
+import GradSeparator from "./GradSeparator";
 import RemoveAllAlert from "./Dialogs/RemoveAllDialog";
 import TodoContext from "@/contexts/TodoContext";
 import TodoMapper from "./TodoMapper";
@@ -16,7 +17,6 @@ import ThemeToggle from "./ThemeToggle";
 import processTodos from "@/utils/processTodos";
 import { add, format, isValid } from "date-fns";
 import PowerModeDialog from "./Dialogs/PowerModeDialog";
-import ProgressRing from "./ProgressRing/ProgressRing";
 
 const Body = () => {
   const { state, dispatch } = useContext(TodoContext);
@@ -39,30 +39,11 @@ const Body = () => {
 
   return (
     <>
-      <Button
-        onClick={() => {
-          const date = new Date(2023, 0, 30);
-          console.log(date);
-          const newDate = add(date, { months: 1 });
-          const newDateTwo = add(date, { months: 3 });
-          const a = format(newDate, "PP");
-        }}
-      >
-        Test
-      </Button>
-      <div className="flex flex-col justify-center gap-4 mt-4">
-        <Button
-          onClick={() => dispatch({ cmd: "ADD_TODO", toAdd: dummyTodo() })}
-        >
-          Add Dummy
-        </Button>
-        <ProgressRing progress={10} radius={25} />
-      </div>
-      <div className="flex flex-wrap justify-center gap-4 md:gap-6">
+      <div className="flex flex-wrap justify-center gap-4 md:gap-6 mt-[10vh]">
         <Link href="/todo/add" className="w-[180px]">
           <Button
             role="link"
-            className="w-[180px] px-5 py-8 text-lg font-medium dark:font-semibold rounded-full hover:shadow-lg hover:scale-[1.05] hover:translate-y-[-4px] hover:dark:shadow-slate-700 transition-all"
+            className="w-[180px] px-5 py-8 text-lg font-medium dark:font-semibold rounded-full hover:shadow-lg hover:scale-[1.05] hover:translate-y-[-4px] hover:dark:shadow-slate-800 transition-all"
           >
             <Plus className="w-6 h-6 mr-2" />
             Add Todo
@@ -71,7 +52,7 @@ const Body = () => {
         <PowerModeDialog />
       </div>
       {hasNoEntries() && (
-        <h2 className="text-3xl font-bold text-center mt-4">
+        <h2 className="text-3xl ml-10 text-primary uppercase font-extrabold">
           add a todo to get started
         </h2>
       )}
@@ -90,9 +71,11 @@ const Body = () => {
         </div>
       </div>
       {hasPendingOrPinned() && (
-        <div>
-          <h2 className="text-3xl ml-10 text-primary">Pending:</h2>
-          <Separator className="bg-primary w-[65vw] my-2 h-[3px] rounded-l-none rounded-tr-md rounded-br-md" />
+        <div className="mt-16">
+          <h2 className="text-3xl ml-10 text-primary uppercase font-extrabold">
+            Pending
+          </h2>
+          <GradSeparator />
         </div>
       )}
       <div className="flex justify-start flex-wrap max-w-[3340px] mx-auto">
@@ -100,15 +83,35 @@ const Body = () => {
         <TodoMapper todos={pendingTodos} />
       </div>
       {hasNoCompleted() && (
-        <div className="mt-8">
-          <h2 className="text-3xl ml-10 text-primary">Completed:</h2>
-          <Separator className="bg-primary w-[65vw] my-2 h-[3px] rounded-l-none rounded-tr-md rounded-br-md" />
+        <div className="mt-16">
+          <h2 className="text-3xl ml-10 text-primary uppercase font-extrabold">
+            Completed
+          </h2>
+          <GradSeparator />
         </div>
       )}
       <div className="flex justify-start flex-wrap max--[3340px] mx-auto">
         <TodoMapper todos={completedTodos} />
       </div>
-      <RemoveAllAlert />
+      <div className="flex justify-center gap-4 my-4">
+        <RemoveAllAlert />
+        <Button
+          onClick={() => dispatch({ cmd: "ADD_TODO", toAdd: dummyTodo() })}
+        >
+          Add Dummy
+        </Button>
+        <Button
+          onClick={() => {
+            const date = new Date(2023, 0, 30);
+            console.log(date);
+            const newDate = add(date, { months: 1 });
+            const newDateTwo = add(date, { months: 3 });
+            const a = format(newDate, "PP");
+          }}
+        >
+          Test
+        </Button>
+      </div>
     </>
   );
 };

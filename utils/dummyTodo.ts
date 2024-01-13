@@ -22,7 +22,7 @@ export default function dummyTodo(): Todo {
     dueAt: f.date
       .between({
         from: DateTime.now().toISO(),
-        to: DateTime.now().plus({ days: 5 }).toISO(),
+        to: DateTime.now().plus({ days: 10 }).toISO(),
       })
       .toISOString(),
     priority: f.number.int({ min: 0, max: 10 }),
