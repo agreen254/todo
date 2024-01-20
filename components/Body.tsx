@@ -61,7 +61,7 @@ const Body = () => {
               role="link"
               className={cn(
                 "w-[180px] px-5 py-8 text-lg font-medium dark:font-semibold rounded-full hover:shadow-lg hover:scale-[1.05] hover:translate-y-[-4px] hover:dark:shadow-slate-800 transition-all",
-                hasNoEntries() && "ring-2 ring-offset-2 ring-cyan-500"
+                hasNoEntries() && "bg-gradient-to-r from-primary dark:to-cyan-300 to-cyan-500"
               )}
             >
               <Plus className="w-6 h-6 mr-2" />

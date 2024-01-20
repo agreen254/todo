@@ -7,7 +7,7 @@ import { Todo } from "@/utils/types";
 import CardActions from "./TodoCardActions";
 import DueDate from "./DueDate";
 import TagBadge from "./TodoCardTagBadge";
-import ProgressRing from "../ProgressRing/ProgressRing";
+import ProgressRing from "../ProgressRing";
 
 export type Props = {
   t: Todo;

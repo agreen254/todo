@@ -1,14 +1,13 @@
 "use client";
 
+import { useState } from "react";
 import z from "zod";
-import { cn } from "@/utils/cn";
-import { format, sub } from "date-fns";
-import { CalendarIcon } from "lucide-react";
+import { sub } from "date-fns";
 import { TodoFormData as FormData } from "@/validation/schema";
 import { todoFormSchema as formSchema } from "@/validation/schema";
 import { todoFormDefaults as defaultValues } from "@/validation/schema";
 import { Button } from "../ui/button";
-import { Calendar } from "../ui/calendar";
+import { DateTimePicker } from "../ui/time-picker/date-time-picker-demo";
 import {
   Form,
   FormControl,
@@ -18,11 +17,11 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "../ui/input";
-import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 const AddForm = () => {
+  const [date, setDate] = useState<Date>();
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues,
@@ -37,7 +36,10 @@ const AddForm = () => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col justify-center w-[350px] space-y-4">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="flex flex-col justify-center w-[350px] mt-[10vh] space-y-4"
+      >
         <FormField
           control={form.control}
           name="title"
@@ -70,35 +72,7 @@ const AddForm = () => {
           render={({ field }) => (
             <FormItem className="flex flex-col">
               <FormLabel>Due At:</FormLabel>
-              <Popover>
-                <PopoverTrigger asChild>
-                  <FormControl>
-                    <Button
-                      variant={"outline"}
-                      className={cn(
-                        "w-[240px] pl-3 text-left font-normal",
-                        !field.value && "text-muted-foreground"
-                      )}
-                    >
-                      {field.value ? (
-                        format(field.value, "PP")
-                      ) : (
-                        <span>Pick a date</span>
-                      )}
-                      <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                    </Button>
-                  </FormControl>
-                </PopoverTrigger>
-                <PopoverContent className="w-auto p-0" align="start">
-                  <Calendar
-                    mode="single"
-                    selected={field.value}
-                    onSelect={field.onChange}
-                    disabled={(date) => date < yesterday()}
-                    initialFocus
-                  />
-                </PopoverContent>
-              </Popover>
+              <DateTimePicker date={date} setDate={setDate} />
               <FormMessage />
             </FormItem>
           )}

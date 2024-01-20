@@ -8,12 +8,15 @@ export const todoFormSchema = z.object({
   description: z
     .string()
     .max(150, { message: "Description must be 150 characters or shorter." }),
+  priority: z.number().min(0).max(10),
+  complexity: z.number().min(0).max(10),
   dueAt: z.date().optional(),
   tags: z
     .array(
       z.string().max(15, { message: "Tags must be 15 characters or shorter." })
     )
-    .max(6, { message: "Todos must have 6 tags or less." }),
+    .max(6, { message: "Todos must have 6 tags or less." })
+    .optional(),
 });
 export type TodoFormData = z.infer<typeof todoFormSchema>;
 // We need the default values because shad forms are controlled.
@@ -22,7 +25,6 @@ export type TodoFormData = z.infer<typeof todoFormSchema>;
 export const todoFormDefaults: Partial<TodoFormData> = {
   title: "",
   description: "",
-  tags: [],
 };
 
 export const searchFormSchema = z.object({

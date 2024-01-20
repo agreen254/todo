@@ -1,6 +1,6 @@
 import { faker as f } from "@faker-js/faker";
 import { uid } from "uid";
-import { DateTime } from "luxon";
+import { add, formatISO } from "date-fns";
 import { Todo } from "./types";
 import randArrayEle from "./randEle";
 
@@ -18,11 +18,11 @@ export default function dummyTodo(): Todo {
   return {
     name: f.lorem.words({ min: 1, max: 8 }),
     description: f.lorem.words({ min: 0, max: 25 }),
-    createdAt: DateTime.now().toISO(),
+    createdAt: formatISO(Date.now()),
     dueAt: f.date
       .between({
-        from: DateTime.now().toISO(),
-        to: DateTime.now().plus({ days: 10 }).toISO(),
+        from: Date.now(),
+        to: add(Date.now(), { days: 10 }),
       })
       .toISOString(),
     priority: f.number.int({ min: 0, max: 10 }),
