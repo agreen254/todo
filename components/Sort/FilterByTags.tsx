@@ -11,10 +11,10 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Separator } from "../ui/separator";
-import { ChevronDown, ChevronUp } from "lucide-react";
 import { Label } from "../ui/label";
 import { FilterTagsSchema, Tag } from "@/utils/types";
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
+import MenuChevron from "../MenuChevron";
 
 // If we provide a setter to this component, it tells the component
 // that the state not persisted in the local storage.
@@ -45,19 +45,11 @@ const FilterByTags = ({
     }
   };
 
-  const handleChevron = () => {
-    return isOpen ? (
-      <ChevronUp className="w-4 h-4 ml-2" />
-    ) : (
-      <ChevronDown className="w-4 h-4 ml-2" />
-    );
-  };
-
   return (
     <Popover open={isOpen} onOpenChange={setIsOpen}>
       <PopoverTrigger asChild>
         <Button className="transition-all hover:scale-[1.05]">
-          tags {handleChevron()}
+          <MenuChevron name="tags" isOpen={isOpen} />
         </Button>
       </PopoverTrigger>
       <PopoverContent

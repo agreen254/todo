@@ -17,6 +17,7 @@ import ThemeToggle from "./ThemeToggle";
 import processTodos from "@/utils/processTodos";
 import { add, format, isValid } from "date-fns";
 import PowerModeDialog from "./Dialogs/PowerModeDialog";
+import { cn } from "@/utils/cn";
 
 const Body = () => {
   const { state, dispatch } = useContext(TodoContext);
@@ -39,37 +40,43 @@ const Body = () => {
 
   return (
     <>
-      <div className="flex flex-wrap justify-center gap-4 md:gap-6 mt-[10vh]">
-        <Link href="/todo/add" className="w-[180px]">
-          <Button
-            role="link"
-            className="w-[180px] px-5 py-8 text-lg font-medium dark:font-semibold rounded-full hover:shadow-lg hover:scale-[1.05] hover:translate-y-[-4px] hover:dark:shadow-slate-800 transition-all"
-          >
-            <Plus className="w-6 h-6 mr-2" />
-            Add Todo
-          </Button>
-        </Link>
-        <PowerModeDialog />
+      <div className="grid grid-cols-1 md:grid-cols-3 place-items-center">
+        <div>
+          <div className="relative">
+            <ThemeToggle />
+            <SearchForm />
+          </div>
+          <div className="w-[min(350px,90vw)] mt-4 space-x-4">
+            <SortMenu sortOrder={state.sortOrder} />
+            <FilterByTags
+              filterTags={filterTags}
+              setFilterTags={setFilterTags}
+              setFilterTagsSchema={setFilterTagsSchema}
+            />
+          </div>
+        </div>
+        <div className="space-x-6 flex flex-wrap">
+          <Link href="/todo/add" className="w-[180px]">
+            <Button
+              role="link"
+              className={cn(
+                "w-[180px] px-5 py-8 text-lg font-medium dark:font-semibold rounded-full hover:shadow-lg hover:scale-[1.05] hover:translate-y-[-4px] hover:dark:shadow-slate-800 transition-all",
+                hasNoEntries() && "ring-2 ring-offset-2 ring-cyan-500"
+              )}
+            >
+              <Plus className="w-6 h-6 mr-2" />
+              Add Todo
+            </Button>
+          </Link>
+          <PowerModeDialog />
+        </div>
+        <div></div>
       </div>
       {hasNoEntries() && (
-        <h2 className="text-3xl ml-10 text-primary uppercase font-extrabold">
+        <h2 className="text-3xl text-center ml-10 text-primary font-extrabold">
           add a todo to get started
         </h2>
       )}
-      <div className="flex flex-col justify-center items-center">
-        <div className="relative">
-          <ThemeToggle />
-          <SearchForm />
-        </div>
-        <div className="w-[min(350px,90vw)] mt-4 space-x-4">
-          <SortMenu sortOrder={state.sortOrder} />
-          <FilterByTags
-            filterTags={filterTags}
-            setFilterTags={setFilterTags}
-            setFilterTagsSchema={setFilterTagsSchema}
-          />
-        </div>
-      </div>
       {hasPendingOrPinned() && (
         <div className="mt-16">
           <h2 className="text-3xl ml-10 text-primary uppercase font-extrabold">

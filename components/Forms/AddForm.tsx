@@ -34,11 +34,7 @@ const AddForm = () => {
   const yesterday = () => {
     return sub(Date(), { days: 1 });
   };
-  // return <div>
-  //   <h1>Add a Todo</h1>
-  //   <DatePicker />
-  //   <DateRangePicker />
-  // </div>;
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col justify-center w-[350px] space-y-4">
