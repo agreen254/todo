@@ -25,6 +25,8 @@ export type TodoFormData = z.infer<typeof todoFormSchema>;
 export const todoFormDefaults: Partial<TodoFormData> = {
   title: "",
   description: "",
+  priority: 5,
+  complexity: 5,
 };
 
 export const searchFormSchema = z.object({

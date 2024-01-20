@@ -5,6 +5,7 @@ import { Label } from "@/components/ui/label";
 import { TimePickerInput } from "./time-picker-input";
 import { TimePeriodSelect } from "./period-select";
 import { Period } from "./time-picker-utils";
+import { Clock } from "lucide-react";
 
 interface TimePickerDemoProps {
   date: Date | undefined;
@@ -16,7 +17,6 @@ export function TimePicker12Demo({ date, setDate }: TimePickerDemoProps) {
 
   const minuteRef = React.useRef<HTMLInputElement>(null);
   const hourRef = React.useRef<HTMLInputElement>(null);
-  const secondRef = React.useRef<HTMLInputElement>(null);
   const periodRef = React.useRef<HTMLButtonElement>(null);
 
   return (
@@ -45,20 +45,6 @@ export function TimePicker12Demo({ date, setDate }: TimePickerDemoProps) {
           setDate={setDate}
           ref={minuteRef}
           onLeftFocus={() => hourRef.current?.focus()}
-          onRightFocus={() => secondRef.current?.focus()}
-        />
-      </div>
-      <div className="grid gap-1 text-center">
-        <Label htmlFor="seconds" className="text-xs">
-          Seconds
-        </Label>
-        <TimePickerInput
-          picker="seconds"
-          id="seconds12"
-          date={date}
-          setDate={setDate}
-          ref={secondRef}
-          onLeftFocus={() => minuteRef.current?.focus()}
           onRightFocus={() => periodRef.current?.focus()}
         />
       </div>
@@ -72,8 +58,11 @@ export function TimePicker12Demo({ date, setDate }: TimePickerDemoProps) {
           date={date}
           setDate={setDate}
           ref={periodRef}
-          onLeftFocus={() => secondRef.current?.focus()}
+          onLeftFocus={() => minuteRef.current?.focus()}
         />
+      </div>
+      <div className="flex h-10 items-center">
+        <Clock className="ml-2 h-4 w-4" />
       </div>
     </div>
   );

@@ -7,7 +7,7 @@ import { TodoFormData as FormData } from "@/validation/schema";
 import { todoFormSchema as formSchema } from "@/validation/schema";
 import { todoFormDefaults as defaultValues } from "@/validation/schema";
 import { Button } from "../ui/button";
-import { DateTimePicker } from "../ui/time-picker/date-time-picker-demo";
+import { DateTimePicker } from "../ui/time-picker/date-time-picker";
 import {
   Form,
   FormControl,
@@ -19,6 +19,10 @@ import {
 import { Input } from "../ui/input";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { cn } from "@/utils/cn";
+import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
+
+const arr = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 const AddForm = () => {
   const [date, setDate] = useState<Date>();
@@ -68,16 +72,43 @@ const AddForm = () => {
         />
         <FormField
           control={form.control}
+          name="priority"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>priority:</FormLabel>
+              <FormControl>
+                <RadioGroup
+                  onValueChange={field.onChange}
+                  defaultValue={field.value.toString()}
+                  className="flex flex-wrap space-x-4"
+                >
+                  {arr.map((ele) => (
+                    <FormItem key={ele}>
+                      <FormLabel className="absolute translate-x-2 translate-y-3">{ele}</FormLabel>
+                      <FormControl>
+                        <RadioGroupItem value={ele.toString()} className="h-6 w-6"/>
+                      </FormControl>
+                    </FormItem>
+                  ))}
+                </RadioGroup>
+              </FormControl>
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
           name="dueAt"
           render={({ field }) => (
             <FormItem className="flex flex-col">
-              <FormLabel>Due At:</FormLabel>
+              <FormLabel>due at:</FormLabel>
               <DateTimePicker date={date} setDate={setDate} />
               <FormMessage />
             </FormItem>
           )}
         />
-        <Button type="submit">Submit</Button>
+        <Button type="submit" className="hover:scale-105 transition-all">
+          Submit
+        </Button>
       </form>
     </Form>
   );

@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { add, differenceInSeconds, format, sub } from "date-fns";
+import { add, format, sub } from "date-fns";
 import { Calendar as CalendarIcon } from "lucide-react";
 
 import { cn } from "@/utils/cn";
@@ -12,7 +12,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { TimePicker12Demo } from "./time-picker-12hour-demo";
+import { TimePicker12Demo } from "./time-picker-12hour";
 
 type Props = {
   date: Date | undefined;
