@@ -19,8 +19,8 @@ import {
 import { Input } from "../ui/input";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { cn } from "@/utils/cn";
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
+import AddTags from "./AddTags";
 
 const arr = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
@@ -38,6 +38,8 @@ const AddForm = () => {
     return sub(Date(), { days: 1 });
   };
 
+  return <AddTags />
+
   return (
     <Form {...form}>
       <form
@@ -49,9 +51,9 @@ const AddForm = () => {
           name="title"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>title:</FormLabel>
+              <FormLabel>Title:</FormLabel>
               <FormControl>
-                <Input placeholder="enter title" type="text" {...field} />
+                <Input placeholder="Enter title" type="text" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -62,9 +64,9 @@ const AddForm = () => {
           name="description"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>description:</FormLabel>
+              <FormLabel>Description:</FormLabel>
               <FormControl>
-                <Input placeholder="enter description" type="text" {...field} />
+                <Input placeholder="Enter description" type="text" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -75,7 +77,7 @@ const AddForm = () => {
           name="priority"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>priority:</FormLabel>
+              <FormLabel>Priority:</FormLabel>
               <FormControl>
                 <RadioGroup
                   onValueChange={field.onChange}
@@ -100,7 +102,7 @@ const AddForm = () => {
           name="dueAt"
           render={({ field }) => (
             <FormItem className="flex flex-col">
-              <FormLabel>due at:</FormLabel>
+              <FormLabel>Due:</FormLabel>
               <DateTimePicker date={date} setDate={setDate} />
               <FormMessage />
             </FormItem>

@@ -29,6 +29,7 @@ export function TimePicker12Demo({ date, setDate }: TimePickerDemoProps) {
           picker="12hours"
           period={period}
           date={date}
+          disabled={!date}
           setDate={setDate}
           ref={hourRef}
           onRightFocus={() => minuteRef.current?.focus()}
@@ -42,6 +43,7 @@ export function TimePicker12Demo({ date, setDate }: TimePickerDemoProps) {
           picker="minutes"
           id="minutes12"
           date={date}
+          disabled={!date}
           setDate={setDate}
           ref={minuteRef}
           onLeftFocus={() => hourRef.current?.focus()}

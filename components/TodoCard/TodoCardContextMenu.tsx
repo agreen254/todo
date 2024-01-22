@@ -66,6 +66,7 @@ const TodoCardContextMenu = ({ t }: { t: Todo }) => {
               setIsOpen(false);
             }}
             className="w-full flex justify-between p-0 m-0 text-base"
+            disabled={t.isPinned}
           >
             Clone
             <BookCopy className="w-5 h-5" />
