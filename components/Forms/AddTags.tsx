@@ -19,13 +19,13 @@ const AddTags = () => {
   const [formTags, setFormTags] = useState<string[]>([]);
   const [current, setCurrent] = useState<string>("");
 
-  const handleAddTags = () => {
-    const rawTags = current
+  const handleAddTags = (input: string) => {
+    const processedTags = input
       .toLowerCase()
       .split(",")
       .map((tag) => tag.trim());
 
-    const newTags = rawTags.filter((tag) => !formTags.includes(tag));
+    const newTags = processedTags.filter((tag) => !formTags.includes(tag));
     setFormTags([...formTags, ...newTags]);
     setCurrent("");
   };
@@ -38,24 +38,28 @@ const AddTags = () => {
   return (
     <div className="mt-[20vh] w-[320px]">
       <div className="flex flex-col space-y-2 mb-4">
-        <Label htmlFor="tags">Tags</Label>
+        <Label htmlFor="tags">Tags:</Label>
         <Input
           id="tags"
           placeholder="Enter tags"
           value={current}
           onChange={(e) => setCurrent(e.currentTarget.value)}
           onKeyDown={(e) => {
-            if (e.key === "Enter") handleAddTags();
+            if (e.key === "Enter") handleAddTags(current);
           }}
         />
       </div>
       <div
         className={cn(
-          "max-h-[6rem] overflow-y-auto px-5 py-3 border rounded-full",
-          formTags.length === 0 && "hidden"
+          "max-h-[6rem] overflow-y-auto mb-4 px-5 py-3 border rounded-full"
         )}
       >
         <p className="flex flex-wrap">
+          {formTags.length === 0 && (
+            <p className="text-muted-foreground text-sm italic">
+              no tags selected
+            </p>
+          )}
           {formTags.map((tag) => (
             <span
               key={tag}
@@ -76,11 +80,15 @@ const AddTags = () => {
             </span>
           ))}
         </p>
-        <p>
-          {allTags.map((tag) => (
-            <TagBadge key={tag.name} tag={tag.name} />
-          ))}
-        </p>
+      </div>
+      <div className="space-x-2">
+        {allTags.map((tag) => (
+          <TagBadge
+            key={tag.name}
+            tag={tag.name}
+            addTag={() => handleAddTags(tag.name)}
+          />
+        ))}
       </div>
     </div>
   );

@@ -3,8 +3,15 @@
 import { useContext } from "react";
 import TodoContext from "@/contexts/TodoContext";
 import { colorsMap } from "@/utils/maps";
+import { Button } from "../ui/button";
+import { Plus } from "lucide-react";
 
-const TagBadge = ({ tag }: { tag: string }) => {
+type Props = {
+  tag: string;
+  addTag?: (tag: string) => void;
+};
+
+const TagBadge = ({ tag, addTag }: Props) => {
   const {
     state: {
       tags: { allTags: all },
@@ -14,14 +21,16 @@ const TagBadge = ({ tag }: { tag: string }) => {
   const storedTag = all.find((t) => t.name === tag);
   if (!storedTag) return;
 
-  const cn = colorsMap.get(storedTag.color)!;
+  const bg = colorsMap.get(storedTag.color)!;
+  const cn = `px-3 py-2 h-8 m-0 rounded-[1rem] text-sm font-semibold dark:font-bold ${bg}`;
 
-  return (
-    <span
-      className={`px-3 py-2 rounded-[1rem] text-sm font-semibold dark:font-bold ${cn}`}
-    >
+  return addTag ? (
+    <Button className={cn} variant="ghost" onClick={() => addTag(tag)}>
       {storedTag.name}
-    </span>
+      <Plus className="w-4 h-4 ml-1" />
+    </Button>
+  ) : (
+    <span className={cn}>{storedTag.name}</span>
   );
 };
 

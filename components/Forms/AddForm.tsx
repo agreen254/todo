@@ -38,8 +38,6 @@ const AddForm = () => {
     return sub(Date(), { days: 1 });
   };
 
-  return <AddTags />
-
   return (
     <Form {...form}>
       <form

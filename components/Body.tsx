@@ -1,12 +1,12 @@
 "use client";
 
 import { useContext, useState } from "react";
+import { cn } from "@/utils/cn";
 import { Button } from "./ui/button";
 import { Plus } from "lucide-react";
 import Link from "next/link";
 import dummyTodo from "@/utils/dummyTodo";
 import FilterByTags from "./Sort/FilterByTags";
-import GradHeader from "./GradHeader";
 import GradSeparator from "./GradSeparator";
 import RemoveAllAlert from "./Dialogs/RemoveAllDialog";
 import TodoContext from "@/contexts/TodoContext";
@@ -15,9 +15,8 @@ import SortMenu from "./Sort/SortMenu";
 import SearchForm from "./Forms/SearchForm";
 import ThemeToggle from "./ThemeToggle";
 import processTodos from "@/utils/processTodos";
-import { add, format, isValid } from "date-fns";
+import { add, format } from "date-fns";
 import PowerModeDialog from "./Dialogs/PowerModeDialog";
-import { cn } from "@/utils/cn";
 
 const Body = () => {
   const { state, dispatch } = useContext(TodoContext);

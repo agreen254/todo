@@ -1,6 +1,5 @@
 import dynamic from "next/dynamic";
 import Footer from "@/components/Footer";
-import ThemeSwitcher from "@/components/ThemeSwitcher";
 
 // dynamic import stops hydration error
 // more info here:
