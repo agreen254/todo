@@ -5,7 +5,7 @@ import TodoContext from "@/contexts/TodoContext";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import TagBadge from "../TodoCard/TodoCardTagBadge";
-import { X } from "lucide-react";
+import { Plus, X } from "lucide-react";
 import { cn } from "@/utils/cn";
 import { Button } from "../ui/button";
 import { colorsMap } from "@/utils/maps";
@@ -56,28 +56,19 @@ const AddTags = () => {
       >
         <p className="flex flex-wrap">
           {formTags.length === 0 && (
-            <p className="text-muted-foreground text-sm italic">
+            <span className="text-muted-foreground text-sm italic">
               no tags selected
-            </p>
+            </span>
           )}
           {formTags.map((tag) => (
-            <span
+            <TagBadge
               key={tag}
-              className={`px-2 py-1 rounded-[1rem] text-sm font-semibold dark:font-bold ${bgColor(
-                tag
-              )}`}
+              tag={tag}
+              handleClick={() => setFormTags(formTags.filter((t) => t !== tag))}
             >
               {tag}
-              <Button
-                variant="ghost"
-                className="p-0 my-0 mr-0 ml-1 w-4 h-4 translate-y-1"
-              >
-                <X
-                  className="w-4 h-4 inline-block"
-                  onClick={() => setFormTags(formTags.filter((t) => t !== tag))}
-                />
-              </Button>
-            </span>
+              <X className="w-4 h-4 ml-1" />
+            </TagBadge>
           ))}
         </p>
       </div>
@@ -86,8 +77,11 @@ const AddTags = () => {
           <TagBadge
             key={tag.name}
             tag={tag.name}
-            addTag={() => handleAddTags(tag.name)}
-          />
+            handleClick={() => handleAddTags(tag.name)}
+          >
+            {tag.name}
+            <Plus className="w-4 h-4 ml-1" />
+          </TagBadge>
         ))}
       </div>
     </div>

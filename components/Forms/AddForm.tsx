@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
 import z from "zod";
+import { useState } from "react";
 import { sub } from "date-fns";
 import { TodoFormData as FormData } from "@/validation/schema";
 import { todoFormSchema as formSchema } from "@/validation/schema";
@@ -70,7 +70,7 @@ const AddForm = () => {
             </FormItem>
           )}
         />
-        <FormField
+        {/* <FormField
           control={form.control}
           name="priority"
           render={({ field }) => (
@@ -94,14 +94,16 @@ const AddForm = () => {
               </FormControl>
             </FormItem>
           )}
-        />
+        /> */}
         <FormField
           control={form.control}
           name="dueAt"
           render={({ field }) => (
             <FormItem className="flex flex-col">
               <FormLabel>Due:</FormLabel>
-              <DateTimePicker date={date} setDate={setDate} />
+              <FormControl>
+                <DateTimePicker date={date} setDate={setDate} />
+              </FormControl>
               <FormMessage />
             </FormItem>
           )}
