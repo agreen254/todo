@@ -7,8 +7,6 @@ import { Label } from "../ui/label";
 import TagBadge from "../TodoCard/TodoCardTagBadge";
 import { Plus, X } from "lucide-react";
 import { cn } from "@/utils/cn";
-import { Button } from "../ui/button";
-import { colorsMap } from "@/utils/maps";
 
 const AddTags = () => {
   const {
@@ -28,11 +26,6 @@ const AddTags = () => {
     const newTags = processedTags.filter((tag) => !formTags.includes(tag));
     setFormTags([...formTags, ...newTags]);
     setCurrent("");
-  };
-
-  const bgColor = (tag: string) => {
-    const n = allTags.find((t) => t.name === tag);
-    return n ? colorsMap.get(n.color) : "";
   };
 
   return (
