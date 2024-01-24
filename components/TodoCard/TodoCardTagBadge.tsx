@@ -16,6 +16,15 @@ const TagBadge = ({ tag, handleClick, children }: Props) => {
       tags: { allTags: all },
     },
   } = useContext(TodoContext);
+  
+  const getBg = () => {
+    const baseCn =
+      "px-3 py-2 h-8 m-0 rounded-[1rem] text-sm font-semibold dark:font-bold";
+    const storedTag = all.find((t) => t.name === tag);
+
+    if (!storedTag) return baseCn;
+    return `${baseCn} ${colorsMap.get(storedTag.color)}`;
+  };
 
   // Colors for the tags
   // You cannot render classNames in tailwind by directly using props that you pass
@@ -48,18 +57,17 @@ const TagBadge = ({ tag, handleClick, children }: Props) => {
     [23, "bg-purple-900/50"],
   ]);
 
-  const storedTag = all.find((t) => t.name === tag);
-  if (!storedTag) return;
-
-  const bg = colorsMap.get(storedTag.color)!;
-  const cn = `px-3 py-2 h-8 m-0 rounded-[1rem] text-sm font-semibold dark:font-bold ${bg}`;
-
   return handleClick ? (
-    <Button className={cn} variant="ghost" onClick={() => handleClick(tag)}>
+    <Button
+      className={getBg()}
+      type="button"
+      variant="ghost"
+      onClick={() => handleClick(tag)}
+    >
       {children}
     </Button>
   ) : (
-    <span className={cn}>{storedTag.name}</span>
+    <span className={getBg()}>{tag}</span>
   );
 };
 

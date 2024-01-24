@@ -95,7 +95,7 @@ const TodoCard = ({ t, className }: Props) => {
       </CardContent>
       <CardFooter className="flex flex-wrap gap-2 justify-start">
         {t.tags.map((tag) => (
-          <TagBadge key={t.id + tag} tag={tag} />
+          <TagBadge key={t.id + tag} tag={tag}>{tag}</TagBadge>
         ))}
       </CardFooter>
     </Card>

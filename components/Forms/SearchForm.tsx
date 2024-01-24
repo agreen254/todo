@@ -65,7 +65,7 @@ const SearchForm = () => {
           control={form.control}
           name="type"
           render={({ field }) => (
-            <FormItem className="">
+            <FormItem>
               <FormLabel className="hidden">Select search type</FormLabel>
               <FormControl>
                 <RadioGroup

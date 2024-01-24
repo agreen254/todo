@@ -15,7 +15,6 @@ import SortMenu from "./Sort/SortMenu";
 import SearchForm from "./Forms/SearchForm";
 import ThemeToggle from "./ThemeToggle";
 import processTodos from "@/utils/processTodos";
-import { add, format } from "date-fns";
 import PowerModeDialog from "./Dialogs/PowerModeDialog";
 
 const Body = () => {
@@ -60,7 +59,8 @@ const Body = () => {
               role="link"
               className={cn(
                 "w-[180px] px-5 py-8 text-lg font-medium dark:font-semibold rounded-full hover:shadow-lg hover:scale-[1.05] hover:translate-y-[-4px] hover:dark:shadow-slate-800 transition-all",
-                hasNoEntries() && "bg-gradient-to-r from-primary dark:to-cyan-300 to-cyan-500"
+                hasNoEntries() &&
+                  "bg-gradient-to-r from-primary dark:to-cyan-300 to-cyan-500"
               )}
             >
               <Plus className="w-6 h-6 mr-2" />
@@ -105,17 +105,6 @@ const Body = () => {
           onClick={() => dispatch({ cmd: "ADD_TODO", toAdd: dummyTodo() })}
         >
           Add Dummy
-        </Button>
-        <Button
-          onClick={() => {
-            const date = new Date(2023, 0, 30);
-            console.log(date);
-            const newDate = add(date, { months: 1 });
-            const newDateTwo = add(date, { months: 3 });
-            const a = format(newDate, "PP");
-          }}
-        >
-          Test
         </Button>
       </div>
     </>

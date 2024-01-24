@@ -1,4 +1,5 @@
 import z from "zod";
+import { alphaNumeric } from "@/utils/regex";
 
 export const todoFormSchema = z.object({
   title: z
@@ -12,10 +13,9 @@ export const todoFormSchema = z.object({
   complexity: z.number().min(0).max(10),
   dueAt: z.date().optional(),
   tags: z
-    .array(
-      z.string().max(15, { message: "Tags must be 15 characters or shorter." })
-    )
-    .max(6, { message: "Todos must have 6 tags or less." })
+    .string()
+    .array()
+    .max(8, { message: "Todos must have 8 tags or less." }),
 });
 export type TodoFormData = z.infer<typeof todoFormSchema>;
 // We need the default values because shad forms are controlled.
