@@ -10,7 +10,7 @@ import {
 import TodoContext from "@/contexts/TodoContext";
 import { alphaNumeric } from "@/utils/regex";
 import { Input, InputProps } from "../ui/input";
-import TagBadge from "../TodoCard/TodoCardTagBadge";
+import TagBadge from "../TagBadge";
 import { Plus as PlusIcon, X as XIcon } from "lucide-react";
 import { cn } from "@/utils/cn";
 

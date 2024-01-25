@@ -11,6 +11,13 @@ export const todoFormSchema = z.object({
   priority: z.number().min(0).max(10),
   complexity: z.number().min(0).max(10),
   dueAt: z.date().optional(),
+  repeats: z.boolean(),
+  repeatPeriod: z.union([
+    z.literal("daily"),
+    z.literal("weekly"),
+    z.literal("monthly"),
+  ]),
+  repeatEndDate: z.date().optional(),
   tags: z
     .string()
     .array()
@@ -25,6 +32,8 @@ export type TodoFormData = z.infer<typeof todoFormSchema>;
 export const todoFormDefaults: Partial<TodoFormData> = {
   name: "",
   description: "",
+  repeats: false,
+  repeatPeriod: "monthly",
   priority: 3,
   complexity: 3,
   tags: [],

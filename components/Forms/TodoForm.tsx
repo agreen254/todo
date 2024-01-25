@@ -15,6 +15,7 @@ import { Calendar } from "../ui/calendar";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -31,6 +32,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { redirect } from "next/navigation";
 import InputSubTasks from "./InputSubTasks";
 import { SubTask } from "@/utils/types";
+import { Checkbox } from "../ui/checkbox";
 
 const arr = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
@@ -55,6 +57,7 @@ const extractSubTasks = (
 };
 
 const TodoForm = ({ defaultValues }: Props) => {
+  const [repeats, setRepeats] = useState(false);
   const [subTasks, setSubTasks] = useState<SubTask[]>(
     extractSubTasks(
       defaultValues?.subTasks || [],
@@ -72,6 +75,9 @@ const TodoForm = ({ defaultValues }: Props) => {
       name: data.name,
       description: data?.description,
       dueAt: data?.dueAt,
+      repeats: data.repeats,
+      repeatPeriod: data.repeatPeriod,
+      repeatEndDate: data?.repeatEndDate,
       priority: data.priority,
       complexity: data.complexity,
       tags: data.tags,
@@ -103,16 +109,29 @@ const TodoForm = ({ defaultValues }: Props) => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="flex flex-col justify-center w-full max-w-[480px] mt-10 gap-y-6 mx-8 mb-[min(3rem,10vh)]"
+        className="flex flex-col justify-center w-full max-w-[480px] mt-10 mb-[min(3rem,10vh)]"
       >
         <FormField
           control={form.control}
           name="name"
           render={({ field }) => (
-            <FormItem>
+            <FormItem className="mb-6">
               <FormLabel>Name:</FormLabel>
               <FormControl>
                 <Input placeholder="Enter name" type="text" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="description"
+          render={({ field }) => (
+            <FormItem className="mb-6">
+              <FormLabel>Description:</FormLabel>
+              <FormControl>
+                <Input placeholder="Enter description" type="text" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -164,6 +183,102 @@ const TodoForm = ({ defaultValues }: Props) => {
             </FormItem>
           )}
         />
+        <div className="flex justify-start items-end mt-1">
+          <FormField
+            control={form.control}
+            name="repeats"
+            render={({ field }) => (
+              <FormItem className={cn("flex items-end space-x-2", !field.value && "mb-8")}>
+                <FormControl>
+                  <Checkbox
+                    checked={field.value}
+                    onCheckedChange={field.onChange}
+                  />
+                </FormControl>
+                <FormLabel>Repeats</FormLabel>
+              </FormItem>
+            )}
+          />
+          {form.getValues().repeats && (
+            <FormField
+              control={form.control}
+              name="repeatPeriod"
+              render={({ field }) => (
+                <FormItem className="ml-6">
+                  <FormLabel className="sr-only">Repeat period:</FormLabel>
+                  <FormControl>
+                    <RadioGroup
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                      className="flex justify-start gap-x-4"
+                    >
+                      <FormItem className="flex items-end">
+                        <FormControl>
+                          <RadioGroupItem value="daily" className="mr-1" />
+                        </FormControl>
+                        <FormLabel>daily</FormLabel>
+                      </FormItem>
+                      <FormItem className="flex items-end">
+                        <FormControl>
+                          <RadioGroupItem value="weekly" className="mr-1" />
+                        </FormControl>
+                        <FormLabel>weekly</FormLabel>
+                      </FormItem>
+                      <FormItem className="flex items-end">
+                        <FormControl>
+                          <RadioGroupItem value="monthly" className="mr-1" />
+                        </FormControl>
+                        <FormLabel>monthly</FormLabel>
+                      </FormItem>
+                    </RadioGroup>
+                  </FormControl>
+                </FormItem>
+              )}
+            />
+          )}
+        </div>
+        {form.getValues().repeats && (
+          <FormField
+            control={form.control}
+            name="repeatEndDate"
+            render={({ field }) => (
+              <FormItem className="mt-2 mb-6">
+                <FormLabel className="sr-only">End date</FormLabel>
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <FormControl>
+                      <Button
+                        variant={"outline"}
+                        className={cn(
+                          "w-full justify-start text-left font-normal mt-4",
+                          !field.value && "text-muted-foreground"
+                        )}
+                      >
+                        <CalendarIcon className="mr-2 h-4 w-4" />
+                        {field.value ? (
+                          format(field.value, "PPP")
+                        ) : (
+                          <span>Pick date repeat ends</span>
+                        )}
+                      </Button>
+                    </FormControl>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-auto p-0">
+                    <Calendar
+                      mode="single"
+                      selected={field.value}
+                      onSelect={field.onChange}
+                      initialFocus
+                    />
+                  </PopoverContent>
+                </Popover>
+                <FormDescription>
+                  Repeats will stop at the specified day or closest relevant day before
+                </FormDescription>
+              </FormItem>
+            )}
+          />
+        )}
         <FormField
           control={form.control}
           name="priority"
@@ -174,7 +289,7 @@ const TodoForm = ({ defaultValues }: Props) => {
                 <RadioGroup
                   onValueChange={(n) => field.onChange(parseInt(n))}
                   defaultValue={defaultValues?.priority?.toString()}
-                  className="flex flex-wrap justify-evenly"
+                  className="flex flex-wrap justify-start md:justify-evenly -translate-y-2"
                 >
                   {arr.map((ele) => (
                     <FormItem key={ele + "priority"}>
@@ -207,13 +322,13 @@ const TodoForm = ({ defaultValues }: Props) => {
           control={form.control}
           name="complexity"
           render={({ field }) => (
-            <FormItem>
+            <FormItem className="mb-4">
               <FormLabel>Complexity:</FormLabel>
               <FormControl>
                 <RadioGroup
                   onValueChange={(n) => field.onChange(parseInt(n))}
                   defaultValue={defaultValues?.priority?.toString()}
-                  className="flex flex-wrap justify-evenly"
+                  className="flex flex-wrap justify-start md:justify-evenly -translate-y-2"
                 >
                   {arr.map((ele) => (
                     <FormItem key={ele + "complexity"}>
@@ -250,19 +365,6 @@ const TodoForm = ({ defaultValues }: Props) => {
               <FormLabel>Tags:</FormLabel>
               <FormControl>
                 <InputTags {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="description"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Description:</FormLabel>
-              <FormControl>
-                <Input placeholder="Enter description" type="text" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>

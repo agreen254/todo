@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 const AddTodoPage = () => {
   return (
     <div className="flex flex-col items-center justify-center">
-      <div className="flex w-full justify-evenly items-center mt-10 mx-8">
+      <div className="flex w-[calc(100vw-4rem)] justify-evenly items-center mt-10 mx-8">
         <div />
         <Link href="/">
           <Button

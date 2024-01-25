@@ -103,30 +103,34 @@ const InputSubTasks = forwardRef<HTMLInputElement, InputTagsProps>(
         {subTasks.map((subTask, idx) => (
           <div
             key={subTask + idx.toString()}
-            className="flex justify-between h-12 my-4 items-center rounded-full border-2 dark:border hover:ring-ring hover:ring-2 transition-colors"
+            className="flex justify-between h-12 my-4 py-8 items-center rounded-full border-2 dark:border hover:ring-ring hover:ring-2 transition-colors"
           >
-            <span className="ml-4">{`${idx + 1}. ${subTask.subTaskName}`}</span>
-            <span>
-              <Button
-                className={cn(
-                  "h-8 w-8 p-0 mr-2 rounded-full",
-                  subTask.isCompleted && "bg-green-600 hover:bg-green-500"
-                )}
-                variant="outline"
-                type="button"
-                onClick={() => handleCompleteSubTask(subTask, idx)}
-              >
-                <CheckIcon className="w-4 h-4" />
-              </Button>
-              <Button
-                variant="destructive"
-                type="button"
-                className="h-8 w-8 p-0 mr-2 rounded-full"
-                onClick={() => handleDeleteSubTask(subTask.subTaskName)}
-              >
-                <XIcon className="w-4 h-4" />
-              </Button>
-            </span>
+            <div>
+              <p className="ml-8">{`${idx + 1}. ${subTask.subTaskName}`}</p>
+            </div>
+            <div className="min-w-[5rem] ml-2">
+              <span>
+                <Button
+                  className={cn(
+                    "h-8 w-8 p-0 mr-2 rounded-full",
+                    subTask.isCompleted && "bg-green-600 hover:bg-green-500"
+                  )}
+                  variant="outline"
+                  type="button"
+                  onClick={() => handleCompleteSubTask(subTask, idx)}
+                >
+                  <CheckIcon className="w-4 h-4" />
+                </Button>
+                <Button
+                  variant="destructive"
+                  type="button"
+                  className="h-8 w-8 p-0 mr-2 rounded-full"
+                  onClick={() => handleDeleteSubTask(subTask.subTaskName)}
+                >
+                  <XIcon className="w-4 h-4" />
+                </Button>
+              </span>
+            </div>
           </div>
         ))}
       </div>

@@ -39,7 +39,7 @@ const Body = () => {
   return (
     <>
       <div className="justify-center items-start grid grid-cols-1 md:grid-cols-3">
-        <div className="gap-x-0 md:gap-x-6 flex justify-center items-center mt-10">
+        <div className="gap-x-0 md:gap-x-6 flex justify-center items-center mt-2 md:mt-10">
           <Link href="/todo/add" className="w-[180px]">
             <Button
               role="link"
@@ -55,13 +55,16 @@ const Body = () => {
           </Link>
           <PowerModeDialog />
         </div>
-        <div className="flex justify-center items-start mt-10">
-          <div className="flex items-center space-x-4 mt-2 mr-[12px]">
+        <div className="flex justify-center items-start mt-2 md:mt-10">
+          <div className="hidden md:flex items-center space-x-4 mt-2 mr-[12px]">
             <ThemeToggle />
           </div>
           <div className="w-[min(350px,90vw)]">
             <SearchForm />
-            <div className="space-x-4 mt-2">
+            <div className="gap-x-4 mt-2 flex items-start">
+              <div className="inline md:hidden">
+                <ThemeToggle />
+              </div>
               <SortMenu sortOrder={state.sortOrder} />
               <FilterByTags
                 filterTags={filterTags}

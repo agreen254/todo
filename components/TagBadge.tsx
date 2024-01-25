@@ -3,7 +3,7 @@
 import { cn } from "@/utils/cn";
 import { ReactNode, useContext } from "react";
 import TodoContext from "@/contexts/TodoContext";
-import { Button } from "../ui/button";
+import { Button } from "./ui/button";
 
 type Props = {
   tag: string;

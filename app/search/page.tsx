@@ -40,7 +40,8 @@ const SearchPage = () => {
   if (!isMounted) {
     return null;
   }
-  if (!typeParam) return <InvalidSearch />;
+  if (!["name", "description", "dueAt"].includes(typeParam))
+    return <InvalidSearch />;
 
   const valid = searchTodos(queryParam, typeParam, todos);
   const validSorted = sortTodos(valid, localSortOrder);
@@ -52,7 +53,6 @@ const SearchPage = () => {
   );
   const allTodos = [...pinnedTodos, ...pendingTodos, ...completedTodos];
 
-  // if (valid.length === 0) return <h1>No Todos Found.</h1>;
   return (
     <>
       <div className="flex justify-start items-center">
@@ -85,13 +85,15 @@ const SearchPage = () => {
         </div>
       </div>
       {valid.length === 0 && <h1 className="text-2xl ml-6">No todos found.</h1>}
-      {allTodos.map((t) => (
-        <TodoCard
-          key={t.id}
-          t={t}
-          className="min-w-[80vw] md:min-w-[40vw] lg:min-w-[30vw] lg:max-w-[40vw] xl:w-[auto] xl:max-w-[30vw] mx-4 my-4"
-        />
-      ))}
+      <div className="flex flex-wrap">
+        {allTodos.map((t) => (
+          <TodoCard
+            key={t.id}
+            t={t}
+            className="min-w-[80vw] md:min-w-[40vw] lg:min-w-[30vw] lg:max-w-[40vw] xl:w-[auto] xl:max-w-[30vw] mx-4 my-4"
+          />
+        ))}
+      </div>
     </>
   );
 };

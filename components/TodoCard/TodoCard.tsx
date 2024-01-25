@@ -7,7 +7,7 @@ import { ArrowUp, Calendar, Move } from "lucide-react";
 import { Todo } from "@/utils/types";
 import CardActions from "./TodoCardActions";
 import TodoCardDueDate from "./TodoCardDueDate";
-import TagBadge from "./TodoCardTagBadge";
+import TagBadge from "../TagBadge";
 import ProgressRing from "../ProgressRing";
 
 export type Props = {
@@ -21,10 +21,13 @@ const TodoCard = ({ t, className }: Props) => {
 
   const centerCircleText = () => {
     if (progress < 10) {
+      // one numeral
       return "left-[32px]";
     } else if (progress < 100) {
+      // two numerals
       return "left-[25px]";
     } else {
+      // three numerals
       return "left-[21px]";
     }
   };

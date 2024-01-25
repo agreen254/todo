@@ -1,17 +1,15 @@
-"use client";
-
-// import "./styles.css";
-
 type Props = {
   progress: number; // percent
   radius: number; // px
 };
 
 const ProgressRing = ({ progress, radius }: Props) => {
+  // show a little bit even at zero percent so the user knows it's working
+  const progressDisplay = progress === 0 ? 1 : progress;
   const strokeWidth = 4;
   const normRadius = radius - strokeWidth * 2; // the stroke changes the radius
   const circumference = 2 * Math.PI * normRadius;
-  const strokeOffset = circumference * (1 - progress / 100);
+  const strokeOffset = circumference * (1 - progressDisplay / 100);
 
   return (
     <>

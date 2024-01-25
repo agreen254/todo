@@ -1,8 +1,3 @@
-export type SubTask = {
-  subTaskName: string;
-  isCompleted: boolean;
-}
-
 // Store dates as an ISO string because any class information is erased when the data is stringified for local storage.
 // Construct new class instances for date manipulation at runtime.
 export type Todo = {
@@ -19,6 +14,10 @@ export type Todo = {
   completedAt?: string;
   description?: string;
   dueAt?: string;
+};
+export type SubTask = {
+  subTaskName: string;
+  isCompleted: boolean;
 };
 
 export type SplitTodos = {
@@ -68,10 +67,7 @@ export type TodoContextType = {
 
 export type FilterTagsSchema = "exclusive" | "inclusive";
 
-export type Quote = {
-  q: string;
-  a: string;
-};
+export type RepeatPeriod = "daily" | "weekly" | "monthly";
 
 // Here are all the action types that tell the reducer what is okay to do.
 type AddTodo = {
