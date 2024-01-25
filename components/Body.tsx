@@ -38,13 +38,13 @@ const Body = () => {
 
   return (
     <>
-      <div className="flex flex-col justify-center md:grid md:grid-cols-3 md:place-items-stretch">
-        <div className="space-x-6 flex justify-center items-center">
+      <div className="justify-center items-start grid grid-cols-1 md:grid-cols-3">
+        <div className="gap-x-0 md:gap-x-6 flex justify-center items-center mt-10">
           <Link href="/todo/add" className="w-[180px]">
             <Button
               role="link"
               className={cn(
-                "w-[180px] px-5 py-8 text-lg font-medium dark:font-semibold rounded-full hover:shadow-md hover:scale-[1.05] hover:translate-y-[-4px] hover:dark:shadow-slate-800 transition-all",
+                "w-[min(40vw,180px)] px-5 py-8 text-lg font-medium dark:font-semibold rounded-full hover:shadow-md hover:scale-[1.05] hover:translate-y-[-4px] hover:dark:shadow-slate-800 transition-all",
                 hasNoEntries() &&
                   "bg-gradient-to-r from-primary dark:to-cyan-300 to-cyan-500"
               )}

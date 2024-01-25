@@ -13,13 +13,13 @@ const PowerModeDialog = () => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button className="w-[180px] px-5 py-8 text-lg font-medium dark:font-semibold rounded-full hover:shadow-md hover:scale-[1.05] hover:translate-y-[-4px] hover:dark:shadow-slate-800 transition-all">
+        <Button className="w-[min(40vw,180px)] px-5 py-8 text-lg font-medium dark:font-semibold rounded-full hover:shadow-md hover:scale-[1.05] hover:translate-y-[-4px] hover:dark:shadow-slate-800 transition-all">
           <Power className="w-6 h-6 mr-2" />
           Power Mode
         </Button>
       </DialogTrigger>
-      <DialogContent>
-        <div className="font-semibold text-3xl text-white dark:text-foreground flex items-center justify-center aria-hidden translate-y-[-8rem] py-4 rounded-full bg-primary">
+      <DialogContent className="mx-4">
+        <div className="font-semibold text-3xl text-white dark:text-foreground flex items-center justify-center aria-hidden translate-y-[-8rem] py-4 rounded-full bg-primary mx-4">
           <span>P</span>
           <span className="inline-block">
             <Power className="w-6 h-6" strokeWidth={4} />

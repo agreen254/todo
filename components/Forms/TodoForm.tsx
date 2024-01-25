@@ -1,6 +1,7 @@
 "use client";
 
 import z from "zod";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { cn } from "@/utils/cn";
@@ -28,6 +29,8 @@ import {
 } from "@/components/ui/popover";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { redirect } from "next/navigation";
+import InputSubTasks from "./InputSubTasks";
+import { SubTask } from "@/utils/types";
 
 const arr = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
@@ -36,6 +39,8 @@ type Props = {
 };
 
 const TodoForm = ({ defaultValues }: Props) => {
+  const [subTasks, setSubTasks] = useState<SubTask[]>([]);
+
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues,
@@ -225,10 +230,27 @@ const TodoForm = ({ defaultValues }: Props) => {
           control={form.control}
           name="tags"
           render={({ field }) => (
-            <FormItem className="max-w-[640px]">
+            <FormItem className="max-w-[640px] mt-1">
               <FormLabel>Tags:</FormLabel>
               <FormControl>
                 <InputTags {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="subTasks"
+          render={({ field }) => (
+            <FormItem className="max-w-[640px] mt-6">
+              <FormLabel>Subtasks:</FormLabel>
+              <FormControl>
+                <InputSubTasks
+                  subTasks={subTasks}
+                  setSubTasks={setSubTasks}
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>

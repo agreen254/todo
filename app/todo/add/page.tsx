@@ -34,7 +34,7 @@ const AddTodoPage = () => {
         <h1 className="font-bold text-2xl text-muted-foreground">
           Add New Todo
         </h1>
-        <div className="relative">
+        <div>
           <ThemeToggle />
         </div>
         <div />

@@ -1,5 +1,4 @@
 import z from "zod";
-import { alphaNumeric } from "@/utils/regex";
 
 export const todoFormSchema = z.object({
   name: z
@@ -16,6 +15,7 @@ export const todoFormSchema = z.object({
     .string()
     .array()
     .max(8, { message: "Todos must have 8 tags or less." }),
+  subTasks: z.string().array(),
 });
 export type TodoFormData = z.infer<typeof todoFormSchema>;
 // We need the default values because shad forms are controlled.
@@ -24,9 +24,10 @@ export type TodoFormData = z.infer<typeof todoFormSchema>;
 export const todoFormDefaults: Partial<TodoFormData> = {
   name: "",
   description: "",
-  tags: [],
   priority: 0,
   complexity: 0,
+  tags: [],
+  subTasks: [],
 };
 
 export const searchFormSchema = z.object({

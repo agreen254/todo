@@ -54,7 +54,6 @@ const InputTags = forwardRef<HTMLInputElement, InputTagsProps>(
         const processedInput = current.toLowerCase().trim();
         const isValidated = validate(processedInput);
 
-        // prevent use from entering faulty input
         if (isValidated) {
           const newTags = new Set([...value, processedInput]);
           onChange(Array.from(newTags));
@@ -92,7 +91,7 @@ const InputTags = forwardRef<HTMLInputElement, InputTagsProps>(
         </div>
         <div
           className={cn(
-            "max-h-[6rem] overflow-y-auto mb-4 px-5 py-3 border rounded-full"
+            "max-h-[6rem] overflow-y-auto mb-4 px-5 py-3 border-2 dark:border rounded-full hover:ring-ring hover:ring-2 transition-colors"
           )}
         >
           <p className="flex flex-wrap gap-x-2 gap-y-4">

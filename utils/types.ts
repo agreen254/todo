@@ -1,4 +1,4 @@
-type SubTask = {
+export type SubTask = {
   taskName: string;
   isCompleted: boolean;
 }

@@ -16,7 +16,6 @@ import TodoCard from "@/components/TodoCard/TodoCard";
 import { FilterTagsSchema, TodoSortOrder } from "@/utils/types";
 import SortMenu from "@/components/Sort/SortMenu";
 import FilterByTags from "@/components/Sort/FilterByTags";
-import ThemeToggle from "@/components/ThemeToggle";
 
 const SearchPage = () => {
   const searchParams = useSearchParams();
@@ -53,7 +52,7 @@ const SearchPage = () => {
   );
   const allTodos = [...pinnedTodos, ...pendingTodos, ...completedTodos];
 
-  if (valid.length === 0) return <h1>No Todos Found.</h1>;
+  // if (valid.length === 0) return <h1>No Todos Found.</h1>;
   return (
     <>
       <div className="flex justify-start items-center">
@@ -80,13 +79,12 @@ const SearchPage = () => {
             role="link"
           >
             <Link href="/">
-              <HomeIcon
-                className="w-[20px] h-[20px]"
-              />
+              <HomeIcon className="w-[20px] h-[20px]" />
             </Link>
           </Button>
         </div>
       </div>
+      {valid.length === 0 && <h1 className="text-2xl ml-6">No todos found.</h1>}
       {allTodos.map((t) => (
         <TodoCard
           key={t.id}
@@ -94,14 +92,6 @@ const SearchPage = () => {
           className="min-w-[80vw] md:min-w-[40vw] lg:min-w-[30vw] lg:max-w-[40vw] xl:w-[auto] xl:max-w-[30vw] mx-4 my-4"
         />
       ))}
-      <div className="flex justify-center">
-        <Link
-          href="/"
-          className="px-3 py-5 bg-slate-500 w-[150px] text-center inline-block rounded-md hover:shadow-md hover:dark:shadow-slate-200"
-        >
-          Back Home
-        </Link>
-      </div>
     </>
   );
 };

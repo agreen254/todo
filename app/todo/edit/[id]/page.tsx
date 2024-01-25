@@ -9,10 +9,11 @@ import TodoNotFound from "@/components/Errors/TodoNotFound";
 import dynamic from "next/dynamic";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { ArrowBigLeft as ArrowBigLeftIcon } from "lucide-react";
+import { ArrowLeft as ArrowLeftIcon } from "lucide-react";
 import { TodoFormData } from "@/validation/schema";
 import { todoFormDefaults } from "@/validation/schema";
 import { Todo } from "@/utils/types";
+import ThemeToggle from "@/components/ThemeToggle";
 
 const DynamicTodoForm = dynamic(() => import("@/components/Forms/TodoForm"), {
   ssr: false,
@@ -42,21 +43,22 @@ const EditTodo = ({ params: { id } }: Props) => {
       <div className="flex w-full justify-evenly items-center mt-10 mx-8">
         <div />
         <Button
-          className="rounded-full hover:scale-110 transition-all"
-          variant="ghost"
+          className="hover:scale-110 transition-all w-[50px] h-[50px]"
+          variant="outline"
           size="icon"
           role="link"
         >
           <Link href="/">
-            <ArrowBigLeftIcon
-              className="w-8 h-8"
-              stroke="hsl(var(--muted-foreground))"
-              fill="hsl(var(--muted-foreground))"
+            <ArrowLeftIcon
+              className="w-6 h-6"
+              stroke="hsl(var(--secondary-foreground))"
             />
           </Link>
         </Button>
         <h1 className="font-bold text-2xl text-muted-foreground">Edit Todo</h1>
-        <div />
+        <div>
+          <ThemeToggle />
+        </div>
         <div />
       </div>
       <DynamicTodoForm defaultValues={extractDefaultValues(t)} />
