@@ -2,7 +2,7 @@ import { cn } from "@/utils/cn";
 import parseDate from "@/utils/parseDate";
 import { Todo } from "@/utils/types";
 
-const DueDate = ({ t }: { t: Todo }) => {
+const TodoCardDueDate = ({ t }: { t: Todo }) => {
   const colors = {
     red: "text-red-600 dark:text-red-500 font-semibold",
     orange: "text-orange-400 dark:text-orange-500 font-semibold",
@@ -24,4 +24,4 @@ const DueDate = ({ t }: { t: Todo }) => {
   );
 };
 
-export default DueDate;
+export default TodoCardDueDate;

@@ -5,10 +5,9 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { cn } from "@/utils/cn";
 import { add, format, sub } from "date-fns";
-import { ArrowBigLeft, Calendar as CalendarIcon } from "lucide-react";
+import { Calendar as CalendarIcon } from "lucide-react";
 import { TodoFormData as FormData } from "@/validation/schema";
 import { todoFormSchema as formSchema } from "@/validation/schema";
-import { todoFormDefaults as defaultValues } from "@/validation/schema";
 import { TimePicker12Demo } from "../ui/time-picker/time-picker-12hour";
 import { Button } from "../ui/button";
 import { Calendar } from "../ui/calendar";
@@ -21,28 +20,30 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "../ui/input";
+import InputTags from "./InputTags";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import InputTags from "./InputTags";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { redirect } from "next/navigation";
 
 const arr = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 type Props = {
-  currentFormValues?: Partial<FormData>;
+  defaultValues: Partial<FormData>;
 };
 
-const TodoForm = ({ currentFormValues }: Props) => {
-  const defaults = currentFormValues || defaultValues;
+const TodoForm = ({ defaultValues }: Props) => {
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
-    defaultValues: defaults,
+    defaultValues,
     mode: "onChange",
   });
   const onSubmit = (data: z.infer<typeof formSchema>) => {
     console.log(data);
+    redirect("/");
   };
 
   const yesterday = () => {
@@ -68,16 +69,16 @@ const TodoForm = ({ currentFormValues }: Props) => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="flex flex-col justify-center w-full max-w-[480px] mt-10 gap-y-6 mx-8"
+        className="flex flex-col justify-center w-full max-w-[480px] mt-10 gap-y-6 mx-8 mb-[min(3rem,10vh)]"
       >
         <FormField
           control={form.control}
-          name="title"
+          name="name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Title:</FormLabel>
+              <FormLabel>Name:</FormLabel>
               <FormControl>
-                <Input placeholder="Enter title" type="text" {...field} />
+                <Input placeholder="Enter name" type="text" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -96,31 +97,84 @@ const TodoForm = ({ currentFormValues }: Props) => {
             </FormItem>
           )}
         />
-        {/* <FormField
+        <FormField
           control={form.control}
           name="priority"
           render={({ field }) => (
             <FormItem>
-            <FormLabel>Priority:</FormLabel>
-            <FormControl>
-            <RadioGroup
-            onValueChange={field.onChange}
-            defaultValue={field.value.toString()}
-            className="flex flex-wrap space-x-4"
-            >
-            {arr.map((ele) => (
-              <FormItem key={ele}>
-              <FormLabel className="absolute translate-x-2 translate-y-3">{ele}</FormLabel>
+              <FormLabel>Priority:</FormLabel>
               <FormControl>
-              <RadioGroupItem value={ele.toString()} className="h-6 w-6"/>
+                <RadioGroup
+                  onValueChange={(n) => field.onChange(parseInt(n))}
+                  defaultValue={defaultValues?.priority?.toString()}
+                  className="flex flex-wrap justify-evenly"
+                >
+                  {arr.map((ele) => (
+                    <FormItem key={ele + "priority"}>
+                      <FormLabel
+                        className={cn(
+                          "absolute translate-y-4",
+                          ele < 10 ? "translate-x-3" : "translate-x-2"
+                        )}
+                      >
+                        {ele}
+                      </FormLabel>
+                      <FormControl>
+                        <RadioGroupItem
+                          value={ele.toString()}
+                          className={cn(
+                            "w-8 h-8 bg-secondary hover:bg-primary/50",
+                            field.value === ele && "bg-primary hover:bg-primary"
+                          )}
+                        />
+                      </FormControl>
+                    </FormItem>
+                  ))}
+                </RadioGroup>
               </FormControl>
-              </FormItem>
-              ))}
-              </RadioGroup>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="complexity"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Complexity:</FormLabel>
+              <FormControl>
+                <RadioGroup
+                  onValueChange={(n) => field.onChange(parseInt(n))}
+                  defaultValue={defaultValues?.priority?.toString()}
+                  className="flex flex-wrap justify-evenly"
+                >
+                  {arr.map((ele) => (
+                    <FormItem key={ele + "complexity"}>
+                      <FormLabel
+                        className={cn(
+                          "absolute translate-y-4",
+                          ele < 10 ? "translate-x-3" : "translate-x-2"
+                        )}
+                      >
+                        {ele}
+                      </FormLabel>
+                      <FormControl>
+                        <RadioGroupItem
+                          value={ele.toString()}
+                          className={cn(
+                            "w-8 h-8 bg-secondary hover:bg-primary/50",
+                            field.value === ele && "bg-primary hover:bg-primary"
+                          )}
+                        />
+                      </FormControl>
+                    </FormItem>
+                  ))}
+                </RadioGroup>
               </FormControl>
-              </FormItem>
-              )}
-            /> */}
+              <FormMessage />
+            </FormItem>
+          )}
+        />
         <FormField
           control={form.control}
           name="dueAt"

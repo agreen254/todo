@@ -2,9 +2,10 @@
 
 import { useContext, useEffect, useState } from "react";
 import TodoContext from "@/contexts/TodoContext";
+import { Home as HomeIcon } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import InvalidSearch from "@/components/Errors/InvalidSearch";
-import { Separator } from "@/components/ui/separator";
 import { searchByMap } from "@/utils/maps";
 import processTodos from "@/utils/processTodos";
 import searchTodos from "@/utils/searchTodos";
@@ -15,7 +16,6 @@ import TodoCard from "@/components/TodoCard/TodoCard";
 import { FilterTagsSchema, TodoSortOrder } from "@/utils/types";
 import SortMenu from "@/components/Sort/SortMenu";
 import FilterByTags from "@/components/Sort/FilterByTags";
-import filterByTags from "@/utils/filterByTags";
 import ThemeToggle from "@/components/ThemeToggle";
 
 const SearchPage = () => {
@@ -56,13 +56,15 @@ const SearchPage = () => {
   if (valid.length === 0) return <h1>No Todos Found.</h1>;
   return (
     <>
-      <h1 className="text-3xl font-medium mt-4 ml-4">
-        Search results for{" "}
-        <span className="font-bold">
-          {searchByMap.get(typeParam) || typeParam}
-        </span>{" "}
-        containing<span className="font-bold"> "{queryParam}"</span>
-      </h1>
+      <div className="flex justify-start items-center">
+        <h1 className="text-3xl font-medium mt-4 ml-4">
+          Search results for{" "}
+          <span className="font-bold">
+            {searchByMap.get(typeParam) || typeParam}
+          </span>{" "}
+          containing<span className="font-bold"> "{queryParam}"</span>
+        </h1>
+      </div>
       <GradSeparator />
       <div className="flex justify-start gap-4 ml-4 mb-4">
         <SortMenu sortOrder={localSortOrder} setSortOrder={setLocalSortOrder} />
@@ -71,7 +73,21 @@ const SearchPage = () => {
           setFilterTags={setLocalFilterTags}
           setFilterTagsSchema={setLocalFilterSchema}
         />
-        <ThemeToggle />
+        <div className="">
+          <Button
+            className="rounded-full hover:scale-125 transition-all"
+            variant="ghost"
+            size="icon"
+            role="link"
+          >
+            <Link href="/">
+              <HomeIcon
+                className="w-6 h-6"
+                stroke="hsl(var(--muted-foreground))"
+              />
+            </Link>
+          </Button>
+        </div>
       </div>
       {allTodos.map((t) => (
         <TodoCard

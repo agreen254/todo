@@ -1,5 +1,6 @@
 "use client";
 
+import { cn } from "@/utils/cn";
 import { ReactNode, useContext } from "react";
 import TodoContext from "@/contexts/TodoContext";
 import { Button } from "../ui/button";
@@ -16,17 +17,21 @@ const TagBadge = ({ tag, handleClick, children }: Props) => {
       tags: { allTags: all },
     },
   } = useContext(TodoContext);
-  
+
   const getBg = () => {
     const baseCn =
-      "px-3 py-2 h-8 m-0 rounded-[1rem] text-sm font-semibold dark:font-bold";
+      "px-3 py-2 h-8 m-0 rounded-[1rem] text-sm font-semibold dark:font-bold hover:scale-110 transition-all";
     const storedTag = all.find((t) => t.name === tag);
 
-    if (!storedTag) return baseCn;
-    return `${baseCn} ${colorsMap.get(storedTag.color)}`;
+    if (!storedTag) {
+      return baseCn;
+    } else {
+      const bgColor = colorsMap.get(storedTag.color);
+      return `${baseCn} ${bgColor} hover:${bgColor}`;
+    }
   };
 
-  // Colors for the tags
+  // Colors for the tags:
   // You cannot render classNames in tailwind by directly using props that you pass
   // to a component, you must map the props to a static className.
   // more info: https://tailwindcss.com/docs/content-configuration#dynamic-class-names
@@ -67,7 +72,7 @@ const TagBadge = ({ tag, handleClick, children }: Props) => {
       {children}
     </Button>
   ) : (
-    <span className={getBg()}>{tag}</span>
+    <span className={cn(getBg(), "pt-[5px]")}>{tag}</span>
   );
 };
 

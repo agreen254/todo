@@ -2,7 +2,7 @@ import z from "zod";
 import { alphaNumeric } from "@/utils/regex";
 
 export const todoFormSchema = z.object({
-  title: z
+  name: z
     .string()
     .min(1, { message: "Title is required." })
     .max(50, { message: "Title must be 50 characters or shorter." }),
@@ -22,11 +22,11 @@ export type TodoFormData = z.infer<typeof todoFormSchema>;
 // If we do not provide these, it will throw an error because we changed
 // from an undefined value for one of the fields.
 export const todoFormDefaults: Partial<TodoFormData> = {
-  title: "",
+  name: "",
   description: "",
   tags: [],
-  priority: 5,
-  complexity: 5,
+  priority: 0,
+  complexity: 0,
 };
 
 export const searchFormSchema = z.object({

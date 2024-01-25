@@ -5,7 +5,7 @@ import { Card, CardContent, CardDescription, CardFooter } from "../ui/card";
 import { ArrowUp, Calendar, Move } from "lucide-react";
 import { Todo } from "@/utils/types";
 import CardActions from "./TodoCardActions";
-import DueDate from "./DueDate";
+import TodoCardDueDate from "./TodoCardDueDate";
 import TagBadge from "./TodoCardTagBadge";
 import ProgressRing from "../ProgressRing";
 
@@ -58,7 +58,7 @@ const TodoCard = ({ t, className }: Props) => {
               <Calendar className="w-4 h-4 mr-2 inline-block translate-y-[-2px]" />
               <span className="text-muted-foreground">Due Date: </span>
               <span className="font-medium dark:font-semibold">
-                <DueDate t={t} />
+                <TodoCardDueDate t={t} />
               </span>
             </span>
           </p>

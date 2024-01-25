@@ -34,7 +34,9 @@ const TodoCardContextMenu = ({ t }: { t: Todo }) => {
           t.isPinned && "hover:ring-teal-500 dark:hover:ring-teal-700"
         )}
       >
-        <DropdownMenuLabel className="dark:font-bold font-semibold">More</DropdownMenuLabel>
+        <DropdownMenuLabel className="dark:font-bold font-semibold">
+          More
+        </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem className="rounded-none text-base py-0">
           <Link
@@ -47,7 +49,10 @@ const TodoCardContextMenu = ({ t }: { t: Todo }) => {
             </span>
           </Link>
         </DropdownMenuItem>
-        <DropdownMenuItem className="rounded-none text-base py-0">
+        <DropdownMenuItem
+          className="rounded-none text-base py-0"
+          disabled={t.isCompleted}
+        >
           <Link
             href={`/todo/edit/${t.id}`}
             className="w-full flex justify-between py-3 my-0"
@@ -58,7 +63,10 @@ const TodoCardContextMenu = ({ t }: { t: Todo }) => {
             </span>
           </Link>
         </DropdownMenuItem>
-        <DropdownMenuItem className="rounded-none py-0">
+        <DropdownMenuItem
+          className="rounded-none py-0"
+          disabled={t.isCompleted}
+        >
           <Button
             variant="ghost"
             onClick={() => {
