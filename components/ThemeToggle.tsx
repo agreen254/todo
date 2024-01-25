@@ -16,8 +16,8 @@ const ThemeToggle = () => {
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger asChild className="absolute bottom-[30px] left-[-64px]">
-        <Button variant="outline" size="icon" className="w-[50px] h-[50px]">
+      <DropdownMenuTrigger asChild>
+        <Button variant="outline" size="icon" className="w-[50px] h-[50px] relative">
           <Sun className="h-[40%] w-[40%] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
           <Moon className="absolute h-[40%] w-[40%] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
           <span className="sr-only">Toggle theme</span>

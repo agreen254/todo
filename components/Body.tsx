@@ -38,27 +38,13 @@ const Body = () => {
 
   return (
     <>
-      <div className="grid grid-cols-1 md:grid-cols-3 place-items-center">
-        <div>
-          <div className="relative">
-            <ThemeToggle />
-            <SearchForm />
-          </div>
-          <div className="w-[min(350px,90vw)] mt-4 space-x-4">
-            <SortMenu sortOrder={state.sortOrder} />
-            <FilterByTags
-              filterTags={filterTags}
-              setFilterTags={setFilterTags}
-              setFilterTagsSchema={setFilterTagsSchema}
-            />
-          </div>
-        </div>
-        <div className="space-x-6 flex flex-wrap">
+      <div className="flex flex-col justify-center md:grid md:grid-cols-3 md:place-items-stretch">
+        <div className="space-x-6 flex justify-center items-center">
           <Link href="/todo/add" className="w-[180px]">
             <Button
               role="link"
               className={cn(
-                "w-[180px] px-5 py-8 text-lg font-medium dark:font-semibold rounded-full hover:shadow-lg hover:scale-[1.05] hover:translate-y-[-4px] hover:dark:shadow-slate-800 transition-all",
+                "w-[180px] px-5 py-8 text-lg font-medium dark:font-semibold rounded-full hover:shadow-md hover:scale-[1.05] hover:translate-y-[-4px] hover:dark:shadow-slate-800 transition-all",
                 hasNoEntries() &&
                   "bg-gradient-to-r from-primary dark:to-cyan-300 to-cyan-500"
               )}
@@ -69,13 +55,24 @@ const Body = () => {
           </Link>
           <PowerModeDialog />
         </div>
+        <div className="flex justify-center items-start mt-10">
+          <div className="flex items-center space-x-4 mt-2 mr-[12px]">
+            <ThemeToggle />
+          </div>
+          <div className="w-[min(350px,90vw)]">
+            <SearchForm />
+            <div className="space-x-4 mt-2">
+              <SortMenu sortOrder={state.sortOrder} />
+              <FilterByTags
+                filterTags={filterTags}
+                setFilterTags={setFilterTags}
+                setFilterTagsSchema={setFilterTagsSchema}
+              />
+            </div>
+          </div>
+        </div>
         <div></div>
       </div>
-      {hasNoEntries() && (
-        <h2 className="text-3xl text-center ml-10 text-primary font-extrabold">
-          add a todo to get started
-        </h2>
-      )}
       {hasPendingOrPinned() && (
         <div className="mt-16">
           <h2 className="text-3xl ml-10 text-primary uppercase font-extrabold">

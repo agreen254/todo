@@ -19,6 +19,7 @@ import { SearchFormData as FormData } from "@/validation/schema";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
+import { cn } from "@/utils/cn";
 
 const SearchForm = () => {
   const form = useForm<FormData>({
@@ -30,19 +31,11 @@ const SearchForm = () => {
   const router = useRouter();
   const onSubmit = (data: z.infer<typeof formSchema>) => {
     router.push(`search?query=${data.query.trim()}&type=${data.type}`);
-  }
+  };
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)}>
-        <Button
-          variant="ghost"
-          size="icon"
-          type="submit"
-          className="translate-y-[53px] translate-x-[min(305px,calc(90vw-44px))]"
-        >
-          <Search className="w-[50%] h-[50%]" />
-        </Button>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="relative">
         <FormField
           control={form.control}
           name="query"
@@ -58,6 +51,14 @@ const SearchForm = () => {
                 />
               </FormControl>
               <FormMessage />
+              <Button
+                variant="ghost"
+                size="icon"
+                type="submit"
+                className={cn("absolute right-[5px] top-[-3px]", form.formState.errors?.query?.message && "bottom-[4rem]")}
+              >
+                <Search className="w-[50%] h-[50%]" />
+              </Button>
             </FormItem>
           )}
         />
