@@ -113,7 +113,7 @@ const TodoForm = ({ defaultValues }: Props) => {
                     <FormItem key={ele + "priority"}>
                       <FormLabel
                         className={cn(
-                          "absolute translate-y-4",
+                          "absolute translate-y-4 font-bold",
                           ele < 10 ? "translate-x-3" : "translate-x-2"
                         )}
                       >
@@ -152,7 +152,7 @@ const TodoForm = ({ defaultValues }: Props) => {
                     <FormItem key={ele + "complexity"}>
                       <FormLabel
                         className={cn(
-                          "absolute translate-y-4",
+                          "absolute translate-y-4 font-bold",
                           ele < 10 ? "translate-x-3" : "translate-x-2"
                         )}
                       >

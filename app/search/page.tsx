@@ -73,17 +73,15 @@ const SearchPage = () => {
           setFilterTags={setLocalFilterTags}
           setFilterTagsSchema={setLocalFilterSchema}
         />
-        <div className="">
+        <div>
           <Button
-            className="rounded-full hover:scale-125 transition-all"
-            variant="ghost"
+            className="hover:scale-110 transition-all"
             size="icon"
             role="link"
           >
             <Link href="/">
               <HomeIcon
-                className="w-6 h-6"
-                stroke="hsl(var(--muted-foreground))"
+                className="w-[20px] h-[20px]"
               />
             </Link>
           </Button>
