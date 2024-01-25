@@ -38,8 +38,29 @@ type Props = {
   defaultValues: Partial<FormData>;
 };
 
+const extractSubTasks = (
+  subTaskNames: string[],
+  completionArray: boolean[]
+) => {
+  if (subTaskNames.length !== completionArray.length) return [];
+
+  let subTasks = [];
+  for (let i = 0; i < subTaskNames.length; i++) {
+    subTasks.push({
+      subTaskName: subTaskNames[i],
+      isCompleted: completionArray[i],
+    });
+  }
+  return subTasks;
+};
+
 const TodoForm = ({ defaultValues }: Props) => {
-  const [subTasks, setSubTasks] = useState<SubTask[]>([]);
+  const [subTasks, setSubTasks] = useState<SubTask[]>(
+    extractSubTasks(
+      defaultValues?.subTasks || [],
+      defaultValues?.completedSubTasks || []
+    )
+  );
 
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
@@ -47,8 +68,16 @@ const TodoForm = ({ defaultValues }: Props) => {
     mode: "onChange",
   });
   const onSubmit = (data: z.infer<typeof formSchema>) => {
-    console.log(data);
-    redirect("/");
+    const transformedData = {
+      name: data.name,
+      description: data?.description,
+      dueAt: data?.dueAt,
+      priority: data.priority,
+      complexity: data.complexity,
+      tags: data.tags,
+      subTasks: subTasks,
+    };
+    console.log(transformedData);
   };
 
   const yesterday = () => {
@@ -84,19 +113,6 @@ const TodoForm = ({ defaultValues }: Props) => {
               <FormLabel>Name:</FormLabel>
               <FormControl>
                 <Input placeholder="Enter name" type="text" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="description"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Description:</FormLabel>
-              <FormControl>
-                <Input placeholder="Enter description" type="text" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -241,9 +257,22 @@ const TodoForm = ({ defaultValues }: Props) => {
         />
         <FormField
           control={form.control}
+          name="description"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Description:</FormLabel>
+              <FormControl>
+                <Input placeholder="Enter description" type="text" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
           name="subTasks"
           render={({ field }) => (
-            <FormItem className="max-w-[640px] mt-6">
+            <FormItem className="max-w-[640px]">
               <FormLabel>Subtasks:</FormLabel>
               <FormControl>
                 <InputSubTasks

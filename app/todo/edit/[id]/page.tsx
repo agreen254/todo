@@ -31,8 +31,18 @@ const EditTodo = ({ params: { id } }: Props) => {
 
   const extractDefaultValues = (t: Todo | undefined) => {
     if (!t) return todoFormDefaults;
-    const defaults: Partial<TodoFormData> = {};
-    return Object.assign(defaults, t);
+    const date = t.dueAt ? new Date(t.dueAt) : undefined;
+    const defaults: Partial<TodoFormData> = {
+      name: t.name,
+      description: t?.description,
+      dueAt: date,
+      priority: t.priority,
+      complexity: t.complexity,
+      tags: t.tags,
+      subTasks: t.subTasks.map((st) => st.subTaskName),
+      completedSubTasks: t.subTasks.map((st) => st.isCompleted),
+    };
+    return defaults;
   };
 
   if (!t) {

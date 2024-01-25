@@ -1,7 +1,7 @@
 import { faker as f } from "@faker-js/faker";
 import { uid } from "uid";
 import { add, formatISO } from "date-fns";
-import { Todo } from "./types";
+import { SubTask, Todo } from "./types";
 import randArrayEle from "./randEle";
 
 const potentialTags = [
@@ -12,6 +12,18 @@ const potentialTags = [
   ["work", "chores"],
   ["school"],
 ];
+
+const generateSubTasks = (): SubTask[] => {
+  const len = f.number.int({ min: 0, max: 10 });
+  let subTasks = [];
+  for (let i = 0; i < len; i++) {
+    subTasks.push({
+      subTaskName: f.lorem.sentence(),
+      isCompleted: f.datatype.boolean(),
+    });
+  }
+  return subTasks;
+};
 
 // use in development to generate example todos
 export default function dummyTodo(): Todo {
@@ -32,5 +44,6 @@ export default function dummyTodo(): Todo {
     id: uid(),
     repeatId: uid(),
     tags: randArrayEle(potentialTags),
+    subTasks: generateSubTasks(),
   };
 }

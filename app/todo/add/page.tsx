@@ -18,19 +18,19 @@ const AddTodoPage = () => {
     <div className="flex flex-col items-center justify-center">
       <div className="flex w-full justify-evenly items-center mt-10 mx-8">
         <div />
-        <Button
-          className="hover:scale-110 transition-all w-[50px] h-[50px]"
-          variant="outline"
-          size="icon"
-          role="link"
-        >
-          <Link href="/">
+        <Link href="/">
+          <Button
+            className="hover:scale-110 transition-all w-[50px] h-[50px]"
+            variant="outline"
+            size="icon"
+            role="link"
+          >
             <ArrowLeftIcon
               className="w-6 h-6"
               stroke="hsl(var(--secondary-foreground))"
             />
-          </Link>
-        </Button>
+          </Button>
+        </Link>
         <h1 className="font-bold text-2xl text-muted-foreground">
           Add New Todo
         </h1>

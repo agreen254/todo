@@ -31,7 +31,6 @@ const TagBadge = ({ tag, handleClick, children }: Props) => {
     }
   };
 
-  // Colors for the tags:
   // You cannot render classNames in tailwind by directly using props that you pass
   // to a component, you must map the props to a static className.
   // more info: https://tailwindcss.com/docs/content-configuration#dynamic-class-names

@@ -44,7 +44,7 @@ const InputSubTasks = forwardRef<HTMLInputElement, InputTagsProps>(
           onChange(Array.from(newTags));
           setSubTasks([
             ...subTasks,
-            { taskName: processedInput, isCompleted: false },
+            { subTaskName: processedInput, isCompleted: false },
           ]);
           setCurrent("");
         }
@@ -53,13 +53,13 @@ const InputSubTasks = forwardRef<HTMLInputElement, InputTagsProps>(
 
     const handleDeleteSubTask = (taskName: string) => {
       onChange(value.filter((v) => v !== taskName));
-      setSubTasks(subTasks.filter((st) => st.taskName !== taskName));
+      setSubTasks(subTasks.filter((st) => st.subTaskName !== taskName));
     };
 
     const handleCompleteSubTask = (subTask: SubTask, idx: number) => {
       setSubTasks(
         subTasks.toSpliced(idx, 1, {
-          taskName: subTask.taskName,
+          subTaskName: subTask.subTaskName,
           isCompleted: subTasks[idx].isCompleted ? false : true,
         })
       );
@@ -105,7 +105,7 @@ const InputSubTasks = forwardRef<HTMLInputElement, InputTagsProps>(
             key={subTask + idx.toString()}
             className="flex justify-between h-12 my-4 items-center rounded-full border-2 dark:border hover:ring-ring hover:ring-2 transition-colors"
           >
-            <span className="ml-4">{`${idx + 1}. ${subTask.taskName}`}</span>
+            <span className="ml-4">{`${idx + 1}. ${subTask.subTaskName}`}</span>
             <span>
               <Button
                 className={cn(
@@ -122,7 +122,7 @@ const InputSubTasks = forwardRef<HTMLInputElement, InputTagsProps>(
                 variant="destructive"
                 type="button"
                 className="h-8 w-8 p-0 mr-2 rounded-full"
-                onClick={() => handleDeleteSubTask(subTask.taskName)}
+                onClick={() => handleDeleteSubTask(subTask.subTaskName)}
               >
                 <XIcon className="w-4 h-4" />
               </Button>

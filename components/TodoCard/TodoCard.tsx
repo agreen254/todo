@@ -1,4 +1,5 @@
 import parseDate from "@/utils/parseDate";
+import percentSubTasksComplete from "@/utils/percentSubTasksComplete";
 import outOfTen from "@/utils/outOfTen";
 import { cn } from "@/utils/cn";
 import { Card, CardContent, CardDescription, CardFooter } from "../ui/card";
@@ -15,8 +16,8 @@ export type Props = {
 };
 
 const TodoCard = ({ t, className }: Props) => {
-  const hasSubTasks = !!t.subTasks?.length;
-  const progress = 100;
+  const hasSubTasks = t.subTasks.length > 0;
+  const progress = percentSubTasksComplete(t);
 
   const centerCircleText = () => {
     if (progress < 10) {
@@ -87,15 +88,26 @@ const TodoCard = ({ t, className }: Props) => {
           )}
         </div>
         <div className="relative">
-          <ProgressRing progress={progress} radius={40} />
-          <span className={cn("absolute font-medium top-[28px]", centerCircleText())}>
-            {progress}%
-          </span>
+          {hasSubTasks && (
+            <>
+              <ProgressRing progress={progress} radius={40} />
+              <span
+                className={cn(
+                  "absolute font-medium top-[28px]",
+                  centerCircleText()
+                )}
+              >
+                {progress}%
+              </span>
+            </>
+          )}
         </div>
       </CardContent>
       <CardFooter className="flex flex-wrap gap-2 justify-start">
         {t.tags.map((tag) => (
-          <TagBadge key={t.id + tag} tag={tag}>{tag}</TagBadge>
+          <TagBadge key={t.id + tag} tag={tag}>
+            {tag}
+          </TagBadge>
         ))}
       </CardFooter>
     </Card>

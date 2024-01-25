@@ -1,5 +1,5 @@
 export type SubTask = {
-  taskName: string;
+  subTaskName: string;
   isCompleted: boolean;
 }
 
@@ -15,10 +15,10 @@ export type Todo = {
   priority: number;
   complexity: number;
   tags: string[];
+  subTasks: SubTask[];
   completedAt?: string;
   description?: string;
   dueAt?: string;
-  subTasks?: SubTask[];
 };
 
 export type SplitTodos = {
