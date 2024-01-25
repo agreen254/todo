@@ -10,6 +10,7 @@ export const todoFormSchema = z.object({
     .max(150, { message: "Description must be 150 characters or shorter." }),
   priority: z.number().min(0).max(10),
   complexity: z.number().min(0).max(10),
+  createdAt: z.date().optional(),
   dueAt: z.date().optional(),
   repeats: z.boolean(),
   repeatPeriod: z.union([
@@ -24,6 +25,8 @@ export const todoFormSchema = z.object({
     .max(8, { message: "Todos must have 8 tags or less." }),
   subTasks: z.string().array(),
   completedSubTasks: z.boolean().array(),
+  id: z.string().optional(),
+  repeatId: z.string().optional(),
 });
 export type TodoFormData = z.infer<typeof todoFormSchema>;
 // We need the default values because shad forms are controlled.

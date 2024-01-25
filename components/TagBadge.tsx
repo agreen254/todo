@@ -20,7 +20,7 @@ const TagBadge = ({ tag, handleClick, children }: Props) => {
 
   const getBg = () => {
     const baseCn =
-      "px-3 py-2 h-8 m-0 rounded-[1rem] text-sm font-semibold dark:font-bold hover:scale-110 transition-all";
+      "px-3 py-2 h-8 mr-2 rounded-[1rem] text-sm font-semibold dark:font-bold hover:scale-110 transition-all";
     const storedTag = all.find((t) => t.name === tag);
 
     if (!storedTag) {

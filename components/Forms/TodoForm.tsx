@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { cn } from "@/utils/cn";
 import { add, format, sub } from "date-fns";
+import { uid } from "uid";
 import { Calendar as CalendarIcon } from "lucide-react";
 import { TodoFormData as FormData } from "@/validation/schema";
 import { todoFormSchema as formSchema } from "@/validation/schema";
@@ -57,7 +58,6 @@ const extractSubTasks = (
 };
 
 const TodoForm = ({ defaultValues }: Props) => {
-  const [repeats, setRepeats] = useState(false);
   const [subTasks, setSubTasks] = useState<SubTask[]>(
     extractSubTasks(
       defaultValues?.subTasks || [],
@@ -71,9 +71,11 @@ const TodoForm = ({ defaultValues }: Props) => {
     mode: "onChange",
   });
   const onSubmit = (data: z.infer<typeof formSchema>) => {
+    const now = new Date();
     const transformedData = {
       name: data.name,
       description: data?.description,
+      createdAt: defaultValues?.createdAt || now.toISOString(),
       dueAt: data?.dueAt,
       repeats: data.repeats,
       repeatPeriod: data.repeatPeriod,
@@ -82,6 +84,8 @@ const TodoForm = ({ defaultValues }: Props) => {
       complexity: data.complexity,
       tags: data.tags,
       subTasks: subTasks,
+      id: defaultValues?.id || uid(),
+      repeatId: defaultValues?.repeatId || uid(),
     };
     console.log(transformedData);
   };
@@ -188,7 +192,12 @@ const TodoForm = ({ defaultValues }: Props) => {
             control={form.control}
             name="repeats"
             render={({ field }) => (
-              <FormItem className={cn("flex items-end space-x-2", !field.value && "mb-8")}>
+              <FormItem
+                className={cn(
+                  "flex items-end space-x-2",
+                  !field.value && "mb-8"
+                )}
+              >
                 <FormControl>
                   <Checkbox
                     checked={field.value}
@@ -209,7 +218,7 @@ const TodoForm = ({ defaultValues }: Props) => {
                   <FormControl>
                     <RadioGroup
                       onValueChange={field.onChange}
-                      defaultValue={field.value}
+                      defaultValue={"weekly"}
                       className="flex justify-start gap-x-4"
                     >
                       <FormItem className="flex items-end">
@@ -273,7 +282,8 @@ const TodoForm = ({ defaultValues }: Props) => {
                   </PopoverContent>
                 </Popover>
                 <FormDescription>
-                  Repeats will stop at the specified day or closest relevant day before
+                  Repeats will stop at the specified day or closest relevant day
+                  before
                 </FormDescription>
               </FormItem>
             )}
@@ -361,7 +371,7 @@ const TodoForm = ({ defaultValues }: Props) => {
           control={form.control}
           name="tags"
           render={({ field }) => (
-            <FormItem className="max-w-[640px] mt-1">
+            <FormItem className="max-w-[640px] mt-1 mb-10">
               <FormLabel>Tags:</FormLabel>
               <FormControl>
                 <InputTags {...field} />

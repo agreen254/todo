@@ -94,7 +94,7 @@ const InputTags = forwardRef<HTMLInputElement, InputTagsProps>(
             "max-h-[6rem] overflow-y-auto mb-4 px-5 py-3 border-2 dark:border rounded-full hover:ring-ring hover:ring-2 transition-colors"
           )}
         >
-          <p className="flex flex-wrap gap-x-2 gap-y-4">
+          <p className="flex flex-wrap gap-y-2">
             {value.length === 0 && (
               <span className="text-muted-foreground text-sm italic">
                 no tags selected
@@ -112,7 +112,7 @@ const InputTags = forwardRef<HTMLInputElement, InputTagsProps>(
             ))}
           </p>
         </div>
-        <div className="space-x-3">
+        <div className="flex flex-wrap items-start gap-y-2">
           {allTags.map((tag) => (
             <TagBadge
               key={tag.name}
