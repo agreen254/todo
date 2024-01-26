@@ -3,8 +3,8 @@ import z from "zod";
 export const todoFormSchema = z.object({
   name: z
     .string()
-    .min(1, { message: "Title is required." })
-    .max(50, { message: "Title must be 50 characters or shorter." }),
+    .min(1, { message: "Name is required." })
+    .max(50, { message: "Name must be 50 characters or shorter." }),
   description: z
     .string()
     .max(150, { message: "Description must be 150 characters or shorter." }),
@@ -27,6 +27,8 @@ export const todoFormSchema = z.object({
   completedSubTasks: z.boolean().array(),
   id: z.string().optional(),
   repeatId: z.string().optional(),
+  isCompleted: z.boolean().optional(),
+  isPinned: z.boolean().optional(),
 });
 export type TodoFormData = z.infer<typeof todoFormSchema>;
 // We need the default values because shad forms are controlled.
@@ -42,6 +44,8 @@ export const todoFormDefaults: Partial<TodoFormData> = {
   tags: [],
   subTasks: [],
   completedSubTasks: [],
+  isCompleted: false,
+  isPinned: false,
 };
 
 export const searchFormSchema = z.object({

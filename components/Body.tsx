@@ -38,9 +38,9 @@ const Body = () => {
 
   return (
     <>
-      <div className="justify-center items-start grid grid-cols-1 md:grid-cols-3">
+      <div className="justify-center items-start grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
         <div className="gap-x-2 md:gap-x-6 flex justify-center items-center mt-4 md:mt-10">
-         <Link href="/todo/add">
+          <Link href="/todo/add">
             <Button
               role="link"
               className={cn(
@@ -77,8 +77,8 @@ const Body = () => {
         <div></div>
       </div>
       {hasPendingOrPinned() && (
-        <div className="mt-2">
-          <h2 className="text-3xl ml-10 text-primary uppercase font-extrabold">
+        <div className="mt-8 lg:mt-2">
+          <h2 className="text-xl lg:text-3xl ml-10 text-primary uppercase font-extrabold">
             Pending
           </h2>
           <GradSeparator />

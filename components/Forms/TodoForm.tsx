@@ -1,13 +1,15 @@
 "use client";
 
 import z from "zod";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
 import { cn } from "@/utils/cn";
 import { add, format, sub } from "date-fns";
 import { uid } from "uid";
 import { Calendar as CalendarIcon } from "lucide-react";
+import TodoContext from "@/contexts/TodoContext";
 import { TodoFormData as FormData } from "@/validation/schema";
 import { todoFormSchema as formSchema } from "@/validation/schema";
 import { TimePicker12Demo } from "../ui/time-picker/time-picker-12hour";
@@ -30,9 +32,8 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { redirect } from "next/navigation";
 import InputSubTasks from "./InputSubTasks";
-import { SubTask } from "@/utils/types";
+import { SubTask, Todo } from "@/utils/types";
 import { Checkbox } from "../ui/checkbox";
 
 const arr = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
@@ -58,6 +59,8 @@ const extractSubTasks = (
 };
 
 const TodoForm = ({ defaultValues }: Props) => {
+  const { dispatch } = useContext(TodoContext);
+  const router = useRouter();
   const [subTasks, setSubTasks] = useState<SubTask[]>(
     extractSubTasks(
       defaultValues?.subTasks || [],
@@ -72,22 +75,29 @@ const TodoForm = ({ defaultValues }: Props) => {
   });
   const onSubmit = (data: z.infer<typeof formSchema>) => {
     const now = new Date();
-    const transformedData = {
+    const transformedData: Todo = {
       name: data.name,
       description: data?.description,
-      createdAt: defaultValues?.createdAt || now.toISOString(),
-      dueAt: data?.dueAt,
+      createdAt: defaultValues?.createdAt?.toISOString() || now.toISOString(),
+      dueAt: data?.dueAt?.toISOString(),
       repeats: data.repeats,
       repeatPeriod: data.repeatPeriod,
-      repeatEndDate: data?.repeatEndDate,
+      repeatEndDate: data?.repeatEndDate?.toISOString(),
       priority: data.priority,
       complexity: data.complexity,
       tags: data.tags,
       subTasks: subTasks,
-      id: defaultValues?.id || uid(),
-      repeatId: defaultValues?.repeatId || uid(),
+      id: defaultValues.id || uid(),
+      repeatId: defaultValues.repeatId || uid(),
+      isCompleted: defaultValues.isCompleted || false,
+      isPinned: defaultValues.isPinned || false,
     };
-    console.log(transformedData);
+    if (defaultValues.id) {
+      dispatch({ cmd: "EDIT_TODO", editedTodo: transformedData });
+    } else {
+      dispatch({ cmd: "ADD_TODO", toAdd: transformedData });
+    }
+    router.push("/");
   };
 
   const yesterday = () => {
@@ -187,33 +197,41 @@ const TodoForm = ({ defaultValues }: Props) => {
             </FormItem>
           )}
         />
-        <div className="flex justify-start items-end mt-1">
-          <FormField
-            control={form.control}
-            name="repeats"
-            render={({ field }) => (
-              <FormItem
-                className={cn(
-                  "flex items-end space-x-2",
-                  !field.value && "mb-8"
-                )}
-              >
-                <FormControl>
-                  <Checkbox
-                    checked={field.value}
-                    onCheckedChange={field.onChange}
-                  />
-                </FormControl>
-                <FormLabel>Repeats</FormLabel>
-              </FormItem>
-            )}
-          />
-          {form.getValues().repeats && (
+        <FormField
+          control={form.control}
+          name="repeats"
+          render={({ field }) => (
+            <FormItem
+              className={cn(
+                "flex items-end mb-6 space-x-2",
+                form.getValues().repeats && "mb-0"
+              )}
+            >
+              <FormControl>
+                <Checkbox
+                  checked={field.value}
+                  onCheckedChange={field.onChange}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") field.onChange(!field.value);
+                  }}
+                />
+              </FormControl>
+              <FormLabel>Repeats</FormLabel>
+            </FormItem>
+          )}
+        />
+        {form.getValues().repeats && !form.getValues().dueAt && (
+          <p className="text-sm text-destructive mb-6 mt-2">
+            You must specify a due date before repeating a task.
+          </p>
+        )}
+        {form.getValues().repeats && form.getValues().dueAt && (
+          <div className="mb-2">
             <FormField
               control={form.control}
               name="repeatPeriod"
               render={({ field }) => (
-                <FormItem className="ml-6">
+                <FormItem>
                   <FormLabel className="sr-only">Repeat period:</FormLabel>
                   <FormControl>
                     <RadioGroup
@@ -244,50 +262,48 @@ const TodoForm = ({ defaultValues }: Props) => {
                 </FormItem>
               )}
             />
-          )}
-        </div>
-        {form.getValues().repeats && (
-          <FormField
-            control={form.control}
-            name="repeatEndDate"
-            render={({ field }) => (
-              <FormItem className="mt-2 mb-6">
-                <FormLabel className="sr-only">End date</FormLabel>
-                <Popover>
-                  <PopoverTrigger asChild>
-                    <FormControl>
-                      <Button
-                        variant={"outline"}
-                        className={cn(
-                          "w-full justify-start text-left font-normal mt-4",
-                          !field.value && "text-muted-foreground"
-                        )}
-                      >
-                        <CalendarIcon className="mr-2 h-4 w-4" />
-                        {field.value ? (
-                          format(field.value, "PPP")
-                        ) : (
-                          <span>Pick date repeat ends</span>
-                        )}
-                      </Button>
-                    </FormControl>
-                  </PopoverTrigger>
-                  <PopoverContent className="w-auto p-0">
-                    <Calendar
-                      mode="single"
-                      selected={field.value}
-                      onSelect={field.onChange}
-                      initialFocus
-                    />
-                  </PopoverContent>
-                </Popover>
-                <FormDescription>
-                  Repeats will stop at the specified day or closest relevant day
-                  before
-                </FormDescription>
-              </FormItem>
-            )}
-          />
+            <FormField
+              control={form.control}
+              name="repeatEndDate"
+              render={({ field }) => (
+                <FormItem className="mt-2 mb-6">
+                  <FormLabel className="sr-only">End date</FormLabel>
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <FormControl>
+                        <Button
+                          variant={"outline"}
+                          className={cn(
+                            "w-full justify-start text-left font-normal mt-4",
+                            !field.value && "text-muted-foreground"
+                          )}
+                        >
+                          <CalendarIcon className="mr-2 h-4 w-4" />
+                          {field.value ? (
+                            format(field.value, "PPP")
+                          ) : (
+                            <span>Pick date repeat ends</span>
+                          )}
+                        </Button>
+                      </FormControl>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-auto p-0">
+                      <Calendar
+                        mode="single"
+                        selected={field.value}
+                        onSelect={field.onChange}
+                        initialFocus
+                      />
+                    </PopoverContent>
+                  </Popover>
+                  <FormDescription>
+                    Repeats will stop at the specified day or the closest
+                    relevant day before.
+                  </FormDescription>
+                </FormItem>
+              )}
+            />
+          </div>
         )}
         <FormField
           control={form.control}

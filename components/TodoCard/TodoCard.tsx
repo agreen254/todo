@@ -3,7 +3,12 @@ import percentSubTasksComplete from "@/utils/percentSubTasksComplete";
 import outOfTen from "@/utils/outOfTen";
 import { cn } from "@/utils/cn";
 import { Card, CardContent, CardDescription, CardFooter } from "../ui/card";
-import { ArrowUp, Calendar, Move } from "lucide-react";
+import {
+  ArrowUp as ArrowUpIcon,
+  Calendar as CalendarIcon,
+  ListChecks as ListChecksIcon,
+  Move as MoveIcon,
+} from "lucide-react";
 import { Todo } from "@/utils/types";
 import CardActions from "./TodoCardActions";
 import TodoCardDueDate from "./TodoCardDueDate";
@@ -59,7 +64,7 @@ const TodoCard = ({ t, className }: Props) => {
         <div className="space-y-3">
           <p className="pl-[24px] indent-[-24px]">
             <span>
-              <Calendar className="w-4 h-4 mr-2 inline-block translate-y-[-2px]" />
+              <CalendarIcon className="w-4 h-4 mr-2 inline-block translate-y-[-2px]" />
               <span className="text-muted-foreground">Due Date: </span>
               <span className="font-medium dark:font-semibold">
                 <TodoCardDueDate t={t} />
@@ -68,7 +73,7 @@ const TodoCard = ({ t, className }: Props) => {
           </p>
           <p className="pl-[24px] indent-[-24px]">
             <span>
-              <ArrowUp className="w-4 h-4 mr-2 inline-block translate-y-[-2px]" />
+              <ArrowUpIcon className="w-4 h-4 mr-2 inline-block translate-y-[-2px]" />
               <span className="text-muted-foreground">Priority: </span>
               <span className="font-medium dark:font-semibold">
                 {outOfTen(t.priority)}
@@ -77,13 +82,24 @@ const TodoCard = ({ t, className }: Props) => {
           </p>
           <p className="pl-[24px] indent-[-24px]">
             <span>
-              <Move className="w-4 h-4 mr-2 inline-block translate-y-[-2px]" />
+              <MoveIcon className="w-4 h-4 mr-2 inline-block translate-y-[-2px]" />
               <span className="text-muted-foreground">Complexity: </span>
               <span className="font-medium dark:font-semibold">
                 {outOfTen(t.complexity)}
               </span>
             </span>
           </p>
+          {t.subTasks.length > 0 && (
+            <p className="pl-[24px] indent-[-24px]">
+              <span>
+                <ListChecksIcon className="w-4 h-4 mr-2 inline-block translate-y-[-2px]" />
+                <span className="text-muted-foreground">Subtasks: </span>
+                <span className="font-medium dark:font-semibold">
+                  {outOfTen(t.complexity)}
+                </span>
+              </span>
+            </p>
+          )}
           {t.isCompleted && (
             <p className="text-sm text-muted-foreground italic">
               Completed: {parseDate(t.completedAt).str}
@@ -106,7 +122,7 @@ const TodoCard = ({ t, className }: Props) => {
           )}
         </div>
       </CardContent>
-      <CardFooter className="flex flex-wrap gap-2 justify-start">
+      <CardFooter className="flex flex-wrap justify-start">
         {t.tags.map((tag) => (
           <TagBadge key={t.id + tag} tag={tag}>
             {tag}

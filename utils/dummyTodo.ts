@@ -42,7 +42,7 @@ export default function dummyTodo(): Todo {
     isCompleted: false,
     isPinned: false,
     id: uid(),
-    repeatId: uid(),
+    repeats: false,
     tags: randArrayEle(potentialTags),
     subTasks: generateSubTasks(),
   };

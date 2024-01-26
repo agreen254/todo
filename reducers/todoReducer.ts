@@ -31,7 +31,7 @@ export function todoReducer(
     }
     case "EDIT_TODO": {
       const idx = todos.findIndex((t) => t.id === action.editedTodo.id);
-      const newTodos = todos.splice(idx, 1, action.editedTodo);
+      const newTodos = todos.toSpliced(idx, 1, action.editedTodo);
       setTodos(newTodos);
       return;
     }

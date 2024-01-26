@@ -38,9 +38,15 @@ const EditTodo = ({ params: { id } }: Props) => {
       dueAt: date,
       priority: t.priority,
       complexity: t.complexity,
+      repeats: t.repeats,
+      repeatPeriod: t.repeatPeriod || "weekly",
+      isCompleted: t.isCompleted,
+      isPinned: t.isPinned,
       tags: t.tags,
       subTasks: t.subTasks.map((st) => st.subTaskName),
       completedSubTasks: t.subTasks.map((st) => st.isCompleted),
+      id: t.id,
+      repeatId: t.repeatId,
     };
     return defaults;
   };
