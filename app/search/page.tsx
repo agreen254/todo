@@ -5,8 +5,6 @@ import TodoContext from "@/contexts/TodoContext";
 import { Home as HomeIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import InvalidSearch from "@/components/Errors/InvalidSearch";
-import { searchByMap } from "@/utils/maps";
 import processTodos from "@/utils/todos/processTodos";
 import searchTodos from "@/utils/todos/searchTodos";
 import sortTodos from "@/utils/todos/sortTodos";
@@ -20,7 +18,6 @@ import FilterByTags from "@/components/Sort/FilterByTags";
 const SearchPage = () => {
   const searchParams = useSearchParams();
   const queryParam = searchParams.get("query") || "";
-  const typeParam = searchParams.get("type") || "";
 
   const {
     state: { todos },
@@ -40,10 +37,8 @@ const SearchPage = () => {
   if (!isMounted) {
     return null;
   }
-  if (!["name", "description", "dueAt"].includes(typeParam))
-    return <InvalidSearch />;
 
-  const valid = searchTodos(queryParam, typeParam, todos);
+  const valid = searchTodos(queryParam, todos);
   const validSorted = sortTodos(valid, localSortOrder);
   const { pinnedTodos, pendingTodos, completedTodos } = processTodos(
     validSorted,
@@ -57,11 +52,7 @@ const SearchPage = () => {
     <>
       <div className="flex justify-start items-center">
         <h1 className="text-3xl font-medium mt-4 ml-4">
-          Search results for{" "}
-          <span className="font-bold">
-            {searchByMap.get(typeParam) || typeParam}
-          </span>{" "}
-          containing<span className="font-bold"> "{queryParam}"</span>
+          Search results for <span className="font-bold"> "{queryParam}"</span>
         </h1>
       </div>
       <GradSeparator />
@@ -73,15 +64,15 @@ const SearchPage = () => {
           setFilterTagsSchema={setLocalFilterSchema}
         />
         <div>
-          <Button
-            className="hover:scale-110 transition-all"
-            size="icon"
-            role="link"
-          >
-            <Link href="/">
+          <Link href="/" tabIndex={-1}>
+            <Button
+              className="hover:scale-110 transition-all"
+              size="icon"
+              role="link"
+            >
               <HomeIcon className="w-[20px] h-[20px]" />
-            </Link>
-          </Button>
+            </Button>
+          </Link>
         </div>
       </div>
       {valid.length === 0 && <h1 className="text-2xl ml-6">No todos found.</h1>}

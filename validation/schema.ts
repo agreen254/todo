@@ -53,12 +53,8 @@ export const searchFormSchema = z.object({
     .string()
     .max(255, { message: "Queries are limited to 255 characters." })
     .refine((s) => s.trim(), "Please enter a search term."),
-  type: z.enum(["name", "description", "dueAt"], {
-    required_error: "You need to select a search type.",
-  }),
 });
 export type SearchFormData = z.infer<typeof searchFormSchema>;
 export const searchFormDefaults: Partial<SearchFormData> = {
   query: "",
-  type: "name",
 };
