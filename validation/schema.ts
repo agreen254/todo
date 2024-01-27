@@ -22,7 +22,7 @@ export const todoFormSchema = z.object({
   tags: z
     .string()
     .array()
-    .max(8, { message: "Todos must have 8 tags or less." }),
+    .max(8, { message: "To-Dos must have 8 tags or less." }),
   subTasks: z.string().array(),
   completedSubTasks: z.boolean().array(),
   id: z.string().optional(),
@@ -31,7 +31,7 @@ export const todoFormSchema = z.object({
   isPinned: z.boolean().optional(),
 });
 export type TodoFormData = z.infer<typeof todoFormSchema>;
-// We need the default values because shad forms are controlled.
+// We need the default values because shadcn forms are controlled.
 // If we do not provide these, it will throw an error because we changed
 // from an undefined value for one of the fields.
 export const todoFormDefaults: Partial<TodoFormData> = {

@@ -2,12 +2,13 @@
 
 import TodoContext from "../contexts/TodoContext";
 import useLocalStorage from "../hooks/useLocalStorage";
+import defaultTags from "@/utils/tags/defaultTags";
 import { todoReducer } from "../reducers/todoReducer";
 import { Actions, Tag, Todo, TodoSortOrder } from "../utils/types";
 
 const TodoProvider = ({ children }: { children: React.ReactNode }) => {
   const [todos, setTodos] = useLocalStorage<Todo[]>("todos", []);
-  const [tags, setTags] = useLocalStorage<Tag[]>("tags", []);
+  const [tags, setTags] = useLocalStorage<Tag[]>("tags", defaultTags);
   const [sortOrder, setSortOrder] = useLocalStorage<TodoSortOrder>(
     "sortOrder",
     "default"

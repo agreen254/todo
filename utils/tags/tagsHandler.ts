@@ -8,7 +8,7 @@ export default function tagsHandler(
 ): void {
   const tagsToAdd = tagsFromTodo.reduce((shouldAdd, tag) => {
     if (!storedTags.some((t) => t.name === tag)) {
-      return [...shouldAdd, newTag(tag)];
+      return [...shouldAdd, newTag(tag, storedTags.length)];
     } else {
       return shouldAdd;
     }

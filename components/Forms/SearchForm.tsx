@@ -44,7 +44,7 @@ const SearchForm = () => {
               <FormLabel className="sr-only">enter query</FormLabel>
               <FormControl>
                 <Input
-                  placeholder="search todos"
+                  placeholder="search to-dos"
                   type="text"
                   className="px-3 py-6 w-[min(350px,90vw)]"
                   {...field}

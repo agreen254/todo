@@ -50,7 +50,7 @@ const Body = () => {
               )}
             >
               <Plus className="w-6 h-6 mr-2" />
-              Add Todo
+              Add To-Do
             </Button>
           </Link>
           <PowerModeDialog />
@@ -78,7 +78,7 @@ const Body = () => {
       </div>
       {hasPendingOrPinned() && (
         <div className="mt-8 lg:mt-2">
-          <h2 className="text-xl lg:text-3xl ml-10 text-primary uppercase font-extrabold">
+          <h2 className="text-2xl lg:text-3xl ml-10 text-primary uppercase font-extrabold">
             Pending
           </h2>
           <GradSeparator />
@@ -96,12 +96,13 @@ const Body = () => {
           <GradSeparator />
         </div>
       )}
-      <div className="flex justify-start flex-wrap max--[3340px] mx-auto">
+      <div className="flex justify-start flex-wrap max-w-[3340px] mx-auto">
         <TodoMapper todos={completedTodos} />
       </div>
-      <div className="flex justify-center gap-4 my-4">
+      <div className={cn("fixed bottom-4 right-4")}>
         <RemoveAllAlert />
         <Button
+          className="ml-4"
           onClick={() => dispatch({ cmd: "ADD_TODO", toAdd: dummyTodo() })}
         >
           Add Dummy

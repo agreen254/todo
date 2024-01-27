@@ -6,7 +6,7 @@ const TodoMapper = ({ todos }: { todos: Todo[] }) => {
     <TodoCard
       key={t.id}
       t={t}
-      className="min-w-[80vw] md:min-w-[40vw] lg:min-w-[30vw] lg:max-w-[40vw] xl:w-[auto] xl:max-w-[30vw] mx-4 my-4"
+      className="w-[90vw] md:w-[auto] md:min-w-[0vw] lg:min-w-[0vw] lg:max-w-[40vw] xl:max-w-[30vw] mx-4 my-4"
     />
   ));
 };

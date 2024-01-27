@@ -1,12 +1,15 @@
+import finishedSubTasks from "@/utils/subTasks/finishedSubTasks";
+import outOfTen from "@/utils/outOfTen";
 import parseDate from "@/utils/parseDate";
 import percentSubTasks from "@/utils/subTasks/percentSubTasks";
-import outOfTen from "@/utils/outOfTen";
+import ratioSubTasks from "@/utils/subTasks/ratioSubTasks";
 import { cn } from "@/utils/cn";
 import { Card, CardContent, CardDescription, CardFooter } from "../ui/card";
 import {
   ArrowUp as ArrowUpIcon,
   Calendar as CalendarIcon,
   ListChecks as ListChecksIcon,
+  ListTodo as ListTodoIcon,
   Move as MoveIcon,
 } from "lucide-react";
 import { Todo } from "@/utils/types";
@@ -14,8 +17,6 @@ import CardActions from "./TodoCardActions";
 import TodoCardDueDate from "./TodoCardDueDate";
 import TagBadge from "../TagBadge";
 import ProgressRing from "../ProgressRing";
-import ratioSubTasks from "@/utils/subTasks/ratioSubTasks";
-import TodoCardSubTasks from "./TodoCardSubTasks";
 
 export type Props = {
   t: Todo;
@@ -59,7 +60,7 @@ const TodoCard = ({ t, className }: Props) => {
         </h3>
         <CardActions t={t} />
       </div>
-      <CardDescription className="px-5 mb-2 relative top-[-10px] line-clamp-1">
+      <CardDescription className="px-5 mb-2 relative top-[-10px] line-clamp-1 max-w-[34em]">
         {t.description || <span className="italic">no description</span>}
       </CardDescription>
       <CardContent className="flex justify-between items-center">
@@ -91,18 +92,24 @@ const TodoCard = ({ t, className }: Props) => {
               </span>
             </span>
           </p>
-          {/* <p className="pl-[24px] indent-[-24px]">
-            {!!t.subTasks.length && (
-              <span>
+          <p className="pl-[24px] indent-[-24px]">
+            <span>
+              {finishedSubTasks(t) ? (
                 <ListChecksIcon className="w-4 h-4 mr-2 inline-block translate-y-[-2px]" />
-                <span className="text-muted-foreground">Subtasks: </span>
-                <span className="font-medium dark:font-semibold">
-                  {ratioSubTasks(t)}
-                </span>
+              ) : (
+                <ListTodoIcon className="w-4 h-4 mr-2 inline-block translate-y-[-2px]" />
+              )}
+              <span className="text-muted-foreground">Subtasks: </span>
+              <span
+                className={cn(
+                  "font-medium dark:font-semibold",
+                  t.isCompleted && "text-muted-foreground line-through"
+                )}
+              >
+                {ratioSubTasks(t)}
               </span>
-            )}
-          </p> */}
-          <TodoCardSubTasks t={t} />
+            </span>
+          </p>
           {t.isCompleted && (
             <p className="text-sm text-muted-foreground italic">
               Completed: {parseDate(t.completedAt).str}
@@ -126,6 +133,9 @@ const TodoCard = ({ t, className }: Props) => {
         </div>
       </CardContent>
       <CardFooter className="flex flex-wrap justify-start">
+        {t.tags.length === 0 && (
+          <span className="text-muted-foreground text-sm italic">no tags</span>
+        )}
         {t.tags.map((tag) => (
           <TagBadge key={t.id + tag} tag={tag}>
             {tag}

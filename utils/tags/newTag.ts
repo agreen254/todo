@@ -1,8 +1,9 @@
 import { Tag } from "../types";
 
-export default function newTag(name: string): Tag {
+export default function newTag(newTagName: string, numTags: number): Tag {
+  const tagNum = numTags > 23 ? numTags % 24 : numTags;
   return {
-    name: name,
-    color: Math.floor(Math.random() * 24),
+    name: newTagName,
+    color: tagNum,
   };
 }

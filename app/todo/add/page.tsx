@@ -18,7 +18,7 @@ const AddTodoPage = () => {
     <div className="flex flex-col items-center justify-center">
       <div className="flex w-[calc(100vw-4rem)] justify-evenly items-center mt-10 mx-8">
         <div />
-        <Link href="/">
+        <Link href="/" tabIndex={-1}>
           <Button
             className="hover:scale-110 transition-all w-[50px] h-[50px]"
             variant="outline"
@@ -32,7 +32,7 @@ const AddTodoPage = () => {
           </Button>
         </Link>
         <h1 className="font-bold text-2xl text-muted-foreground">
-          Add New Todo
+          Add New To-Do
         </h1>
         <div>
           <ThemeToggle />
