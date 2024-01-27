@@ -44,7 +44,7 @@ type Props = {
 
 const extractSubTasks = (
   subTaskNames: string[],
-  completionArray: boolean[]
+  completionArray: boolean[],
 ) => {
   if (subTaskNames.length !== completionArray.length) return [];
 
@@ -64,8 +64,8 @@ const TodoForm = ({ defaultValues }: Props) => {
   const [subTasks, setSubTasks] = useState<SubTask[]>(
     extractSubTasks(
       defaultValues?.subTasks || [],
-      defaultValues?.completedSubTasks || []
-    )
+      defaultValues?.completedSubTasks || [],
+    ),
   );
 
   const form = useForm<FormData>({
@@ -106,7 +106,7 @@ const TodoForm = ({ defaultValues }: Props) => {
   const handleSelect = (
     d: Date | undefined,
     date: Date | undefined,
-    setDate: (d: Date) => void
+    setDate: (d: Date) => void,
   ) => {
     if (!d) return;
     if (!date) {
@@ -123,7 +123,7 @@ const TodoForm = ({ defaultValues }: Props) => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="flex flex-col justify-center w-full max-w-[480px] mt-10 mb-[min(3rem,10vh)]"
+        className="mb-[min(3rem,10vh)] mt-10 flex w-full max-w-[480px] flex-col justify-center"
       >
         <FormField
           control={form.control}
@@ -164,7 +164,7 @@ const TodoForm = ({ defaultValues }: Props) => {
                       variant={"outline"}
                       className={cn(
                         "w-full justify-start text-left font-normal",
-                        !field.value && "text-muted-foreground"
+                        !field.value && "text-muted-foreground",
                       )}
                     >
                       <CalendarIcon className="mr-2 h-4 w-4" />
@@ -186,7 +186,7 @@ const TodoForm = ({ defaultValues }: Props) => {
                     disabled={(d) => d < yesterday()}
                     initialFocus
                   />
-                  <div className="p-3 border-t border-border">
+                  <div className="border-border border-t p-3">
                     <TimePicker12Demo
                       date={field.value}
                       setDate={field.onChange}
@@ -203,8 +203,8 @@ const TodoForm = ({ defaultValues }: Props) => {
           render={({ field }) => (
             <FormItem
               className={cn(
-                "flex items-end mb-6 space-x-2",
-                form.getValues().repeats && "mb-0"
+                "mb-6 flex items-end space-x-2",
+                form.getValues().repeats && "mb-0",
               )}
             >
               <FormControl>
@@ -221,7 +221,7 @@ const TodoForm = ({ defaultValues }: Props) => {
           )}
         />
         {form.getValues().repeats && !form.getValues().dueAt && (
-          <p className="text-sm text-destructive mb-6 mt-2">
+          <p className="text-destructive mb-6 mt-2 text-sm">
             You must specify a due date before repeating a task.
           </p>
         )}
@@ -266,7 +266,7 @@ const TodoForm = ({ defaultValues }: Props) => {
               control={form.control}
               name="repeatEndDate"
               render={({ field }) => (
-                <FormItem className="mt-2 mb-6">
+                <FormItem className="mb-6 mt-2">
                   <FormLabel className="sr-only">End date</FormLabel>
                   <Popover>
                     <PopoverTrigger asChild>
@@ -274,8 +274,8 @@ const TodoForm = ({ defaultValues }: Props) => {
                         <Button
                           variant={"outline"}
                           className={cn(
-                            "w-full justify-start text-left font-normal mt-4",
-                            !field.value && "text-muted-foreground"
+                            "mt-4 w-full justify-start text-left font-normal",
+                            !field.value && "text-muted-foreground",
                           )}
                         >
                           <CalendarIcon className="mr-2 h-4 w-4" />
@@ -315,14 +315,14 @@ const TodoForm = ({ defaultValues }: Props) => {
                 <RadioGroup
                   onValueChange={(n) => field.onChange(parseInt(n))}
                   defaultValue={defaultValues?.priority?.toString()}
-                  className="flex flex-wrap justify-start md:justify-evenly -translate-y-2"
+                  className="flex -translate-y-2 flex-wrap justify-start md:justify-evenly"
                 >
                   {arr.map((ele) => (
                     <FormItem key={ele + "priority"}>
                       <FormLabel
                         className={cn(
                           "absolute translate-y-4 font-bold",
-                          ele < 10 ? "translate-x-3" : "translate-x-2"
+                          ele < 10 ? "translate-x-3" : "translate-x-2",
                         )}
                       >
                         {ele}
@@ -331,8 +331,9 @@ const TodoForm = ({ defaultValues }: Props) => {
                         <RadioGroupItem
                           value={ele.toString()}
                           className={cn(
-                            "w-8 h-8 bg-secondary hover:bg-primary/50",
-                            field.value === ele && "bg-primary hover:bg-primary"
+                            "bg-secondary hover:bg-primary/50 h-8 w-8",
+                            field.value === ele &&
+                              "bg-primary hover:bg-primary",
                           )}
                         />
                       </FormControl>
@@ -354,14 +355,14 @@ const TodoForm = ({ defaultValues }: Props) => {
                 <RadioGroup
                   onValueChange={(n) => field.onChange(parseInt(n))}
                   defaultValue={defaultValues?.priority?.toString()}
-                  className="flex flex-wrap justify-start md:justify-evenly -translate-y-2"
+                  className="flex -translate-y-2 flex-wrap justify-start md:justify-evenly"
                 >
                   {arr.map((ele) => (
                     <FormItem key={ele + "complexity"}>
                       <FormLabel
                         className={cn(
                           "absolute translate-y-4 font-bold",
-                          ele < 10 ? "translate-x-3" : "translate-x-2"
+                          ele < 10 ? "translate-x-3" : "translate-x-2",
                         )}
                       >
                         {ele}
@@ -370,8 +371,9 @@ const TodoForm = ({ defaultValues }: Props) => {
                         <RadioGroupItem
                           value={ele.toString()}
                           className={cn(
-                            "w-8 h-8 bg-secondary hover:bg-primary/50",
-                            field.value === ele && "bg-primary hover:bg-primary"
+                            "bg-secondary hover:bg-primary/50 h-8 w-8",
+                            field.value === ele &&
+                              "bg-primary hover:bg-primary",
                           )}
                         />
                       </FormControl>
@@ -387,7 +389,7 @@ const TodoForm = ({ defaultValues }: Props) => {
           control={form.control}
           name="tags"
           render={({ field }) => (
-            <FormItem className="max-w-[640px] mt-1 mb-10">
+            <FormItem className="mb-10 mt-1 max-w-[640px]">
               <FormLabel>Tags:</FormLabel>
               <FormControl>
                 <InputTags {...field} />
@@ -413,7 +415,7 @@ const TodoForm = ({ defaultValues }: Props) => {
             </FormItem>
           )}
         />
-        <Button type="submit" className="hover:scale-105 transition-all mt-6">
+        <Button type="submit" className="mt-6 transition-all hover:scale-105">
           Submit
         </Button>
       </form>

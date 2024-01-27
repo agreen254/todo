@@ -89,8 +89,8 @@ const TodoCard = ({ t, className }: Props) => {
               </span>
             </span>
           </p>
-          {t.subTasks.length > 0 && (
-            <p className="pl-[24px] indent-[-24px]">
+          <p className="pl-[24px] indent-[-24px]">
+            {!!t.subTasks.length && (
               <span>
                 <ListChecksIcon className="w-4 h-4 mr-2 inline-block translate-y-[-2px]" />
                 <span className="text-muted-foreground">Subtasks: </span>
@@ -98,8 +98,8 @@ const TodoCard = ({ t, className }: Props) => {
                   {outOfTen(t.complexity)}
                 </span>
               </span>
-            </p>
-          )}
+            )}
+          </p>
           {t.isCompleted && (
             <p className="text-sm text-muted-foreground italic">
               Completed: {parseDate(t.completedAt).str}
