@@ -1,7 +1,7 @@
-import cloneTodo from "@/utils/cloneTodo";
-import tagsHandler from "@/utils/tagsHandler";
+import cloneTodo from "@/utils/todos/cloneTodo";
+import tagsHandler from "@/utils/tags/tagsHandler";
 import { formatISO } from "date-fns";
-import { Actions, Tag, Todo, TodoSortOrder } from "../utils/types";
+import { Actions, SubTask, Tag, Todo, TodoSortOrder } from "../utils/types";
 
 // handles all operations on the global state
 export function todoReducer(
@@ -43,6 +43,9 @@ export function todoReducer(
               isCompleted: true,
               isPinned: false,
               completedAt: formatISO(Date()),
+              subTasks: t.subTasks.reduce((completedTasks, st) => {
+                return [...completedTasks, { ...st, isCompleted: true }];
+              }, [] as SubTask[]),
             }
           : t
       );

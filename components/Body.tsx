@@ -5,7 +5,7 @@ import { cn } from "@/utils/cn";
 import { Button } from "./ui/button";
 import { Plus } from "lucide-react";
 import Link from "next/link";
-import dummyTodo from "@/utils/dummyTodo";
+import dummyTodo from "@/utils/todos/dummyTodo";
 import FilterByTags from "./Sort/FilterByTags";
 import GradSeparator from "./GradSeparator";
 import RemoveAllAlert from "./Dialogs/RemoveAllDialog";
@@ -14,7 +14,7 @@ import TodoMapper from "./TodoMapper";
 import SortMenu from "./Sort/SortMenu";
 import SearchForm from "./Forms/SearchForm";
 import ThemeToggle from "./ThemeToggle";
-import processTodos from "@/utils/processTodos";
+import processTodos from "@/utils/todos/processTodos";
 import PowerModeDialog from "./Dialogs/PowerModeDialog";
 
 const Body = () => {

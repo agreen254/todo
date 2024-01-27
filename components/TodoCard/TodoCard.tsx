@@ -1,5 +1,5 @@
 import parseDate from "@/utils/parseDate";
-import percentSubTasksComplete from "@/utils/percentSubTasksComplete";
+import percentSubTasks from "@/utils/subTasks/percentSubTasks";
 import outOfTen from "@/utils/outOfTen";
 import { cn } from "@/utils/cn";
 import { Card, CardContent, CardDescription, CardFooter } from "../ui/card";
@@ -14,6 +14,7 @@ import CardActions from "./TodoCardActions";
 import TodoCardDueDate from "./TodoCardDueDate";
 import TagBadge from "../TagBadge";
 import ProgressRing from "../ProgressRing";
+import ratioSubTasks from "@/utils/subTasks/ratioSubTasks";
 
 export type Props = {
   t: Todo;
@@ -22,7 +23,7 @@ export type Props = {
 
 const TodoCard = ({ t, className }: Props) => {
   const hasSubTasks = t.subTasks.length > 0;
-  const progress = percentSubTasksComplete(t);
+  const progress = percentSubTasks(t);
 
   const centerCircleText = () => {
     if (progress < 10) {
@@ -90,15 +91,13 @@ const TodoCard = ({ t, className }: Props) => {
             </span>
           </p>
           <p className="pl-[24px] indent-[-24px]">
-            {!!t.subTasks.length && (
               <span>
                 <ListChecksIcon className="w-4 h-4 mr-2 inline-block translate-y-[-2px]" />
                 <span className="text-muted-foreground">Subtasks: </span>
                 <span className="font-medium dark:font-semibold">
-                  {outOfTen(t.complexity)}
+                  {ratioSubTasks(t)}
                 </span>
               </span>
-            )}
           </p>
           {t.isCompleted && (
             <p className="text-sm text-muted-foreground italic">

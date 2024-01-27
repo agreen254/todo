@@ -1,5 +1,5 @@
 import { sort } from "fast-sort";
-import { Todo, TodoSortOrder } from "./types";
+import { Todo, TodoSortOrder } from "../types";
 
 export default function sortTodos(
   toSort: Todo[],

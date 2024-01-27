@@ -1,5 +1,5 @@
 import newTag from "./newTag";
-import { Tag } from "./types";
+import { Tag } from "../types";
 
 export default function tagsHandler(
   storedTags: Tag[],

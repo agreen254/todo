@@ -1,5 +1,5 @@
 import { DateTime } from "luxon";
-import { Todo } from "./types";
+import { Todo } from "../types";
 import { uid } from "uid";
 
 // TODO: determine luxon behavior for the following scenarios:

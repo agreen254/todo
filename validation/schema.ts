@@ -4,10 +4,10 @@ export const todoFormSchema = z.object({
   name: z
     .string()
     .min(1, { message: "Name is required." })
-    .max(50, { message: "Name must be 50 characters or shorter." }),
+    .max(100, { message: "Name must be 100 characters or shorter." }),
   description: z
     .string()
-    .max(150, { message: "Description must be 150 characters or shorter." }),
+    .max(250, { message: "Description must be 250 characters or shorter." }),
   priority: z.number().min(0).max(10),
   complexity: z.number().min(0).max(10),
   createdAt: z.date().optional(),

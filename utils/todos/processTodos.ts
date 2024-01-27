@@ -1,5 +1,5 @@
-import { SplitTodos, Todo, TodoSortOrder } from "./types";
-import filterByTags from "./filterByTags";
+import { SplitTodos, Todo, TodoSortOrder } from "../types";
+import filterByTags from "../tags/filterByTags";
 import sortTodos from "./sortTodos";
 import splitTodos from "./splitTodos";
 

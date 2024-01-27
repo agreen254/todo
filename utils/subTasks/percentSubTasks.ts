@@ -1,6 +1,6 @@
-import { Todo } from "./types";
+import { Todo } from "../types";
 
-export default function percentSubTasksComplete(t: Todo) {
+export default function percentSubTasks(t: Todo) {
   if (t.subTasks.length === 0) return 0;
 
   const numComplete = t.subTasks.reduce((completed, st) => {

@@ -1,4 +1,4 @@
-import { Todo, SplitTodos } from "./types";
+import { Todo, SplitTodos } from "../types";
 
 export default function splitTodos(todos: Todo[]): SplitTodos {
   let result: SplitTodos = {

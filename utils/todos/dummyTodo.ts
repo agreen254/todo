@@ -1,8 +1,8 @@
 import { faker as f } from "@faker-js/faker";
 import { uid } from "uid";
 import { add, formatISO } from "date-fns";
-import { SubTask, Todo } from "./types";
-import randArrayEle from "./randEle";
+import { SubTask, Todo } from "../types";
+import randArrayEle from "../randEle";
 
 const potentialTags = [
   ["home"],

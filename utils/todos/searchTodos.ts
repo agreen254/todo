@@ -1,5 +1,5 @@
-import parseDate from "./parseDate";
-import { Todo } from "./types";
+import parseDate from "../parseDate";
+import { Todo } from "../types";
 
 export default function searchTodos(
   query: string,
