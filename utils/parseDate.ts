@@ -1,3 +1,4 @@
+import capitalize from "./capitalize";
 import { differenceInCalendarDays, format, formatRelative } from "date-fns";
 
 export default function parseDate(dueAt: string | undefined): {
@@ -13,11 +14,17 @@ export default function parseDate(dueAt: string | undefined): {
     return { str: format(due, "PPp"), color: "foreground" };
   } else {
     if (diff < 1) {
-      return { str: formatRelative(dueAt, current), color: "red" };
+      return { str: capitalize(formatRelative(dueAt, current)), color: "red" };
     } else if (diff <= 3) {
-      return { str: formatRelative(dueAt, current), color: "orange" };
+      return {
+        str: capitalize(formatRelative(dueAt, current)),
+        color: "orange",
+      };
     } else {
-      return { str: formatRelative(dueAt, current), color: "foreground" };
+      return {
+        str: capitalize(formatRelative(dueAt, current)),
+        color: "foreground",
+      };
     }
   }
 }

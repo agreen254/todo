@@ -15,6 +15,7 @@ import TodoCardDueDate from "./TodoCardDueDate";
 import TagBadge from "../TagBadge";
 import ProgressRing from "../ProgressRing";
 import ratioSubTasks from "@/utils/subTasks/ratioSubTasks";
+import TodoCardSubTasks from "./TodoCardSubTasks";
 
 export type Props = {
   t: Todo;
@@ -90,7 +91,8 @@ const TodoCard = ({ t, className }: Props) => {
               </span>
             </span>
           </p>
-          <p className="pl-[24px] indent-[-24px]">
+          {/* <p className="pl-[24px] indent-[-24px]">
+            {!!t.subTasks.length && (
               <span>
                 <ListChecksIcon className="w-4 h-4 mr-2 inline-block translate-y-[-2px]" />
                 <span className="text-muted-foreground">Subtasks: </span>
@@ -98,7 +100,9 @@ const TodoCard = ({ t, className }: Props) => {
                   {ratioSubTasks(t)}
                 </span>
               </span>
-          </p>
+            )}
+          </p> */}
+          <TodoCardSubTasks t={t} />
           {t.isCompleted && (
             <p className="text-sm text-muted-foreground italic">
               Completed: {parseDate(t.completedAt).str}
