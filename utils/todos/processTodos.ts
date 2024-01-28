@@ -9,21 +9,24 @@ export default function processTodos(
     pending: TodoSortOrder;
     completed: TodoSortOrder;
   },
-  filterTags: string[],
+  filterTags: {
+    pending: string[],
+    completed: string[],
+  },
   filterTagsSchema: "exclusive" | "inclusive"
 ): SplitTodos {
   const { pinnedTodos, pendingTodos, completedTodos } = splitTodos(todos);
 
   const filteredPending = filterByTags(
     [...pinnedTodos, ...pendingTodos],
-    filterTags,
+    filterTags.pending,
     filterTagsSchema
   );
   const sortedPending = sortTodos(filteredPending, sortOrder.pending);
 
   const filteredCompleted = filterByTags(
     completedTodos,
-    filterTags,
+    filterTags.completed,
     filterTagsSchema
   );
   const sortedCompleted = sortTodos(filteredCompleted, sortOrder.completed);

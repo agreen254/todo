@@ -30,11 +30,11 @@ const TodoCardContextMenu = ({ t }: { t: Todo }) => {
       </DropdownMenuTrigger>
       <DropdownMenuContent
         className={cn(
-          "w-[120px] m-0 p-0 hover:ring-2 hover:ring-ring transition-all font-medium dark:font-semibold",
+          "w-[120px] m-0 p-0 hover:ring-2 hover:ring-ring transition-all dark:font-medium",
           t.isPinned && "hover:ring-teal-500 dark:hover:ring-teal-700"
         )}
       >
-        <DropdownMenuLabel className="dark:font-bold font-semibold">
+        <DropdownMenuLabel className="dark:font-semibold">
           More
         </DropdownMenuLabel>
         <DropdownMenuSeparator />

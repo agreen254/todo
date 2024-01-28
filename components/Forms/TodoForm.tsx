@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import { cn } from "@/utils/cn";
 import { add, format, sub } from "date-fns";
 import { uid } from "uid";
+import fetchTags from "@/utils/tags/fetchTags";
 import repeatTodos from "@/utils/todos/repeatTodos";
 import { Calendar as CalendarIcon } from "lucide-react";
 import TodoContext from "@/contexts/TodoContext";
@@ -34,7 +35,7 @@ import {
 } from "@/components/ui/popover";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import InputSubTasks from "./InputSubTasks";
-import { SubTask, Todo } from "@/utils/types";
+import { SubTask, Tag, Todo } from "@/utils/types";
 import { Checkbox } from "../ui/checkbox";
 
 const arr = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
@@ -60,13 +61,21 @@ const extractSubTasks = (
 };
 
 const TodoForm = ({ defaultValues }: Props) => {
-  const { dispatch } = useContext(TodoContext);
+  const {
+    state: {
+      tags: { allTags },
+    },
+    dispatch,
+  } = useContext(TodoContext);
   const router = useRouter();
   const [subTasks, setSubTasks] = useState<SubTask[]>(
     extractSubTasks(
       defaultValues?.subTasks || [],
       defaultValues?.completedSubTasks || []
     )
+  );
+  const [activeTags, setActiveTags] = useState<Tag[]>(
+    fetchTags(allTags, defaultValues.tags)
   );
 
   const form = useForm<FormData>({
@@ -207,7 +216,7 @@ const TodoForm = ({ defaultValues }: Props) => {
           render={({ field }) => (
             <FormItem
               className={cn(
-                "mb-6 flex items-end space-x-2",
+                "mb-6 mt-1 flex items-end space-x-2",
                 form.getValues().repeats && "mb-0"
               )}
             >
@@ -226,7 +235,7 @@ const TodoForm = ({ defaultValues }: Props) => {
         />
         {form.getValues().repeats && !form.getValues().dueAt && (
           <p className="text-destructive mb-6 mt-2 text-sm">
-            You must specify a due date before repeating a task.
+            You must specify a due date first.
           </p>
         )}
         {form.getValues().repeats && form.getValues().dueAt && (
@@ -399,7 +408,11 @@ const TodoForm = ({ defaultValues }: Props) => {
             <FormItem className="mb-10 mt-1 max-w-[640px]">
               <FormLabel>Tags:</FormLabel>
               <FormControl>
-                <InputTags {...field} />
+                <InputTags
+                  activeTags={activeTags}
+                  setActiveTags={setActiveTags}
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>

@@ -13,10 +13,14 @@ import { Input, InputProps } from "../ui/input";
 import TagBadge from "../TagBadge";
 import { Plus as PlusIcon, X as XIcon } from "lucide-react";
 import { cn } from "@/utils/cn";
+import { Tag } from "@/utils/types";
+import newTag from "@/utils/tags/newTag";
 
 type InputTagsProps = InputProps & {
   value: string[];
   onChange: Dispatch<SetStateAction<string[]>>;
+  activeTags: Tag[];
+  setActiveTags: (tags: Tag[]) => void;
 };
 
 type TagErrors = {
@@ -25,7 +29,7 @@ type TagErrors = {
 };
 
 const InputTags = forwardRef<HTMLInputElement, InputTagsProps>(
-  ({ value, onChange, ...props }, ref) => {
+  ({ value, onChange, activeTags, setActiveTags, ...props }, ref) => {
     const {
       state: {
         tags: { allTags },
@@ -54,12 +58,22 @@ const InputTags = forwardRef<HTMLInputElement, InputTagsProps>(
         const processedInput = current.toLowerCase().trim();
         const isValidated = validate(processedInput);
 
-        if (isValidated) {
+        if (isValidated && !allTags.find((t) => t.name === processedInput)) {
           const newTags = new Set([...value, processedInput]);
           onChange(Array.from(newTags));
+          setActiveTags([
+            ...activeTags,
+            newTag(processedInput, allTags.length + numNewTags()),
+          ]);
           setCurrent("");
         }
       }
+    };
+
+    const numNewTags = () => {
+      return value.reduce((n, tag) => {
+        return allTags.some((t) => t.name === tag) ? n : n + 1;
+      }, 0);
     };
 
     return (
@@ -100,13 +114,17 @@ const InputTags = forwardRef<HTMLInputElement, InputTagsProps>(
                 no tags selected
               </span>
             )}
-            {value.map((tag) => (
+            {activeTags.map((tag) => (
               <TagBadge
-                key={tag}
-                tag={tag}
-                handleClick={() => onChange(value.filter((v) => v !== tag))}
+                key={tag.name}
+                tag={tag.name}
+                tagObj={tag}
+                handleClick={() => {
+                  setActiveTags(activeTags.filter((t) => t.name !== tag.name));
+                  onChange(value.filter((v) => v !== tag.name));
+                }}
               >
-                {tag}
+                {tag.name}
                 <XIcon className="w-4 h-4 ml-1" />
               </TagBadge>
             ))}
@@ -119,6 +137,8 @@ const InputTags = forwardRef<HTMLInputElement, InputTagsProps>(
               tag={tag.name}
               handleClick={() => {
                 !value.includes(tag.name) && onChange([...value, tag.name]);
+                !activeTags.includes(tag) &&
+                  setActiveTags([...activeTags, tag]);
               }}
             >
               {tag.name}

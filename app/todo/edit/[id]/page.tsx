@@ -2,10 +2,6 @@
 
 import { useContext } from "react";
 import TodoContext from "@/contexts/TodoContext";
-import TodoNotFound from "@/components/Errors/TodoNotFound";
-
-// dynamic import lets us adjust the document title once the todo name is loaded
-// without getting a hydration error
 import dynamic from "next/dynamic";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -14,6 +10,7 @@ import { TodoFormData } from "@/validation/schema";
 import { todoFormDefaults } from "@/validation/schema";
 import { Todo } from "@/utils/types";
 import ThemeToggle from "@/components/ThemeToggle";
+import { redirect } from "next/navigation";
 
 const DynamicTodoForm = dynamic(() => import("@/components/Forms/TodoForm"), {
   ssr: false,
@@ -54,9 +51,7 @@ const EditTodo = ({ params: { id } }: Props) => {
     return defaults;
   };
 
-  if (!t) {
-    <TodoNotFound />;
-  }
+  if (!t) redirect("/");
   return (
     <div className="flex flex-col items-center justify-center">
       <div className="flex w-full justify-evenly items-center mt-10 mx-8">

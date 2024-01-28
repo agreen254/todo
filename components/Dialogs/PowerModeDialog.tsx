@@ -1,17 +1,23 @@
+"use client";
+
+import { useState } from "react";
+import { cn } from "@/utils/cn";
 import { Power } from "lucide-react";
 import { Button } from "../ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 
 const PowerModeDialog = () => {
+  const [isHovered, setIsHovered] = useState(false);
+
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button className="w-[min(45vw,180px)] px-2 lg:px-5 py-6 text-lg font-medium dark:font-semibold rounded-xl hover:shadow-md hover:dark:shadow-slate-800">
-          <Power className="w-6 h-6 mr-2" />
+        <Button
+          className="w-[min(45vw,180px)] px-2 lg:px-5 py-6 text-lg font-medium dark:font-semibold rounded-xl hover:shadow-md hover:dark:shadow-slate-800"
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+        >
+          <Power className={cn("w-6 h-6 mr-2", isHovered && "text-teal-500")} />
           Power Mode
         </Button>
       </DialogTrigger>

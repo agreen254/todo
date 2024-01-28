@@ -9,7 +9,7 @@ import processTodos from "@/utils/todos/processTodos";
 import searchTodos from "@/utils/todos/searchTodos";
 import sortTodos from "@/utils/todos/sortTodos";
 import { useSearchParams } from "next/navigation";
-import GradSeparator from "@/components/GradSeparator";
+import GradientSeparator from "@/components/GradientSeparator";
 import TodoCard from "@/components/TodoCard/TodoCard";
 import { FilterTagsSchema, TodoSortOrder } from "@/utils/types";
 import SortMenu from "@/components/Sort/SortMenu";
@@ -43,7 +43,7 @@ const SearchPage = () => {
   const { pinnedTodos, pendingTodos, completedTodos } = processTodos(
     validSorted,
     { pending: localSortOrder, completed: localSortOrder },
-    localFilterTags,
+    { pending: localFilterTags, completed: localFilterTags },
     localFilterSchema
   );
   const allTodos = [...pinnedTodos, ...pendingTodos, ...completedTodos];
@@ -55,7 +55,7 @@ const SearchPage = () => {
           Search results for <span className="font-bold"> "{queryParam}"</span>
         </h1>
       </div>
-      <GradSeparator />
+      <GradientSeparator />
       <div className="flex justify-start gap-4 ml-4 mb-4">
         <SortMenu sortOrder={localSortOrder} setSortOrder={setLocalSortOrder} />
         <FilterByTags

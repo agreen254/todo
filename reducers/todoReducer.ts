@@ -38,6 +38,7 @@ export function todoReducer(
       return;
     }
     case "EDIT_TODO": {
+      tagsHandler(tags, action.editedTodo.tags, setTags);
       const idx = todos.findIndex((t) => t.id === action.editedTodo.id);
       const newTodos = todos.toSpliced(idx, 1, action.editedTodo);
       setTodos(newTodos);
