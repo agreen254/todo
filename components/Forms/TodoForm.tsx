@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import { cn } from "@/utils/cn";
 import { add, format, sub } from "date-fns";
 import { uid } from "uid";
+import repeatTodos from "@/utils/todos/repeatTodos";
 import { Calendar as CalendarIcon } from "lucide-react";
 import TodoContext from "@/contexts/TodoContext";
 import { TodoFormData as FormData } from "@/validation/schema";
@@ -44,7 +45,7 @@ type Props = {
 
 const extractSubTasks = (
   subTaskNames: string[],
-  completionArray: boolean[],
+  completionArray: boolean[]
 ) => {
   if (subTaskNames.length !== completionArray.length) return [];
 
@@ -64,8 +65,8 @@ const TodoForm = ({ defaultValues }: Props) => {
   const [subTasks, setSubTasks] = useState<SubTask[]>(
     extractSubTasks(
       defaultValues?.subTasks || [],
-      defaultValues?.completedSubTasks || [],
-    ),
+      defaultValues?.completedSubTasks || []
+    )
   );
 
   const form = useForm<FormData>({
@@ -92,11 +93,15 @@ const TodoForm = ({ defaultValues }: Props) => {
       isCompleted: defaultValues.isCompleted || false,
       isPinned: defaultValues.isPinned || false,
     };
-    if (defaultValues.id) {
-      dispatch({ cmd: "EDIT_TODO", editedTodo: transformedData });
-    } else {
-      dispatch({ cmd: "ADD_TODO", toAdd: transformedData });
+    if (transformedData.repeats) {
+      const newTodos = repeatTodos(transformedData);
+      dispatch({ cmd: "ADD_MULTIPLE_TODOS", toAdd: newTodos });
     }
+    // if (defaultValues.id) {
+    //   dispatch({ cmd: "EDIT_TODO", editedTodo: transformedData });
+    // } else {
+    //   dispatch({ cmd: "ADD_TODO", toAdd: transformedData });
+    // }
     router.push("/");
   };
 
@@ -106,7 +111,7 @@ const TodoForm = ({ defaultValues }: Props) => {
   const handleSelect = (
     d: Date | undefined,
     date: Date | undefined,
-    setDate: (d: Date) => void,
+    setDate: (d: Date) => void
   ) => {
     if (!d) return;
     if (!date) {
@@ -164,7 +169,7 @@ const TodoForm = ({ defaultValues }: Props) => {
                       variant={"outline"}
                       className={cn(
                         "w-full justify-start text-left font-normal",
-                        !field.value && "text-muted-foreground",
+                        !field.value && "text-muted-foreground"
                       )}
                     >
                       <CalendarIcon className="mr-2 h-4 w-4" />
@@ -204,7 +209,7 @@ const TodoForm = ({ defaultValues }: Props) => {
             <FormItem
               className={cn(
                 "mb-6 flex items-end space-x-2",
-                form.getValues().repeats && "mb-0",
+                form.getValues().repeats && "mb-0"
               )}
             >
               <FormControl>
@@ -236,7 +241,7 @@ const TodoForm = ({ defaultValues }: Props) => {
                   <FormControl>
                     <RadioGroup
                       onValueChange={field.onChange}
-                      defaultValue={"weekly"}
+                      defaultValue={field.value || "weekly"}
                       className="flex justify-start gap-x-4"
                     >
                       <FormItem className="flex items-end">
@@ -275,7 +280,7 @@ const TodoForm = ({ defaultValues }: Props) => {
                           variant={"outline"}
                           className={cn(
                             "mt-4 w-full justify-start text-left font-normal",
-                            !field.value && "text-muted-foreground",
+                            !field.value && "text-muted-foreground"
                           )}
                         >
                           <CalendarIcon className="mr-2 h-4 w-4" />
@@ -291,6 +296,11 @@ const TodoForm = ({ defaultValues }: Props) => {
                       <Calendar
                         mode="single"
                         selected={field.value}
+                        disabled={(d) => {
+                          const dueDate = form.getValues().dueAt;
+                          if (!dueDate) return false;
+                          return d <= dueDate;
+                        }}
                         onSelect={field.onChange}
                         initialFocus
                       />
@@ -322,7 +332,7 @@ const TodoForm = ({ defaultValues }: Props) => {
                       <FormLabel
                         className={cn(
                           "absolute translate-y-4 font-bold",
-                          ele < 10 ? "translate-x-3" : "translate-x-2",
+                          ele < 10 ? "translate-x-3" : "translate-x-2"
                         )}
                       >
                         {ele}
@@ -332,8 +342,7 @@ const TodoForm = ({ defaultValues }: Props) => {
                           value={ele.toString()}
                           className={cn(
                             "bg-secondary hover:bg-primary/50 h-8 w-8",
-                            field.value === ele &&
-                              "bg-primary hover:bg-primary",
+                            field.value === ele && "bg-primary hover:bg-primary"
                           )}
                         />
                       </FormControl>
@@ -362,7 +371,7 @@ const TodoForm = ({ defaultValues }: Props) => {
                       <FormLabel
                         className={cn(
                           "absolute translate-y-4 font-bold",
-                          ele < 10 ? "translate-x-3" : "translate-x-2",
+                          ele < 10 ? "translate-x-3" : "translate-x-2"
                         )}
                       >
                         {ele}
@@ -372,8 +381,7 @@ const TodoForm = ({ defaultValues }: Props) => {
                           value={ele.toString()}
                           className={cn(
                             "bg-secondary hover:bg-primary/50 h-8 w-8",
-                            field.value === ele &&
-                              "bg-primary hover:bg-primary",
+                            field.value === ele && "bg-primary hover:bg-primary"
                           )}
                         />
                       </FormControl>

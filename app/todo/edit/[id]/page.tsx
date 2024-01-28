@@ -31,15 +31,18 @@ const EditTodo = ({ params: { id } }: Props) => {
 
   const extractDefaultValues = (t: Todo | undefined) => {
     if (!t) return todoFormDefaults;
-    const date = t.dueAt ? new Date(t.dueAt) : undefined;
+    const dueDate = t.dueAt ? new Date(t.dueAt) : undefined;
+    const repeatDate = t.repeatEndDate ? new Date(t.repeatEndDate) : undefined;
+
     const defaults: Partial<TodoFormData> = {
       name: t.name,
       description: t?.description,
-      dueAt: date,
+      dueAt: dueDate,
       priority: t.priority,
       complexity: t.complexity,
       repeats: t.repeats,
-      repeatPeriod: t.repeatPeriod || "weekly",
+      repeatPeriod: t.repeatPeriod,
+      repeatEndDate: repeatDate,
       isCompleted: t.isCompleted,
       isPinned: t.isPinned,
       tags: t.tags,

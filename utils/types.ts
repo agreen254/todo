@@ -78,6 +78,11 @@ type AddTodo = {
   toAdd: Todo;
 };
 
+type AddMultipleTodos = {
+  cmd: "ADD_MULTIPLE_TODOS";
+  toAdd: Todo[];
+}
+
 type DeleteTodo = {
   cmd: "DELETE_TODO";
   toDelete: Todo;
@@ -129,6 +134,7 @@ type SetFilterTags = {
 
 export type Actions =
   | AddTodo
+  | AddMultipleTodos
   | DeleteTodo
   | DeleteAllTodos
   | EditTodo

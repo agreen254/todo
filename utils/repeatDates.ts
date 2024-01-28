@@ -1,4 +1,4 @@
-import { add, isValid } from "date-fns";
+import { add } from "date-fns";
 
 export default function repeatDates(
   initialDueDate: string,
@@ -10,8 +10,8 @@ export default function repeatDates(
   if (!init || !final) return [];
 
   let currentDate = init;
-  let dates = [currentDate];
-  while (currentDate <= final) {
+  let dates: Date[] = [currentDate];
+  while (currentDate < final) {
     if (period === "monthly") {
       currentDate = add(currentDate, { months: 1 });
     } else if (period === "weekly") {

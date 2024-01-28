@@ -1,4 +1,3 @@
-import { DateTime } from "luxon";
 import { Todo } from "../types";
 import { uid } from "uid";
 
@@ -7,6 +6,6 @@ export default function cloneTodo(toClone: Todo): Todo {
     ...toClone,
     id: uid(),
     repeatId: uid(),
-    createdAt: DateTime.now().toISO(),
+    createdAt: new Date().toISOString(),
   };
 }

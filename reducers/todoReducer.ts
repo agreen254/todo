@@ -20,6 +20,12 @@ export function todoReducer(
       setTodos(newTodos);
       return;
     }
+    case "ADD_MULTIPLE_TODOS": {
+      tagsHandler(tags, action.toAdd[0].tags, setTags);
+      const newTodos = [...todos, ...action.toAdd];
+      setTodos(newTodos);
+      return;
+    }
     case "DELETE_TODO": {
       const newTodos = todos.filter((t) => t.id !== action.toDelete.id);
       setTodos(newTodos);
