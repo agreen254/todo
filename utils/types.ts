@@ -58,7 +58,10 @@ export type Tag = { name: string; color: number };
 // Changes to the todo arrays themselves resulting from the search page will still persist, however.
 export type TodoContextState = {
   todos: Todo[];
-  sortOrder: TodoSortOrder;
+  sortOrder: {
+    pending: TodoSortOrder;
+    completed: TodoSortOrder;
+  }
   tags: {
     allTags: Tag[];
   };
@@ -81,7 +84,7 @@ type AddTodo = {
 type AddMultipleTodos = {
   cmd: "ADD_MULTIPLE_TODOS";
   toAdd: Todo[];
-}
+};
 
 type DeleteTodo = {
   cmd: "DELETE_TODO";
@@ -122,8 +125,13 @@ type RevertTodo = {
   toRevert: Todo;
 };
 
-type SetSortOrder = {
-  cmd: "SET_SORT_ORDER";
+type SetPendingSortOrder = {
+  cmd: "SET_PENDING_SORT_ORDER";
+  newOrder: TodoSortOrder;
+};
+
+type SetCompletedSortOrder = {
+  cmd: "SET_COMPLETED_SORT_ORDER";
   newOrder: TodoSortOrder;
 };
 
@@ -143,5 +151,6 @@ export type Actions =
   | RevertTodo
   | PinTodo
   | UnpinTodo
-  | SetSortOrder
+  | SetPendingSortOrder
+  | SetCompletedSortOrder
   | SetFilterTags;

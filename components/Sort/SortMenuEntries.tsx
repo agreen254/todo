@@ -10,9 +10,10 @@ import { Button } from "../ui/button";
 type Props = {
   sortOrder: TodoSortOrder;
   setSortOrder?: (newOrder: TodoSortOrder) => void;
+  role?: "pending" | "completed";
 };
 
-const SortMenuEntries = ({ sortOrder, setSortOrder }: Props) => {
+const SortMenuEntries = ({ sortOrder, setSortOrder, role }: Props) => {
   const { dispatch } = useContext(TodoContext);
   const handleSelectSort = (selectedOrder: TodoSortOrder) => {
     if (setSortOrder) {
@@ -20,9 +21,21 @@ const SortMenuEntries = ({ sortOrder, setSortOrder }: Props) => {
         ? setSortOrder("default")
         : setSortOrder(selectedOrder);
     } else {
-      selectedOrder === sortOrder
-        ? dispatch({ cmd: "SET_SORT_ORDER", newOrder: "default" })
-        : dispatch({ cmd: "SET_SORT_ORDER", newOrder: selectedOrder });
+      if (role === "pending") {
+        selectedOrder === sortOrder
+          ? dispatch({ cmd: "SET_PENDING_SORT_ORDER", newOrder: "default" })
+          : dispatch({
+              cmd: "SET_PENDING_SORT_ORDER",
+              newOrder: selectedOrder,
+            });
+      } else {
+        selectedOrder === sortOrder
+          ? dispatch({ cmd: "SET_COMPLETED_SORT_ORDER", newOrder: "default" })
+          : dispatch({
+              cmd: "SET_COMPLETED_SORT_ORDER",
+              newOrder: selectedOrder,
+            });
+      }
     }
   };
 

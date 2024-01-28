@@ -93,15 +93,14 @@ const TodoForm = ({ defaultValues }: Props) => {
       isCompleted: defaultValues.isCompleted || false,
       isPinned: defaultValues.isPinned || false,
     };
-    if (transformedData.repeats) {
-      const newTodos = repeatTodos(transformedData);
-      dispatch({ cmd: "ADD_MULTIPLE_TODOS", toAdd: newTodos });
+    // if (transformedData.repeats) {
+    //   const newTodos = repeatTodos(transformedData);
+    //   dispatch({ cmd: "ADD_MULTIPLE_TODOS", toAdd: newTodos });
+    if (defaultValues.id) {
+      dispatch({ cmd: "EDIT_TODO", editedTodo: transformedData });
+    } else {
+      dispatch({ cmd: "ADD_TODO", toAdd: transformedData });
     }
-    // if (defaultValues.id) {
-    //   dispatch({ cmd: "EDIT_TODO", editedTodo: transformedData });
-    // } else {
-    //   dispatch({ cmd: "ADD_TODO", toAdd: transformedData });
-    // }
     router.push("/");
   };
 
@@ -241,7 +240,7 @@ const TodoForm = ({ defaultValues }: Props) => {
                   <FormControl>
                     <RadioGroup
                       onValueChange={field.onChange}
-                      defaultValue={field.value || "weekly"}
+                      defaultValue={defaultValues.repeatPeriod || "weekly"}
                       className="flex justify-start gap-x-4"
                     >
                       <FormItem className="flex items-end">

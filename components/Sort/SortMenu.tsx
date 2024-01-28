@@ -15,9 +15,10 @@ import { TodoSortOrder } from "@/utils/types";
 type Props = {
   sortOrder: TodoSortOrder;
   setSortOrder?: (newOrder: TodoSortOrder) => void;
+  role?: "pending" | "completed";
 };
 
-const SortMenu = ({ sortOrder, setSortOrder }: Props) => {
+const SortMenu = ({ sortOrder, setSortOrder, role }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -31,7 +32,7 @@ const SortMenu = ({ sortOrder, setSortOrder }: Props) => {
         align="center"
         className="max-w-[400px] w-[95vw] hover:border-primary transition-colors"
       >
-        <SortMenuEntries sortOrder={sortOrder} setSortOrder={setSortOrder} />
+        <SortMenuEntries sortOrder={sortOrder} setSortOrder={setSortOrder} role={role} />
         <p className="text-sm text-muted-foreground">
           current sort order: {sortingMap.get(sortOrder)}
         </p>

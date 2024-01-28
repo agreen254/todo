@@ -17,7 +17,7 @@ export const todoFormSchema = z.object({
     z.literal("daily"),
     z.literal("weekly"),
     z.literal("monthly"),
-  ]),
+  ]).optional(),
   repeatEndDate: z.date().optional(),
   tags: z
     .string()

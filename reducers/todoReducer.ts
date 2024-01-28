@@ -7,8 +7,10 @@ import { Actions, SubTask, Tag, Todo, TodoSortOrder } from "../utils/types";
 export function todoReducer(
   todos: Todo[],
   setTodos: (ts: Todo[]) => void,
-  sortOrder: TodoSortOrder,
-  setSortOrder: (order: TodoSortOrder) => void,
+  pendingSortOrder: TodoSortOrder,
+  setPendingSortOrder: (order: TodoSortOrder) => void,
+  completedSortOrder: TodoSortOrder,
+  setCompletedSortOrder: (order: TodoSortOrder) => void,
   tags: Tag[],
   setTags: (tags: Tag[]) => void,
   action: Actions
@@ -84,12 +86,20 @@ export function todoReducer(
       setTodos(newTodos);
       return;
     }
-    case "SET_SORT_ORDER": {
-      if (sortOrder === action.newOrder) {
-        setSortOrder("default");
+    case "SET_COMPLETED_SORT_ORDER": {
+      if (completedSortOrder === action.newOrder) {
+        setCompletedSortOrder("default");
         return;
       }
-      setSortOrder(action.newOrder);
+      setCompletedSortOrder(action.newOrder);
+      return;
+    }
+    case "SET_PENDING_SORT_ORDER": {
+      if (pendingSortOrder === action.newOrder) {
+        setPendingSortOrder("default");
+        return;
+      }
+      setPendingSortOrder(action.newOrder);
       return;
     }
     default: {

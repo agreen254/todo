@@ -42,7 +42,7 @@ const SearchPage = () => {
   const validSorted = sortTodos(valid, localSortOrder);
   const { pinnedTodos, pendingTodos, completedTodos } = processTodos(
     validSorted,
-    localSortOrder,
+    { pending: localSortOrder, completed: localSortOrder },
     localFilterTags,
     localFilterSchema
   );

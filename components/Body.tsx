@@ -38,13 +38,13 @@ const Body = () => {
 
   return (
     <>
-      <div className="justify-center items-start grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
-        <div className="gap-x-2 md:gap-x-6 flex justify-center items-center mt-4 md:mt-10">
+      <div className="flex flex-col lg:flex-row justify-center items-start mt-2">
+        <div className="flex w-full lg:w-auto gap-x-4 mt-2 mr-8 justify-center">
           <Link href="/todo/add">
             <Button
               role="link"
               className={cn(
-                "w-[min(40vw,180px)] px-5 py-8 text-lg font-medium dark:font-semibold rounded-full hover:shadow-md hover:scale-[1.05] hover:translate-y-[-4px] hover:dark:shadow-slate-800 transition-all",
+                "w-[min(45vw,180px)] px-2 lg:px-5 py-6 text-lg rounded-xl font-medium dark:font-semibold hover:shadow-md hover:dark:shadow-slate-800",
                 hasNoEntries() &&
                   "bg-gradient-to-r from-primary dark:to-cyan-300 to-cyan-500"
               )}
@@ -53,35 +53,39 @@ const Body = () => {
               Add To-Do
             </Button>
           </Link>
-          <PowerModeDialog />
-        </div>
-        <div className="flex justify-center items-start mt-2 md:mt-10">
-          <div className="hidden md:flex items-center space-x-4 mt-2 mr-[12px]">
-            <ThemeToggle />
+          <div className="lg:hidden">
+            <PowerModeDialog />
           </div>
-          <div className="w-[min(350px,90vw)]">
-            <SearchForm />
-            <div className="gap-x-4 mt-2 flex items-start">
-              <div className="inline md:hidden">
-                <ThemeToggle />
-              </div>
-              <SortMenu sortOrder={state.sortOrder} />
-              <FilterByTags
-                filterTags={filterTags}
-                setFilterTags={setFilterTags}
-                setFilterTagsSchema={setFilterTagsSchema}
-              />
+        </div>
+        <div className="hidden md:flex items-center space-x-4 mt-2 mr-[12px]">
+          <ThemeToggle />
+        </div>
+        <div className="w-[min(350px,90vw)]">
+          <SearchForm />
+          <div className="gap-x-4 mt-2 flex items-start">
+            <div className="inline md:hidden">
+              <ThemeToggle />
             </div>
           </div>
         </div>
-        <div></div>
+        <div className="ml-8 mt-2">
+          <PowerModeDialog />
+        </div>
       </div>
       {hasPendingOrPinned() && (
         <div className="mt-8 lg:mt-2">
-          <h2 className="text-2xl lg:text-3xl ml-10 text-primary uppercase font-extrabold">
+          <h2 className="text-2xl lg:text-3xl ml-10 text-primary uppercase font-semibold dark:font-bold">
             Pending
           </h2>
           <GradSeparator />
+          <div className="space-x-4 ml-8 mt-4">
+            <SortMenu sortOrder={state.sortOrder.pending} />
+            <FilterByTags
+              filterTags={filterTags}
+              setFilterTags={setFilterTags}
+              setFilterTagsSchema={setFilterTagsSchema}
+            />
+          </div>
         </div>
       )}
       <div className="flex justify-start flex-wrap max-w-[3340px] mx-auto">
@@ -90,10 +94,18 @@ const Body = () => {
       </div>
       {hasNoCompleted() && (
         <div className="mt-16">
-          <h2 className="text-3xl ml-10 text-primary uppercase font-extrabold">
+          <h2 className="text-3xl ml-10 text-primary uppercase font-semibold dark:font-bold">
             Completed
           </h2>
           <GradSeparator />
+          <div className="space-x-4 ml-8 mt-4">
+            <SortMenu sortOrder={state.sortOrder.completed} />
+            <FilterByTags
+              filterTags={filterTags}
+              setFilterTags={setFilterTags}
+              setFilterTagsSchema={setFilterTagsSchema}
+            />
+          </div>
         </div>
       )}
       <div className="flex justify-start flex-wrap max-w-[3340px] mx-auto">
