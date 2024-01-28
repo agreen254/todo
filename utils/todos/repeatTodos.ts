@@ -8,7 +8,7 @@ export default function repeatTodos(t: Todo) {
   return dates.map((d) => {
     const newTodo = Object.assign({}, t);
     newTodo.id = uid();
-    newTodo.createdAt = new Date().toISOString();
+    newTodo.createdAt = t.createdAt;
     newTodo.dueAt = d.toISOString();
     return newTodo;
   });

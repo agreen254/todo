@@ -51,7 +51,7 @@ const EditTodo = ({ params: { id } }: Props) => {
     return defaults;
   };
 
-  if (!t) redirect("/");
+  // if (!t) redirect("/");
   return (
     <div className="flex flex-col items-center justify-center">
       <div className="flex w-full justify-evenly items-center mt-10 mx-8">

@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import { cn } from "@/utils/cn";
 import { add, format, sub } from "date-fns";
 import { uid } from "uid";
+import { priorityAndComplexityValues as pcVals } from "@/utils/types";
 import fetchTags from "@/utils/tags/fetchTags";
 import repeatTodos from "@/utils/todos/repeatTodos";
 import { Calendar as CalendarIcon } from "lucide-react";
@@ -38,8 +39,6 @@ import InputSubTasks from "./InputSubTasks";
 import { SubTask, Tag, Todo } from "@/utils/types";
 import { Checkbox } from "../ui/checkbox";
 
-const arr = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-
 type Props = {
   defaultValues: Partial<FormData>;
 };
@@ -63,6 +62,7 @@ const extractSubTasks = (
 const TodoForm = ({ defaultValues }: Props) => {
   const {
     state: {
+      todos,
       tags: { allTags },
     },
     dispatch,
@@ -102,14 +102,24 @@ const TodoForm = ({ defaultValues }: Props) => {
       isCompleted: defaultValues.isCompleted || false,
       isPinned: defaultValues.isPinned || false,
     };
-    // if (transformedData.repeats) {
-    //   const newTodos = repeatTodos(transformedData);
-    //   dispatch({ cmd: "ADD_MULTIPLE_TODOS", toAdd: newTodos });
-    if (defaultValues.id) {
-      dispatch({ cmd: "EDIT_TODO", editedTodo: transformedData });
-    } else {
-      dispatch({ cmd: "ADD_TODO", toAdd: transformedData });
+    if (transformedData.repeats) {
+      const newTodos = repeatTodos(transformedData);
+      console.log(newTodos);
+      const originalTodo = todos.find((t) => t.id === defaultValues.id)!;
+      dispatch({
+        cmd: "ADD_AND_DELETE_TODOS",
+        toAdd: repeatTodos(transformedData),
+        toDelete: [originalTodo],
+      });
+    //   console.log(originalTodo);
+    //   if (originalTodo)
+    //     dispatch({ cmd: "DELETE_TODO", toDelete: originalTodo });
     }
+    // if (defaultValues.id) {
+    //   dispatch({ cmd: "EDIT_TODO", editedTodo: transformedData });
+    // } else {
+    //   dispatch({ cmd: "ADD_TODO", toAdd: transformedData });
+    // }
     router.push("/");
   };
 
@@ -335,7 +345,7 @@ const TodoForm = ({ defaultValues }: Props) => {
                   defaultValue={defaultValues?.priority?.toString()}
                   className="flex -translate-y-2 flex-wrap justify-start md:justify-evenly"
                 >
-                  {arr.map((ele) => (
+                  {pcVals.map((ele) => (
                     <FormItem key={ele + "priority"}>
                       <FormLabel
                         className={cn(
@@ -374,7 +384,7 @@ const TodoForm = ({ defaultValues }: Props) => {
                   defaultValue={defaultValues?.priority?.toString()}
                   className="flex -translate-y-2 flex-wrap justify-start md:justify-evenly"
                 >
-                  {arr.map((ele) => (
+                  {pcVals.map((ele) => (
                     <FormItem key={ele + "complexity"}>
                       <FormLabel
                         className={cn(

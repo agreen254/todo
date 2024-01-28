@@ -29,6 +29,15 @@ export type SplitTodos = {
   completedTodos: Todo[];
 };
 
+export type CascadeTodos = {
+  keep: Todo[];
+  remove: Todo[];
+};
+
+export const priorityAndComplexityValues = [
+  0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
+] as const;
+
 // create as an array first so we can map over it in the SortMenu component
 export const todoSortValues = [
   ["default"],
@@ -61,7 +70,7 @@ export type TodoContextState = {
   sortOrder: {
     pending: TodoSortOrder;
     completed: TodoSortOrder;
-  }
+  };
   tags: {
     allTags: Tag[];
   };
@@ -94,6 +103,12 @@ type DeleteTodo = {
 type DeleteAllTodos = {
   cmd: "DELETE_ALL_TODOS";
 };
+
+type AddAndDeleteTodos = {
+  cmd: "ADD_AND_DELETE_TODOS";
+  toAdd: Todo[];
+  toDelete: Todo[];
+}
 
 type EditTodo = {
   cmd: "UNPIN_TODO";
@@ -145,6 +160,7 @@ export type Actions =
   | AddMultipleTodos
   | DeleteTodo
   | DeleteAllTodos
+  | AddAndDeleteTodos
   | EditTodo
   | CompleteTodo
   | CloneTodo

@@ -43,6 +43,7 @@ export default function dummyTodo(): Todo {
     isPinned: false,
     id: uid(),
     repeats: false,
+    repeatId: uid(),
     tags: randArrayEle(potentialTags),
     subTasks: generateSubTasks(),
   };

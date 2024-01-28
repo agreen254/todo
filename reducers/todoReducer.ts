@@ -37,6 +37,14 @@ export function todoReducer(
       setTodos([]);
       return;
     }
+    case "ADD_AND_DELETE_TODOS": {
+      const filteredTodos = todos.filter(
+        (t) => !action.toDelete.some((val) => t.id === val.id)
+      );
+      const newTodos = [...filteredTodos, ...action.toAdd];
+      setTodos(newTodos);
+      return;
+    }
     case "EDIT_TODO": {
       tagsHandler(tags, action.editedTodo.tags, setTags);
       const idx = todos.findIndex((t) => t.id === action.editedTodo.id);
