@@ -56,9 +56,21 @@ const InputTags = forwardRef<HTMLInputElement, InputTagsProps>(
     const handleAddTags = () => {
       if (current) {
         const processedInput = current.toLowerCase().trim();
-        const isValidated = validate(processedInput);
+        if (value.find((v) => v === processedInput)) {
+          setCurrent("");
+          return;
+        };
 
-        if (isValidated && !allTags.find((t) => t.name === processedInput)) {
+        const isValidated = validate(processedInput);
+        const existingTag = allTags.find((t) => t.name === processedInput);
+
+        if (existingTag && isValidated) {
+          !value.includes(existingTag.name) &&
+            onChange([...value, existingTag.name]);
+          !activeTags.includes(existingTag) &&
+            setActiveTags([...activeTags, existingTag]);
+          setCurrent("");
+        } else if (isValidated) {
           const newTags = new Set([...value, processedInput]);
           onChange(Array.from(newTags));
           setActiveTags([
@@ -151,5 +163,5 @@ const InputTags = forwardRef<HTMLInputElement, InputTagsProps>(
   }
 );
 
-InputTags.displayName="InputTags";
+InputTags.displayName = "InputTags";
 export default InputTags;

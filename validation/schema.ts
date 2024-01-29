@@ -12,7 +12,7 @@ export const todoFormSchema = z.object({
   complexity: z.number().min(0).max(10),
   createdAt: z.date().optional(),
   dueAt: z.date().optional(),
-  repeats: z.boolean(),
+  repeats: z.boolean().optional(),
   repeatPeriod: z.union([
     z.literal("daily"),
     z.literal("weekly"),

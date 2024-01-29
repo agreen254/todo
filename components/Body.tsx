@@ -4,9 +4,7 @@ import { useContext, useState } from "react";
 import { cn } from "@/utils/cn";
 import { Button } from "./ui/button";
 import { Plus } from "lucide-react";
-import dynamic from "next/dynamic";
 import Link from "next/link";
-import dummyTodo from "@/utils/todos/dummyTodo";
 import FilterByTags from "./Sort/FilterByTags";
 import GradientSeparator from "./GradientSeparator";
 import RemoveAllAlert from "./Dialogs/RemoveAllDialog";
@@ -20,13 +18,8 @@ import PowerModeDialog from "./Dialogs/PowerModeDialog";
 import splitTodos from "@/utils/todos/splitTodos";
 import powerModeTodo from "@/utils/todos/powerModeTodo";
 
-const DynamicDialog = dynamic(
-  () => import("@/components/Dialogs/PowerModeDialog"),
-  { ssr: false }
-);
-
 const Body = () => {
-  const { state, dispatch } = useContext(TodoContext);
+  const { state } = useContext(TodoContext);
 
   const [addIsHovered, setAddIsHovered] = useState(false);
 
@@ -84,7 +77,7 @@ const Body = () => {
           <SearchForm />
         </div>
         <div className="ml-8 mt-2 hidden lg:inline">
-          <DynamicDialog t={powerTodo} />
+          <PowerModeDialog t={powerTodo} />
         </div>
       </div>
       {hasPendingOrPinned() && (
@@ -126,14 +119,19 @@ const Body = () => {
       <div className="flex justify-start flex-wrap max-w-[3340px] mx-auto">
         <TodoMapper todos={completedTodos} />
       </div>
-      <div className={cn("fixed bottom-4 right-4")}>
+      <div
+        className={cn(
+          "fixed bottom-4 right-4",
+          state.todos.length === 0 && "hidden"
+        )}
+      >
         <RemoveAllAlert />
-        <Button
+        {/* <Button
           className="ml-4"
           onClick={() => dispatch({ cmd: "ADD_TODO", toAdd: dummyTodo() })}
         >
           Add Dummy
-        </Button>
+        </Button> */}
       </div>
     </>
   );

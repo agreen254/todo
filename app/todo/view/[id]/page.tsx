@@ -38,21 +38,22 @@ const ViewTodo = ({ params: { id } }: Props) => {
             />
           </Button>
         </Link>
-        <h1 className="font-bold text-2xl text-muted-foreground">View Todo</h1>
+        <h1 className="font-bold text-2xl text-muted-foreground">View To-Do</h1>
         <div>
           <ThemeToggle />
         </div>
         <div />
       </div>
-      {isMounted && t ? (
-        <div className="w-full flex justify-center">
-          <div className="w-[min(640px,90vw)] mt-8 h-full flex flex-col justify-start">
-            <TodoViewer t={t} mode="view" />
+      {isMounted &&
+        (t ? (
+          <div className="w-full flex justify-center">
+            <div className="w-[min(640px,90vw)] mt-8 h-full flex flex-col justify-start">
+              <TodoViewer t={t} mode="view" />
+            </div>
           </div>
-        </div>
-      ) : (
-        <TodoNotFound />
-      )}
+        ) : (
+          <TodoNotFound />
+        ))}
     </div>
   );
 };

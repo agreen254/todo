@@ -86,6 +86,7 @@ const TodoForm = ({ defaultValues }: Props) => {
     mode: "onChange",
   });
   const onSubmit = (data: z.infer<typeof formSchema>) => {
+    console.log("wtf")
     const now = new Date();
     const transformedData: Todo = {
       name: data.name,
