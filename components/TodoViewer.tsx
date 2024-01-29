@@ -6,13 +6,16 @@ import ratioSubTasks from "@/utils/subTasks/ratioSubTasks";
 import {
   ArrowUp as ArrowUpIcon,
   Calendar as CalendarIcon,
+  Check as CheckIcon,
   Move as MoveIcon,
   ListChecks as ListChecksIcon,
   ListTodo as ListTodoIcon,
 } from "lucide-react";
+import { Button } from "./ui/button";
 import { Todo } from "@/utils/types";
 import TodoCardDueDate from "./TodoCard/TodoCardDueDate";
 import { Separator } from "./ui/separator";
+import TagBadge from "./TagBadge";
 
 const TodoViewer = ({ t }: { t: Todo }) => {
   return (
@@ -21,12 +24,18 @@ const TodoViewer = ({ t }: { t: Todo }) => {
       {t.description && (
         <>
           <Separator className="mt-2 mb-1" />
-          <h3>{t.description}</h3>
+          <h3 className="text-muted-foreground">{t.description}</h3>
           <Separator className="mt-2 mb-4" />
         </>
       )}
+      {!t.description && <Separator className="mt-2 mb-4" />}
+      <div className="flex flex-wrap mb-4">
+        {t.tags.map((tag) => (
+          <TagBadge key={tag} tag={tag} />
+        ))}
+      </div>
       <div className="space-y-3">
-        <p className="pl-[24px] indent-[-24px]">
+        <p className="pl-[24px] indent-[-24px] ml-4">
           <span>
             <CalendarIcon className="w-4 h-4 mr-2 inline-block translate-y-[-2px]" />
             <span className="text-muted-foreground">Due Date: </span>
@@ -35,7 +44,7 @@ const TodoViewer = ({ t }: { t: Todo }) => {
             </span>
           </span>
         </p>
-        <p className="pl-[24px] indent-[-24px]">
+        <p className="pl-[24px] indent-[-24px] ml-4">
           <span>
             <ArrowUpIcon className="w-4 h-4 mr-2 inline-block translate-y-[-2px]" />
             <span className="text-muted-foreground">Priority: </span>
@@ -44,7 +53,7 @@ const TodoViewer = ({ t }: { t: Todo }) => {
             </span>
           </span>
         </p>
-        <p className="pl-[24px] indent-[-24px]">
+        <p className="pl-[24px] indent-[-24px] ml-4">
           <span>
             <MoveIcon className="w-4 h-4 mr-2 inline-block translate-y-[-2px]" />
             <span className="text-muted-foreground">Complexity: </span>
@@ -53,7 +62,7 @@ const TodoViewer = ({ t }: { t: Todo }) => {
             </span>
           </span>
         </p>
-        <p className="pl-[24px] indent-[-24px]">
+        <p className="pl-[24px] indent-[-24px] ml-4">
           <span>
             {finishedSubTasks(t) ? (
               <ListChecksIcon className="w-4 h-4 mr-2 inline-block translate-y-[-2px]" />
@@ -76,6 +85,31 @@ const TodoViewer = ({ t }: { t: Todo }) => {
             Completed: {parseDate(t.completedAt).str}
           </p>
         )}
+        {t.subTasks.map((st, idx) => (
+          <div
+            key={st + idx.toString()}
+            className="flex justify-between my-4 py-2 items-center rounded-full border-2 dark:border hover:ring-ring hover:ring-2 transition-colors"
+          >
+            <div>
+              <p className="ml-8">{`${idx + 1}. ${st.subTaskName}`}</p>
+            </div>
+            <div className="min-w-[2rem] ml-2">
+              <span>
+                <Button
+                  className={cn(
+                    "h-8 w-8 p-0 mr-2 rounded-full",
+                    st.isCompleted && "bg-green-600 hover:bg-green-500"
+                  )}
+                  variant="outline"
+                  type="button"
+                  disabled
+                >
+                  <CheckIcon className="w-4 h-4" />
+                </Button>
+              </span>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );

@@ -22,7 +22,7 @@ const ViewTodo = ({ params: { id } }: Props) => {
   const t = todos.find((t) => t.id === id);
 
   return (
-    <div className="min-h-[100dvh]">
+    <div>
       <div className="flex w-[calc(100vw-4rem)] justify-evenly items-center mt-10 mx-8">
         <div />
         <Link href="/" tabIndex={-1}>
