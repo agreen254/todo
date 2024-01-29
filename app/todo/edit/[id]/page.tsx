@@ -2,7 +2,6 @@
 
 import { useContext, useEffect, useState } from "react";
 import TodoContext from "@/contexts/TodoContext";
-import dynamic from "next/dynamic";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { ArrowLeft as ArrowLeftIcon } from "lucide-react";
@@ -10,12 +9,8 @@ import { TodoFormData } from "@/validation/schema";
 import { todoFormDefaults } from "@/validation/schema";
 import { Todo } from "@/utils/types";
 import ThemeToggle from "@/components/ThemeToggle";
-import { redirect } from "next/navigation";
 import TodoNotFound from "@/components/Errors/TodoNotFound";
-
-const DynamicTodoForm = dynamic(() => import("@/components/Forms/TodoForm"), {
-  ssr: false,
-});
+import TodoForm from "@/components/Forms/TodoForm";
 
 type Props = {
   params: { id: string };
@@ -26,7 +21,7 @@ const EditTodo = ({ params: { id } }: Props) => {
     state: { todos },
   } = useContext(TodoContext);
   const [isMounted, setIsMounted] = useState(false);
-  useEffect(() => setIsMounted(true));
+  useEffect(() => setIsMounted(true), []);
   const t = todos.find((t) => t.id === id);
 
   const extractDefaultValues = (t: Todo | undefined) => {
@@ -74,7 +69,7 @@ const EditTodo = ({ params: { id } }: Props) => {
       </div>
       {isMounted &&
         (t ? (
-          <DynamicTodoForm defaultValues={extractDefaultValues(t)} />
+          <TodoForm defaultValues={extractDefaultValues(t)} />
         ) : (
           <TodoNotFound />
         ))}

@@ -8,7 +8,11 @@ import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Todo } from "@/utils/types";
 import TodoViewer from "../TodoViewer";
 
-const PowerModeDialog = ({ t }: { t: Todo }) => {
+type Props = {
+  t: Todo | undefined;
+};
+
+const PowerModeDialog = ({ t }: Props) => {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
@@ -16,6 +20,7 @@ const PowerModeDialog = ({ t }: { t: Todo }) => {
       <DialogTrigger asChild>
         <Button
           className="w-[min(45vw,180px)] px-2 lg:px-5 py-6 text-lg font-medium dark:font-semibold rounded-xl hover:shadow-md hover:dark:shadow-slate-800"
+          disabled={!t}
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >
@@ -35,9 +40,7 @@ const PowerModeDialog = ({ t }: { t: Todo }) => {
           </span>
           <span>DE</span>
         </div>
-        <div className="min-h-[50vh]">
-          <TodoViewer t={t} />
-        </div>
+        <div className="min-h-[50vh]">{t && <TodoViewer t={t} />}</div>
       </DialogContent>
     </Dialog>
   );

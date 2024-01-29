@@ -15,7 +15,7 @@ import { Calendar as CalendarIcon } from "lucide-react";
 import TodoContext from "@/contexts/TodoContext";
 import { TodoFormData as FormData } from "@/validation/schema";
 import { todoFormSchema as formSchema } from "@/validation/schema";
-import { TimePicker12Demo } from "../ui/time-picker/time-picker-12hour";
+import { TimePickerTwelve } from "../ui/time-picker/time-picker-12hour";
 import { Button } from "../ui/button";
 import { Calendar } from "../ui/calendar";
 import {
@@ -204,7 +204,7 @@ const TodoForm = ({ defaultValues }: Props) => {
                     initialFocus
                   />
                   <div className="border-border border-t p-3">
-                    <TimePicker12Demo
+                    <TimePickerTwelve
                       date={field.value}
                       setDate={field.onChange}
                     />

@@ -138,4 +138,5 @@ const InputSubTasks = forwardRef<HTMLInputElement, InputTagsProps>(
   }
 );
 
+InputSubTasks.displayName = "InputSubTasks";
 export default InputSubTasks;

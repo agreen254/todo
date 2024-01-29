@@ -151,4 +151,5 @@ const InputTags = forwardRef<HTMLInputElement, InputTagsProps>(
   }
 );
 
+InputTags.displayName="InputTags";
 export default InputTags;

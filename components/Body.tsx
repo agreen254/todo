@@ -68,11 +68,11 @@ const Body = () => {
             <PowerModeDialog t={powerTodo} />
           </div>
         </div>
-        <div className="hidden md:flex items-center mt-2 mr-[12px]">
+        <div className="hidden lg:flex items-center mt-2 mr-[12px]">
           <ThemeToggle />
         </div>
         <div className="flex justify-evenly">
-          <div className="md:hidden flex items-end">
+          <div className="lg:hidden flex items-end">
             <ThemeToggle />
           </div>
           <SearchForm />

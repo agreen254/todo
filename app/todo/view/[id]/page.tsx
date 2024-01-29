@@ -18,7 +18,7 @@ const ViewTodo = ({ params: { id } }: Props) => {
     state: { todos },
   } = useContext(TodoContext);
   const [isMounted, setIsMounted] = useState(false);
-  useEffect(() => setIsMounted(true));
+  useEffect(() => setIsMounted(true), []);
   const t = todos.find((t) => t.id === id);
 
   return (
@@ -45,7 +45,7 @@ const ViewTodo = ({ params: { id } }: Props) => {
         <div />
       </div>
       {isMounted && t ? (
-        <div className="w-[min(480px,85vw)] flex justify-center">
+        <div className="w-full flex justify-center">
           <TodoViewer t={t} />
         </div>
       ) : (

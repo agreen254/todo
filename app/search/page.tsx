@@ -52,7 +52,7 @@ const SearchPage = () => {
     <>
       <div className="flex justify-start items-center">
         <h1 className="text-3xl font-medium mt-4 ml-4">
-          Search results for <span className="font-bold"> "{queryParam}"</span>
+          Search results for <span className="font-bold"> &quot;{queryParam}&quot;</span>
         </h1>
       </div>
       <GradientSeparator />

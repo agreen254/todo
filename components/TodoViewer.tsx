@@ -12,12 +12,19 @@ import {
 } from "lucide-react";
 import { Todo } from "@/utils/types";
 import TodoCardDueDate from "./TodoCard/TodoCardDueDate";
+import { Separator } from "./ui/separator";
 
 const TodoViewer = ({ t }: { t: Todo }) => {
   return (
-    <div className="w-full h-full flex flex-col justify-center items-start">
-      <h2>{t.name}</h2>
-      <h3>{t.description}</h3>
+    <div className="w-[min(640px,90vw)] mt-8 h-full flex flex-col justify-start tems-center">
+      <h2 className="text-3xl font-semibold">{t.name}</h2>
+      {t.description && (
+        <>
+          <Separator className="mt-2 mb-1" />
+          <h3>{t.description}</h3>
+          <Separator className="mt-2 mb-4" />
+        </>
+      )}
       <div className="space-y-3">
         <p className="pl-[24px] indent-[-24px]">
           <span>

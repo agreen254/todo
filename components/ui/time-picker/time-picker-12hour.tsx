@@ -7,12 +7,12 @@ import { TimePeriodSelect } from "./period-select";
 import { Period } from "./time-picker-utils";
 import { Clock } from "lucide-react";
 
-interface TimePickerDemoProps {
+interface TimePickerProps {
   date: Date | undefined;
   setDate: (date: Date | undefined) => void;
 }
 
-export function TimePicker12Demo({ date, setDate }: TimePickerDemoProps) {
+export function TimePickerTwelve({ date, setDate }: TimePickerProps) {
   const [period, setPeriod] = React.useState<Period>("AM");
 
   const minuteRef = React.useRef<HTMLInputElement>(null);

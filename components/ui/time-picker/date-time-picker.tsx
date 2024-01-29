@@ -12,7 +12,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { TimePicker12Demo } from "./time-picker-12hour";
+import { TimePickerTwelve } from "./time-picker-12hour";
 
 type Props = {
   date: Date | undefined;
@@ -59,7 +59,7 @@ export function DateTimePicker({ date, setDate }: Props) {
           initialFocus
         />
         <div className="p-3 border-t border-border">
-          <TimePicker12Demo date={date} setDate={setDate} />
+          <TimePickerTwelve date={date} setDate={setDate} />
         </div>
       </PopoverContent>
     </Popover>

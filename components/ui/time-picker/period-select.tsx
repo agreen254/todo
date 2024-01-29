@@ -71,3 +71,5 @@ export const TimePeriodSelect = React.forwardRef<
     </div>
   );
 });
+
+TimePeriodSelect.displayName = "TimePeriodSelect";
