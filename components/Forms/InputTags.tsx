@@ -130,7 +130,7 @@ const InputTags = forwardRef<HTMLInputElement, InputTagsProps>(
             ))}
           </p>
         </div>
-        <div className="flex flex-wrap items-start gap-y-2">
+        <div className="flex flex-wrap items-start justify-center md:justify-start gap-y-2">
           {allTags.map((tag) => (
             <TagBadge
               key={tag.name}

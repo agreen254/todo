@@ -37,7 +37,7 @@ const RemoveAllDialog = () => {
           Delete All
         </Button>
       </AlertDialogTrigger>
-      <AlertDialogContent>
+      <AlertDialogContent className="w-[90vw] max-w-[480px]">
         <AlertDialogHeader>
           <AlertDialogTitle>Remove All Todos</AlertDialogTitle>
           <AlertDialogDescription>

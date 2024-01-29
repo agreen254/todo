@@ -78,6 +78,8 @@ const TodoForm = ({ defaultValues }: Props) => {
     fetchTags(allTags, defaultValues.tags)
   );
 
+  const isAdding = !!!defaultValues.id;
+
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues,
@@ -90,36 +92,28 @@ const TodoForm = ({ defaultValues }: Props) => {
       description: data?.description,
       createdAt: defaultValues?.createdAt?.toISOString() || now.toISOString(),
       dueAt: data?.dueAt?.toISOString(),
-      repeats: data.repeats,
-      repeatPeriod: data.repeatPeriod,
-      repeatEndDate: data?.repeatEndDate?.toISOString(),
       priority: data.priority,
       complexity: data.complexity,
       tags: data.tags,
       subTasks: subTasks,
       id: defaultValues.id || uid(),
-      repeatId: defaultValues.repeatId || uid(),
       isCompleted: defaultValues.isCompleted || false,
       isPinned: defaultValues.isPinned || false,
     };
-    if (transformedData.repeats) {
-      const newTodos = repeatTodos(transformedData);
-      console.log(newTodos);
-      const originalTodo = todos.find((t) => t.id === defaultValues.id)!;
+    if (data.repeats && data.repeatEndDate && data.repeatPeriod) {
       dispatch({
-        cmd: "ADD_AND_DELETE_TODOS",
-        toAdd: repeatTodos(transformedData),
-        toDelete: [originalTodo],
+        cmd: "ADD_MULTIPLE_TODOS",
+        toAdd: repeatTodos(
+          transformedData,
+          data.repeatEndDate.toISOString(),
+          data.repeatPeriod
+        ),
       });
-    //   console.log(originalTodo);
-    //   if (originalTodo)
-    //     dispatch({ cmd: "DELETE_TODO", toDelete: originalTodo });
+    } else if (defaultValues.id) {
+      dispatch({ cmd: "EDIT_TODO", editedTodo: transformedData });
+    } else {
+      dispatch({ cmd: "ADD_TODO", toAdd: transformedData });
     }
-    // if (defaultValues.id) {
-    //   dispatch({ cmd: "EDIT_TODO", editedTodo: transformedData });
-    // } else {
-    //   dispatch({ cmd: "ADD_TODO", toAdd: transformedData });
-    // }
     router.push("/");
   };
 
@@ -146,7 +140,7 @@ const TodoForm = ({ defaultValues }: Props) => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="mb-[min(3rem,10vh)] mt-10 flex w-full max-w-[480px] flex-col justify-center"
+        className="mb-[min(3rem,10vh)] mt-10 flex w-[calc(100vw-2rem)] max-w-[480px] flex-col justify-center"
       >
         <FormField
           control={form.control}
@@ -178,7 +172,7 @@ const TodoForm = ({ defaultValues }: Props) => {
           control={form.control}
           name="dueAt"
           render={({ field }) => (
-            <FormItem className="flex flex-col">
+            <FormItem className={cn("flex flex-col", !isAdding && "mb-4")}>
               <FormLabel>Due:</FormLabel>
               <Popover>
                 <PopoverTrigger asChild>
@@ -220,29 +214,31 @@ const TodoForm = ({ defaultValues }: Props) => {
             </FormItem>
           )}
         />
-        <FormField
-          control={form.control}
-          name="repeats"
-          render={({ field }) => (
-            <FormItem
-              className={cn(
-                "mb-6 mt-1 flex items-end space-x-2",
-                form.getValues().repeats && "mb-0"
-              )}
-            >
-              <FormControl>
-                <Checkbox
-                  checked={field.value}
-                  onCheckedChange={field.onChange}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter") field.onChange(!field.value);
-                  }}
-                />
-              </FormControl>
-              <FormLabel>Repeats</FormLabel>
-            </FormItem>
-          )}
-        />
+        {isAdding && (
+          <FormField
+            control={form.control}
+            name="repeats"
+            render={({ field }) => (
+              <FormItem
+                className={cn(
+                  "mb-6 mt-1 flex items-end space-x-2",
+                  form.getValues().repeats && "mb-0"
+                )}
+              >
+                <FormControl>
+                  <Checkbox
+                    checked={field.value}
+                    onCheckedChange={field.onChange}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") field.onChange(!field.value);
+                    }}
+                  />
+                </FormControl>
+                <FormLabel>Repeats</FormLabel>
+              </FormItem>
+            )}
+          />
+        )}
         {form.getValues().repeats && !form.getValues().dueAt && (
           <p className="text-destructive mb-6 mt-2 text-sm">
             You must specify a due date first.
@@ -343,7 +339,7 @@ const TodoForm = ({ defaultValues }: Props) => {
                 <RadioGroup
                   onValueChange={(n) => field.onChange(parseInt(n))}
                   defaultValue={defaultValues?.priority?.toString()}
-                  className="flex -translate-y-2 flex-wrap justify-start md:justify-evenly"
+                  className="flex -translate-y-2 flex-wrap justify-center md:justify-evenly"
                 >
                   {pcVals.map((ele) => (
                     <FormItem key={ele + "priority"}>
@@ -382,7 +378,7 @@ const TodoForm = ({ defaultValues }: Props) => {
                 <RadioGroup
                   onValueChange={(n) => field.onChange(parseInt(n))}
                   defaultValue={defaultValues?.priority?.toString()}
-                  className="flex -translate-y-2 flex-wrap justify-start md:justify-evenly"
+                  className="flex -translate-y-2 flex-wrap justify-center md:justify-evenly"
                 >
                   {pcVals.map((ele) => (
                     <FormItem key={ele + "complexity"}>

@@ -15,7 +15,7 @@ import TodoCardDueDate from "./TodoCard/TodoCardDueDate";
 
 const TodoViewer = ({ t }: { t: Todo }) => {
   return (
-    <div className="w-full h-full flex justify-center items-center">
+    <div className="w-full h-full flex flex-col justify-center items-start">
       <h2>{t.name}</h2>
       <h3>{t.description}</h3>
       <div className="space-y-3">

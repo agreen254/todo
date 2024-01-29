@@ -103,7 +103,7 @@ const InputSubTasks = forwardRef<HTMLInputElement, InputTagsProps>(
         {subTasks.map((subTask, idx) => (
           <div
             key={subTask + idx.toString()}
-            className="flex justify-between h-12 my-4 py-8 items-center rounded-full border-2 dark:border hover:ring-ring hover:ring-2 transition-colors"
+            className="flex justify-between my-4 py-2 items-center rounded-full border-2 dark:border hover:ring-ring hover:ring-2 transition-colors"
           >
             <div>
               <p className="ml-8">{`${idx + 1}. ${subTask.subTaskName}`}</p>

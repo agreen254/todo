@@ -21,7 +21,7 @@ const PowerModeDialog = () => {
           Power Mode
         </Button>
       </DialogTrigger>
-      <DialogContent className="mx-4">
+      <DialogContent className="w-[90vw] max-w-[768px] mt-6 md:mt-0">
         <div className="font-semibold text-3xl text-white dark:text-foreground flex items-center justify-center aria-hidden translate-y-[-8rem] py-4 rounded-full bg-primary mx-4">
           <span>P</span>
           <span className="inline-block">

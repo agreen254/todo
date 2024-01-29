@@ -46,7 +46,9 @@ const ViewTodo = ({ params: { id } }: Props) => {
         </div>
         <div />
       </div>
-      <TodoViewer t={t} />
+      <div className="w-[min(480px,85vw)] flex justify-center">
+        <TodoViewer t={t} />
+      </div>
     </div>
   );
 };

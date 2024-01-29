@@ -11,7 +11,7 @@ export default function repeatDates(
 
   let currentDate = init;
   let dates: Date[] = [currentDate];
-  while (currentDate < final) {
+  while (1) {
     if (period === "monthly") {
       currentDate = add(currentDate, { months: 1 });
     } else if (period === "weekly") {
@@ -19,7 +19,8 @@ export default function repeatDates(
     } else {
       currentDate = add(currentDate, { days: 1 });
     }
-    dates.push(currentDate);
+    if (currentDate <= final) dates.push(currentDate);
+    else break;
   }
   return dates;
 }

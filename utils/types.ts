@@ -6,10 +6,6 @@ export type Todo = {
   isCompleted: boolean;
   isPinned: boolean;
   id: string;
-  repeats: boolean;
-  repeatPeriod?: "daily" | "weekly" | "monthly";
-  repeatId?: string;
-  repeatEndDate?: string;
   priority: number;
   complexity: number;
   tags: string[];

@@ -47,14 +47,14 @@ const Body = () => {
 
   return (
     <>
-      <div className="flex flex-col lg:flex-row justify-center items-start mt-2">
-        <div className="flex w-full lg:w-auto gap-x-4 mt-2 mr-8 justify-center">
+      <div className="flex flex-col lg:flex-row justify-center items-center lg:items-start mt-2">
+        <div className="flex w-full lg:w-auto gap-x-4 mt-2 justify-center">
           <Link href="/todo/add" tabIndex={-1}>
             <Button
               role="link"
               onMouseEnter={() => setAddIsHovered(true)}
               onMouseLeave={() => setAddIsHovered(false)}
-              className="w-[min(45vw,180px)] px-2 lg:px-5 py-6 text-lg rounded-xl font-medium dark:font-semibold hover:shadow-md hover:dark:shadow-slate-800"
+              className="w-[min(45vw,180px)] lg:mr-8 px-2 lg:px-5 py-6 text-lg rounded-xl font-medium dark:font-semibold hover:shadow-md hover:dark:shadow-slate-800"
             >
               <Plus
                 className={cn("w-6 h-6 mr-2", addIsHovered && "text-teal-500")}
@@ -66,18 +66,16 @@ const Body = () => {
             <PowerModeDialog />
           </div>
         </div>
-        <div className="hidden md:flex items-center space-x-4 mt-2 mr-[12px]">
+        <div className="hidden md:flex items-center mt-2 mr-[12px]">
           <ThemeToggle />
         </div>
-        <div className="w-[min(350px,90vw)]">
-          <SearchForm />
-          <div className="gap-x-4 mt-2 flex items-start">
-            <div className="inline md:hidden">
-              <ThemeToggle />
-            </div>
+        <div className="flex justify-evenly">
+          <div className="md:hidden flex items-end">
+            <ThemeToggle />
           </div>
+          <SearchForm />
         </div>
-        <div className="ml-8 mt-2">
+        <div className="ml-8 mt-2 hidden lg:inline">
           <PowerModeDialog />
         </div>
       </div>

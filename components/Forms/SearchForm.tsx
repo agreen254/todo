@@ -34,7 +34,10 @@ const SearchForm = () => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="relative">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="relative w-[min(350px,calc(90vw-4rem))] ml-4 lg:ml-0"
+      >
         <FormField
           control={form.control}
           name="query"
@@ -45,16 +48,19 @@ const SearchForm = () => {
                 <Input
                   placeholder="search to-dos"
                   type="text"
-                  className="px-3 py-6 w-[min(350px,90vw)]"
+                  className="px-3 py-6"
                   {...field}
                 />
               </FormControl>
-              <FormMessage />
+              <FormMessage className="absolute -bottom-6" />
               <Button
                 variant="ghost"
                 size="icon"
                 type="submit"
-                className={cn("absolute right-[5px] top-[-3px]", form.formState.errors?.query?.message && "bottom-[4rem]")}
+                className={cn(
+                  "absolute right-[5px] top-[4px]",
+                  form.formState.errors?.query?.message && "bottom-[4rem]"
+                )}
               >
                 <Search className="w-[50%] h-[50%]" />
               </Button>
