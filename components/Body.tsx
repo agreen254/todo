@@ -17,6 +17,7 @@ import ThemeToggle from "./ThemeToggle";
 import processTodos from "@/utils/todos/processTodos";
 import PowerModeDialog from "./Dialogs/PowerModeDialog";
 import splitTodos from "@/utils/todos/splitTodos";
+import powerModeTodo from "@/utils/todos/powerModeTodo";
 
 const Body = () => {
   const { state, dispatch } = useContext(TodoContext);
@@ -40,6 +41,7 @@ const Body = () => {
     { pending: filterTagsPending, completed: filterTagsCompleted },
     filterTagsSchema
   );
+  const powerTodo = powerModeTodo([...pinnedTodos, ...pendingTodos]);
 
   const hasPendingOrPinned = () =>
     !!storedPending.length || !!storedPinned.length;
@@ -63,7 +65,7 @@ const Body = () => {
             </Button>
           </Link>
           <div className="lg:hidden">
-            <PowerModeDialog />
+            <PowerModeDialog t={powerTodo} />
           </div>
         </div>
         <div className="hidden md:flex items-center mt-2 mr-[12px]">
@@ -76,7 +78,7 @@ const Body = () => {
           <SearchForm />
         </div>
         <div className="ml-8 mt-2 hidden lg:inline">
-          <PowerModeDialog />
+          <PowerModeDialog t={powerTodo} />
         </div>
       </div>
       {hasPendingOrPinned() && (

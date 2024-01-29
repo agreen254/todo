@@ -1,13 +1,13 @@
 "use client";
 
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { ArrowLeft as ArrowLeftIcon } from "lucide-react";
 import Link from "next/link";
 import TodoContext from "@/contexts/TodoContext";
 import { Button } from "@/components/ui/button";
 import ThemeToggle from "@/components/ThemeToggle";
 import TodoViewer from "@/components/TodoViewer";
-import { redirect } from "next/navigation";
+import TodoNotFound from "@/components/Errors/TodoNotFound";
 
 type Props = {
   params: { id: string };
@@ -17,11 +17,9 @@ const ViewTodo = ({ params: { id } }: Props) => {
   const {
     state: { todos },
   } = useContext(TodoContext);
+  const [isMounted, setIsMounted] = useState(false);
+  useEffect(() => setIsMounted(true));
   const t = todos.find((t) => t.id === id);
-
-  if (!t) {
-    redirect("/");
-  }
 
   return (
     <div className="min-h-[100dvh]">
@@ -46,9 +44,13 @@ const ViewTodo = ({ params: { id } }: Props) => {
         </div>
         <div />
       </div>
-      <div className="w-[min(480px,85vw)] flex justify-center">
-        <TodoViewer t={t} />
-      </div>
+      {isMounted && t ? (
+        <div className="w-[min(480px,85vw)] flex justify-center">
+          <TodoViewer t={t} />
+        </div>
+      ) : (
+        <TodoNotFound />
+      )}
     </div>
   );
 };

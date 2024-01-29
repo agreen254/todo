@@ -1,6 +1,6 @@
 "use client";
 
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import TodoContext from "@/contexts/TodoContext";
 import dynamic from "next/dynamic";
 import { Button } from "@/components/ui/button";
@@ -11,6 +11,7 @@ import { todoFormDefaults } from "@/validation/schema";
 import { Todo } from "@/utils/types";
 import ThemeToggle from "@/components/ThemeToggle";
 import { redirect } from "next/navigation";
+import TodoNotFound from "@/components/Errors/TodoNotFound";
 
 const DynamicTodoForm = dynamic(() => import("@/components/Forms/TodoForm"), {
   ssr: false,
@@ -24,6 +25,8 @@ const EditTodo = ({ params: { id } }: Props) => {
   const {
     state: { todos },
   } = useContext(TodoContext);
+  const [isMounted, setIsMounted] = useState(false);
+  useEffect(() => setIsMounted(true));
   const t = todos.find((t) => t.id === id);
 
   const extractDefaultValues = (t: Todo | undefined) => {
@@ -46,7 +49,6 @@ const EditTodo = ({ params: { id } }: Props) => {
     return defaults;
   };
 
-  // if (!t) redirect("/");
   return (
     <div className="flex flex-col items-center justify-center">
       <div className="flex w-full justify-evenly items-center mt-10 mx-8">
@@ -70,7 +72,12 @@ const EditTodo = ({ params: { id } }: Props) => {
         </div>
         <div />
       </div>
-      <DynamicTodoForm defaultValues={extractDefaultValues(t)} />
+      {isMounted &&
+        (t ? (
+          <DynamicTodoForm defaultValues={extractDefaultValues(t)} />
+        ) : (
+          <TodoNotFound />
+        ))}
     </div>
   );
 };

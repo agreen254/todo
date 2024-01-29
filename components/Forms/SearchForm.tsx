@@ -57,10 +57,7 @@ const SearchForm = () => {
                 variant="ghost"
                 size="icon"
                 type="submit"
-                className={cn(
-                  "absolute right-[5px] top-[4px]",
-                  form.formState.errors?.query?.message && "bottom-[4rem]"
-                )}
+                className="absolute right-[5px] top-[4px]"
               >
                 <Search className="w-[50%] h-[50%]" />
               </Button>

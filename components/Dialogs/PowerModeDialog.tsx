@@ -5,8 +5,10 @@ import { cn } from "@/utils/cn";
 import { Power } from "lucide-react";
 import { Button } from "../ui/button";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { Todo } from "@/utils/types";
+import TodoViewer from "../TodoViewer";
 
-const PowerModeDialog = () => {
+const PowerModeDialog = ({ t }: { t: Todo }) => {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
@@ -33,7 +35,9 @@ const PowerModeDialog = () => {
           </span>
           <span>DE</span>
         </div>
-        <div className="h-[50vh]"></div>
+        <div className="min-h-[50vh]">
+          <TodoViewer t={t} />
+        </div>
       </DialogContent>
     </Dialog>
   );

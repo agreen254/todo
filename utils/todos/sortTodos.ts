@@ -9,8 +9,6 @@ export default function sortTodos(
     case "name_asc": {
       return sort(toSort).by([
         { asc: (t) => t.name },
-        // will fall back to this when needed to have a unique sorting point
-        // ones with identical creation date ISOs will keep their same respective locations
         { desc: (t) => t.createdAt },
       ]);
     }
@@ -55,8 +53,8 @@ export default function sortTodos(
       ]);
     case "powerMode":
       return sort(toSort).by([
-        { asc: (t) => t.complexity + t.priority },
-        { desc: (t) => t.createdAt },
+        { desc: (t) => t.complexity + t.priority },
+        { asc: (t) => t.dueAt},
       ]);
     default:
       return sort(toSort).asc([(t) => t.createdAt]);
