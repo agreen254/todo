@@ -4,6 +4,7 @@ import { useContext, useState } from "react";
 import { cn } from "@/utils/cn";
 import { Button } from "./ui/button";
 import { Plus } from "lucide-react";
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import dummyTodo from "@/utils/todos/dummyTodo";
 import FilterByTags from "./Sort/FilterByTags";
@@ -18,6 +19,11 @@ import processTodos from "@/utils/todos/processTodos";
 import PowerModeDialog from "./Dialogs/PowerModeDialog";
 import splitTodos from "@/utils/todos/splitTodos";
 import powerModeTodo from "@/utils/todos/powerModeTodo";
+
+const DynamicDialog = dynamic(
+  () => import("@/components/Dialogs/PowerModeDialog"),
+  { ssr: false }
+);
 
 const Body = () => {
   const { state, dispatch } = useContext(TodoContext);
@@ -78,7 +84,7 @@ const Body = () => {
           <SearchForm />
         </div>
         <div className="ml-8 mt-2 hidden lg:inline">
-          <PowerModeDialog t={powerTodo} />
+          <DynamicDialog t={powerTodo} />
         </div>
       </div>
       {hasPendingOrPinned() && (

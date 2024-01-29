@@ -1,3 +1,8 @@
+"use client";
+
+import { useContext } from "react";
+import TodoContext from "@/contexts/TodoContext";
+
 import { cn } from "@/utils/cn";
 import finishedSubTasks from "@/utils/subTasks/finishedSubTasks";
 import outOfTen from "@/utils/outOfTen";
@@ -17,9 +22,16 @@ import TodoCardDueDate from "./TodoCard/TodoCardDueDate";
 import { Separator } from "./ui/separator";
 import TagBadge from "./TagBadge";
 
-const TodoViewer = ({ t }: { t: Todo }) => {
+type Props = {
+  t: Todo;
+  mode: "view" | "power";
+};
+
+const TodoViewer = ({ t, mode }: Props) => {
+  const { dispatch } = useContext(TodoContext);
+
   return (
-    <div className="w-[min(640px,90vw)] mt-8 h-full flex flex-col justify-start tems-center">
+    <>
       <h2 className="text-3xl font-semibold">{t.name}</h2>
       {t.description && (
         <>
@@ -29,12 +41,12 @@ const TodoViewer = ({ t }: { t: Todo }) => {
         </>
       )}
       {!t.description && <Separator className="mt-2 mb-4" />}
-      <div className="flex flex-wrap mb-4">
+      <div className="flex flex-wrap mb-4 ml-4">
         {t.tags.map((tag) => (
           <TagBadge key={tag} tag={tag} />
         ))}
       </div>
-      <div className="space-y-3">
+      <div className="space-y-3 mb-[6rem] md:mb-0">
         <p className="pl-[24px] indent-[-24px] ml-4">
           <span>
             <CalendarIcon className="w-4 h-4 mr-2 inline-block translate-y-[-2px]" />
@@ -93,16 +105,24 @@ const TodoViewer = ({ t }: { t: Todo }) => {
             <div>
               <p className="ml-8">{`${idx + 1}. ${st.subTaskName}`}</p>
             </div>
-            <div className="min-w-[2rem] ml-2">
+            <div className="min-w-[2rem] ml-2 mr-2 md:mr-0">
               <span>
                 <Button
                   className={cn(
-                    "h-8 w-8 p-0 mr-2 rounded-full",
+                    "h-8 w-8 p-0 md:mr-2 rounded-full",
                     st.isCompleted && "bg-green-600 hover:bg-green-500"
                   )}
                   variant="outline"
                   type="button"
-                  disabled
+                  disabled={mode === "view"}
+                  onClick={() => {
+                    const editedTodo = t;
+                    editedTodo.subTasks = t.subTasks.toSpliced(idx, 1, {
+                      subTaskName: st.subTaskName,
+                      isCompleted: !st.isCompleted,
+                    });
+                    dispatch({ cmd: "EDIT_TODO", editedTodo });
+                  }}
                 >
                   <CheckIcon className="w-4 h-4" />
                 </Button>
@@ -111,7 +131,7 @@ const TodoViewer = ({ t }: { t: Todo }) => {
           </div>
         ))}
       </div>
-    </div>
+    </>
   );
 };
 

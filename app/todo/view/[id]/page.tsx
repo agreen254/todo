@@ -46,7 +46,9 @@ const ViewTodo = ({ params: { id } }: Props) => {
       </div>
       {isMounted && t ? (
         <div className="w-full flex justify-center">
-          <TodoViewer t={t} />
+          <div className="w-[min(640px,90vw)] mt-8 h-full flex flex-col justify-start">
+            <TodoViewer t={t} mode="view" />
+          </div>
         </div>
       ) : (
         <TodoNotFound />

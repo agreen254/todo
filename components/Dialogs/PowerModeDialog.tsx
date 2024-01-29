@@ -28,8 +28,8 @@ const PowerModeDialog = ({ t }: Props) => {
           Power Mode
         </Button>
       </DialogTrigger>
-      <DialogContent className="w-[90vw] max-w-[768px] mt-6 md:mt-0">
-        <div className="font-semibold text-3xl text-white dark:text-foreground flex items-center justify-center aria-hidden translate-y-[-8rem] py-4 rounded-full bg-primary mx-4">
+      <DialogContent className="w-[90vw] max-w-[768px] md:mt-0 min-h-[50vh+8rem] max-h-[90vh] overflow-y-auto">
+        <div className="font-semibold text-3xl text-white dark:text-foreground flex items-center justify-center py-4">
           <span>P</span>
           <span className="inline-block">
             <Power className="w-6 h-6" strokeWidth={4} />
@@ -40,7 +40,9 @@ const PowerModeDialog = ({ t }: Props) => {
           </span>
           <span>DE</span>
         </div>
-        <div className="min-h-[50vh]">{t && <TodoViewer t={t} />}</div>
+        <div className="min-h-[50vh]">
+          {t && <TodoViewer t={t} mode={"power"} />}
+        </div>
       </DialogContent>
     </Dialog>
   );
