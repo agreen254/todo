@@ -1,12 +1,11 @@
-import { useContext } from "react";
-import TodoContext from "@/contexts/TodoContext";
 import { Todo } from "@/utils/types";
 import { cn } from "@/utils/cn";
 import { CheckCircle } from "lucide-react";
 import { Button } from "../ui/button";
+import { useTodo } from "@/providers/TodoProvider";
 
 const TodoCardComplete = ({ t }: { t: Todo }) => {
-  const { dispatch } = useContext(TodoContext);
+  const { dispatch } = useTodo();
 
   const handleCompleteClick = () => {
     if (t.isCompleted) {

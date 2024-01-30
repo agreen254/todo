@@ -1,7 +1,7 @@
 "use client";
 
 import z from "zod";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
@@ -12,7 +12,6 @@ import { priorityAndComplexityValues as pcVals } from "@/utils/types";
 import fetchTags from "@/utils/tags/fetchTags";
 import repeatTodos from "@/utils/todos/repeatTodos";
 import { Calendar as CalendarIcon } from "lucide-react";
-import TodoContext from "@/contexts/TodoContext";
 import { TodoFormData as FormData } from "@/validation/schema";
 import { todoFormSchema as formSchema } from "@/validation/schema";
 import { TimePickerTwelve } from "../ui/time-picker/time-picker-12hour";
@@ -38,6 +37,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import InputSubTasks from "./InputSubTasks";
 import { SubTask, Tag, Todo } from "@/utils/types";
 import { Checkbox } from "../ui/checkbox";
+import { useTodo } from "@/providers/TodoProvider";
 
 type Props = {
   defaultValues: Partial<FormData>;
@@ -62,11 +62,10 @@ const extractSubTasks = (
 const TodoForm = ({ defaultValues }: Props) => {
   const {
     state: {
-      todos,
       tags: { allTags },
     },
     dispatch,
-  } = useContext(TodoContext);
+  } = useTodo();
   const router = useRouter();
   const [subTasks, setSubTasks] = useState<SubTask[]>(
     extractSubTasks(

@@ -1,8 +1,5 @@
 "use client";
 
-import { useContext } from "react";
-import TodoContext from "@/contexts/TodoContext";
-
 import { cn } from "@/utils/cn";
 import finishedSubTasks from "@/utils/subTasks/finishedSubTasks";
 import outOfTen from "@/utils/outOfTen";
@@ -21,6 +18,7 @@ import { Todo } from "@/utils/types";
 import TodoCardDueDate from "./TodoCard/TodoCardDueDate";
 import { Separator } from "./ui/separator";
 import TagBadge from "./TagBadge";
+import { useTodo } from "@/providers/TodoProvider";
 
 type Props = {
   t: Todo;
@@ -28,7 +26,7 @@ type Props = {
 };
 
 const TodoViewer = ({ t, mode }: Props) => {
-  const { dispatch } = useContext(TodoContext);
+  const { dispatch } = useTodo();
 
   return (
     <>

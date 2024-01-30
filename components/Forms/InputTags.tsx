@@ -1,13 +1,6 @@
 "use client";
 
-import {
-  Dispatch,
-  SetStateAction,
-  forwardRef,
-  useContext,
-  useState,
-} from "react";
-import TodoContext from "@/contexts/TodoContext";
+import { Dispatch, SetStateAction, forwardRef, useState } from "react";
 import { alphaNumeric } from "@/utils/regex";
 import { Input, InputProps } from "../ui/input";
 import TagBadge from "../TagBadge";
@@ -15,6 +8,7 @@ import { Plus as PlusIcon, X as XIcon } from "lucide-react";
 import { cn } from "@/utils/cn";
 import { Tag } from "@/utils/types";
 import newTag from "@/utils/tags/newTag";
+import { useTodo } from "@/providers/TodoProvider";
 
 type InputTagsProps = InputProps & {
   value: string[];
@@ -34,7 +28,7 @@ const InputTags = forwardRef<HTMLInputElement, InputTagsProps>(
       state: {
         tags: { allTags },
       },
-    } = useContext(TodoContext);
+    } = useTodo();
     const [current, setCurrent] = useState<string>("");
     const [errors, setErrors] = useState<TagErrors>({
       alphaNumericError: false,
@@ -59,7 +53,7 @@ const InputTags = forwardRef<HTMLInputElement, InputTagsProps>(
         if (value.find((v) => v === processedInput)) {
           setCurrent("");
           return;
-        };
+        }
 
         const isValidated = validate(processedInput);
         const existingTag = allTags.find((t) => t.name === processedInput);

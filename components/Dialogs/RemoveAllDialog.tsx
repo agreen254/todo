@@ -12,8 +12,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "../ui/button";
-import { useContext } from "react";
-import TodoContext from "@/contexts/TodoContext";
+import { useTodo } from "@/providers/TodoProvider";
 
 const RemoveAllDialog = () => {
   const {
@@ -21,7 +20,7 @@ const RemoveAllDialog = () => {
       todos,
     },
     dispatch,
-  } = useContext(TodoContext);
+  } = useTodo();
   const handleDeleteAll = () => {
     dispatch({ cmd: "DELETE_ALL_TODOS" });
   };
@@ -41,7 +40,7 @@ const RemoveAllDialog = () => {
         <AlertDialogHeader>
           <AlertDialogTitle>Remove All Todos</AlertDialogTitle>
           <AlertDialogDescription>
-            Are you sure you want to remove all of your todos?
+            Are you sure you want to remove all of your to-dos?
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>

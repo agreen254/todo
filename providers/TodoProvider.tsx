@@ -1,11 +1,14 @@
 "use client";
 
-import TodoContext from "../contexts/TodoContext";
 import useLocalStorage from "../hooks/useLocalStorage";
 import defaultTags from "@/utils/tags/defaultTags";
+import { createContext, useContext } from "react";
 import { todoReducer } from "../reducers/todoReducer";
-import { TodoContextState } from "../utils/types";
+import { TodoContextState, TodoContextType } from "../utils/types";
 import { Actions, Tag, Todo, TodoSortOrder } from "../utils/types";
+
+export const TodoContext = createContext<TodoContextType>({} as TodoContextType);
+export const useTodo = () => useContext(TodoContext);
 
 const TodoProvider = ({ children }: { children: React.ReactNode }) => {
   const [todos, setTodos] = useLocalStorage<Todo[]>("todos", []);

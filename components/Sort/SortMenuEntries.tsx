@@ -1,11 +1,10 @@
 "use client";
 
-import { useContext } from "react";
-import TodoContext from "@/contexts/TodoContext";
 import { Separator } from "../ui/separator";
 import { sortingMap } from "@/utils/maps";
 import { TodoSortOrder, todoSortValues } from "@/utils/types";
 import { Button } from "../ui/button";
+import { useTodo } from "@/providers/TodoProvider";
 
 type Props = {
   sortOrder: TodoSortOrder;
@@ -14,7 +13,7 @@ type Props = {
 };
 
 const SortMenuEntries = ({ sortOrder, setSortOrder, role }: Props) => {
-  const { dispatch } = useContext(TodoContext);
+  const { dispatch } = useTodo();
   const handleSelectSort = (selectedOrder: TodoSortOrder) => {
     if (setSortOrder) {
       selectedOrder === sortOrder

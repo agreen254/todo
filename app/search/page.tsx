@@ -1,7 +1,6 @@
 "use client";
 
-import { useContext, useEffect, useState } from "react";
-import TodoContext from "@/contexts/TodoContext";
+import { useEffect, useState } from "react";
 import { Home as HomeIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -14,6 +13,7 @@ import TodoCard from "@/components/TodoCard/TodoCard";
 import { FilterTagsSchema, TodoSortOrder } from "@/utils/types";
 import SortMenu from "@/components/Sort/SortMenu";
 import FilterByTags from "@/components/Sort/FilterByTags";
+import { useTodo } from "@/providers/TodoProvider";
 
 const SearchPage = () => {
   const searchParams = useSearchParams();
@@ -21,7 +21,7 @@ const SearchPage = () => {
 
   const {
     state: { todos },
-  } = useContext(TodoContext);
+  } = useTodo();
   const [localSortOrder, setLocalSortOrder] =
     useState<TodoSortOrder>("default");
   const [localFilterTags, setLocalFilterTags] = useState<string[]>([]);

@@ -2,9 +2,9 @@
 
 import { cn } from "@/utils/cn";
 import { Tag } from "@/utils/types";
-import { ReactNode, useContext } from "react";
-import TodoContext from "@/contexts/TodoContext";
+import { ReactNode } from "react";
 import { Button } from "./ui/button";
+import { useTodo } from "@/providers/TodoProvider";
 
 type Props = {
   tag: string;
@@ -18,7 +18,7 @@ const TagBadge = ({ tag, tagObj, handleClick, children }: Props) => {
     state: {
       tags: { allTags },
     },
-  } = useContext(TodoContext);
+  } = useTodo();
 
   const getBg = () => {
     const baseCn =

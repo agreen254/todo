@@ -1,8 +1,6 @@
 "use client";
 
-import { useContext, useState } from "react";
-import TodoContext from "@/contexts/TodoContext";
-
+import { useState } from "react";
 import { Button } from "../ui/button";
 import { Checkbox } from "../ui/checkbox";
 import {
@@ -15,6 +13,7 @@ import { Label } from "../ui/label";
 import { FilterTagsSchema, Tag } from "@/utils/types";
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
 import MenuChevron from "../MenuChevron";
+import { useTodo } from "@/providers/TodoProvider";
 
 // If we provide a setter to this component, it tells the component
 // that the state not persisted in the local storage.
@@ -33,7 +32,7 @@ const FilterByTags = ({
     state: {
       tags: { allTags },
     },
-  } = useContext(TodoContext);
+  } = useTodo();
   const [isOpen, setIsOpen] = useState(false);
 
   const handleCheck = (tag: Tag) => {

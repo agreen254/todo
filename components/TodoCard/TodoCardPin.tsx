@@ -1,14 +1,13 @@
-import { useContext } from "react";
-import TodoContext from "@/contexts/TodoContext";
 import { Pin, PinOff } from "lucide-react";
 import { Button } from "../ui/button";
 import { Todo } from "@/utils/types";
+import { useTodo } from "@/providers/TodoProvider";
 
 const TodoCardPin = ({ t }: { t: Todo }) => {
   const {
     state: { todos },
     dispatch,
-  } = useContext(TodoContext);
+  } = useTodo();
 
   const shouldDisable = () =>
     todos.filter((t) => t.isCompleted).length >= 3 || t.isCompleted;

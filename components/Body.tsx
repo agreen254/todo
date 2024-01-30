@@ -1,6 +1,7 @@
 "use client";
 
-import { useContext, useState } from "react";
+import { useState } from "react";
+import { useTodo } from "@/providers/TodoProvider";
 import { cn } from "@/utils/cn";
 import { Button } from "./ui/button";
 import { Plus } from "lucide-react";
@@ -8,7 +9,6 @@ import Link from "next/link";
 import FilterByTags from "./Sort/FilterByTags";
 import GradientSeparator from "./GradientSeparator";
 import RemoveAllAlert from "./Dialogs/RemoveAllDialog";
-import TodoContext from "@/contexts/TodoContext";
 import TodoMapper from "./TodoMapper";
 import SortMenu from "./Sort/SortMenu";
 import SearchForm from "./Forms/SearchForm";
@@ -19,7 +19,7 @@ import splitTodos from "@/utils/todos/splitTodos";
 import powerModeTodo from "@/utils/todos/powerModeTodo";
 
 const Body = () => {
-  const { state } = useContext(TodoContext);
+  const { state } = useTodo();
 
   const [addIsHovered, setAddIsHovered] = useState(false);
 

@@ -1,7 +1,6 @@
 "use client";
 
-import { useContext, useEffect, useState } from "react";
-import TodoContext from "@/contexts/TodoContext";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { ArrowLeft as ArrowLeftIcon } from "lucide-react";
@@ -11,6 +10,7 @@ import { Todo } from "@/utils/types";
 import ThemeToggle from "@/components/ThemeToggle";
 import TodoNotFound from "@/components/Errors/TodoNotFound";
 import TodoForm from "@/components/Forms/TodoForm";
+import { useTodo } from "@/providers/TodoProvider";
 
 type Props = {
   params: { id: string };
@@ -19,7 +19,7 @@ type Props = {
 const EditTodo = ({ params: { id } }: Props) => {
   const {
     state: { todos },
-  } = useContext(TodoContext);
+  } = useTodo();
   const [isMounted, setIsMounted] = useState(false);
   useEffect(() => setIsMounted(true), []);
   const t = todos.find((t) => t.id === id);

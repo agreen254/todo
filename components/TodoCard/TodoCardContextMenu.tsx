@@ -1,7 +1,6 @@
 "use client";
 
-import { useState, useContext } from "react";
-import TodoContext from "@/contexts/TodoContext";
+import { useState } from "react";
 import Link from "next/link";
 import { BookCopy, Eye, MoreVertical, PenSquare, Trash2 } from "lucide-react";
 import { cn } from "@/utils/cn";
@@ -15,9 +14,10 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Todo } from "@/utils/types";
+import { useTodo } from "@/providers/TodoProvider";
 
 const TodoCardContextMenu = ({ t }: { t: Todo }) => {
-  const { dispatch } = useContext(TodoContext);
+  const { dispatch } = useTodo();
   const [isOpen, setIsOpen] = useState(false);
 
   return (
