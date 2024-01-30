@@ -1,4 +1,4 @@
-import { add } from "date-fns";
+import { add, differenceInDays } from "date-fns";
 
 export default function repeatDates(
   initialDueDate: string,
@@ -19,7 +19,7 @@ export default function repeatDates(
     } else {
       currentDate = add(currentDate, { days: 1 });
     }
-    if (currentDate <= final) dates.push(currentDate);
+    if (differenceInDays(currentDate, final) <= 0) dates.push(currentDate);
     else break;
   }
   return dates;

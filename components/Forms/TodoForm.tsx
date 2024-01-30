@@ -86,9 +86,8 @@ const TodoForm = ({ defaultValues }: Props) => {
     mode: "onChange",
   });
   const onSubmit = (data: z.infer<typeof formSchema>) => {
-    console.log("wtf")
     const now = new Date();
-    const transformedData: Todo = {
+    const createdTodo: Todo = {
       name: data.name,
       description: data?.description,
       createdAt: defaultValues?.createdAt?.toISOString() || now.toISOString(),
@@ -105,15 +104,15 @@ const TodoForm = ({ defaultValues }: Props) => {
       dispatch({
         cmd: "ADD_MULTIPLE_TODOS",
         toAdd: repeatTodos(
-          transformedData,
+          createdTodo,
           data.repeatEndDate.toISOString(),
           data.repeatPeriod
         ),
       });
     } else if (defaultValues.id) {
-      dispatch({ cmd: "EDIT_TODO", editedTodo: transformedData });
+      dispatch({ cmd: "EDIT_TODO", editedTodo: createdTodo });
     } else {
-      dispatch({ cmd: "ADD_TODO", toAdd: transformedData });
+      dispatch({ cmd: "ADD_TODO", toAdd: createdTodo });
     }
     router.push("/");
   };
