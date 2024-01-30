@@ -100,12 +100,6 @@ type DeleteAllTodos = {
   cmd: "DELETE_ALL_TODOS";
 };
 
-type AddAndDeleteTodos = {
-  cmd: "ADD_AND_DELETE_TODOS";
-  toAdd: Todo[];
-  toDelete: Todo[];
-}
-
 type EditTodo = {
   cmd: "UNPIN_TODO";
   toUnpin: Todo;
@@ -156,7 +150,6 @@ export type Actions =
   | AddMultipleTodos
   | DeleteTodo
   | DeleteAllTodos
-  | AddAndDeleteTodos
   | EditTodo
   | CompleteTodo
   | CloneTodo
